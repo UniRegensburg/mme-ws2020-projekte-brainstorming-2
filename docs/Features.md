@@ -1,11 +1,20 @@
-# Features für [Projekttitle]
+# Features für Brainstorming 2 
 
-[Notieren und beschreiben Sie hier alle wesentlichen Funktionen bzw. *Features* Ihrer Anwendung. Seien Sie möglichst ausführlich in der Dokumentation und beachten Sie für die Erläuterungen ("Beschreibung") die Perspektive Ihrer NutzerInnen. Schätzen Sie initial den wahrscheinlichen Aufwand - auch um diese Schätzung am Ende des Projekts mit dem tatsächlichen Aufwand vergleichen zu können. Priorisieren Sie die Features hinsichtlich des zentralen *Use Case* Ihrer Anwendung und notieren Sie, welche größeren Bereiche der Anwendung von diesen Funktionen betroffen sind]
+Brainstorming 2 soll eine Plattform zur kollaborativen Erarbeitung von Ideen werden. Als primäre Zielgruppe sehen wir dabei Mitglieder einer Forschungseinrichtung die unkompliziert miteinander arbeiten wollen. 
 
 | Feature | Beschreibung | Priorität | Geschätzter Aufwand | Betroffene Schichten |
-|---------|--------------|-----------|--------------------|---------------------|
-| **[Feature-Title]** | [Beschreibung] | [Priorisierung, z.B. "kritisch", "hoch", "nice-to-have"] | [Initial geschätzer Aufwand für die vollständige Implementierung des Features, z.B. "2 Tage"] | [Betroffene Bereiche/Schichten der Anwendung] |
+|-|-|-|-|-|
+| Whiteboard | Nutzer:innen sollen auf der gesamten Anzeige frei zeichnen können  | hoch | 2 Tage  | Core  |
+| Image Support  | Nutzer:innen sollen Bilder hinzufügen und verschieben können  | hoch | 2 Tage  | Core |
+| Export | Der Inhalt soll sich exportieren lassen  | mittel | 1 Tag  | Usability  |
+| Chat | Kommunikation über einen Schriftchat  | Nice-to-have  | 1 Tag  | Kommunikation  |
+| Rooms | Mehrere Gruppen sollen parallel arbeiten können  | hoch | 2 Tage  | Usability |
+| Persistence | Räume sollen ihren Inhalt speichern und ggf wieder abrufbar sein  | niedrig | 3 Tage  | Usability  |
+| Bewertung | Nutzer:innen sollen Ideen mit Sternen bewerten können  |  mittel | 1 Tag  | Kommunikation  |
 
-## Umsetzung
+## Umsetzung 
 
-[Beschreiben Sie kurz das geplante Vorgehen bei der Umsetzung der Features. Entwerfen Sie dazu ein oder mehrere *Vertical Slices* anhand derer Sie den zentralen *Use Case* der Anwendung implementieren werden. Geben Sie an, wann welche Funktionen (und in welchem Vollständigkeitsgrad) implementiert werden. Begründen Sie kurz die gewählte Reihenfolge. ]
+Anfangs werden wir uns auf die Umsetzung der grundlegenen Funktionalitäten kümmern. Dafür orientieren wir uns an Nutzer:innen, die nur eine Möglichkeit zur dezentralen gemeinsamen Sammlung von Ideen suchen und implementieren das Whiteboard und die Möglichkeit Bilder hinzuzufügen.  
+Um größere Organistationen zu unterstützen, wollen wir im nächsten Schritt die Möglichkeit zu verschiedenen Räumen und zum Export der Inhalte schaffen. 
+Abschließend wollen wir uns um Features kümmern, welche die Nutzbarkeit weiter ergänzen. Zum Beispiel möchten wir eine Bewertungsfunktion für die Nutzer:innen erstellen und die App um einen Chat ergänzen. 
+Bei der Priorisierung gehen wir also von den grundlegenen Funktionalitäten aus, um möglichst schnell ein nutzbares Produkt zu haben. 

@@ -2,7 +2,7 @@
 
 function init() {
   let outputElement = document.querySelector("div");
-  outputElement.innerHTML = "It does work well!";
+  outputElement.innerHTML = "It works well!";
 }
 
 init();

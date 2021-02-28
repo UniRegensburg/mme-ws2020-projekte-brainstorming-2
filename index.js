@@ -1,6 +1,6 @@
 /* eslint-env node */
 
-const AppServer = require("./server/AppServer.js");
+const AppServer = require("./server/dist/AppServer.js");
 
 var server;
 

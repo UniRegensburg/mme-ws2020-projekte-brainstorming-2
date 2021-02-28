@@ -1,4 +1,4 @@
-const AppServer = require("../AppServer.js");
+const AppServer = require("../../dist/AppServer.js");
 
 describe("AppServer", () => {
   it("should create new Server", () => {

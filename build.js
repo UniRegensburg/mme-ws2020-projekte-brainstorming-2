@@ -1,18 +1,30 @@
 /* eslint-env node */
 /* eslint no-console: 0 */
-const webpack = require('webpack')
-const webpackConfig = require('./webpack.prod')
+const webpack = require("webpack");
+const webpackConfig = require("./webpack.prod");
+
+const gulp = require("gulp");
+const ts = require("gulp-typescript");
 
 /**
  * Webpack build for the frontend
  */
 function bundle() {
 	webpack(webpackConfig, (err, stats) => {
+		// @ts-ignore
 		if (err || stats.hasErrors()) {
-			console.log(err)
-			console.log(stats)
+			console.log(err);
+			console.log(stats);
 		}
-	})
+	});
+}
+
+function compileServer() {
+	const project = ts.createProject("tsconfig.json");
+
+	gulp.src("server/src/**/*.ts")
+		.pipe(project())
+		.pipe(gulp.dest("server/dist"));
 }
 
 /**
@@ -27,9 +39,12 @@ function bundle() {
 
 function build() {
 	// Implementiere Sie hier die einzelnen Bauschritte
-	console.log('Building "Project Starter"')
-	console.log('Running webpack build')
-	bundle()
+	console.log("Building \"Project Starter\"");
+	console.log("Running webpack build");
+	bundle();
+
+	console.log("Compiling Typescript");
+	compileServer();
 }
 
-build()
+build();

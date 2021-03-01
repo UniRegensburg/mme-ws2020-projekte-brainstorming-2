@@ -1,25 +1,213 @@
+:root {
+    --darkestgrey: #212121;
+    --darkgrey: #323232;
+    --lightgrey: #eeeeee;
+    --blue: #0d7377;
+    --lighterblue: #139599;
+    --turquoise: #14ffec;
+
+}
+
 html {
     margin: 0;
 }
 
 body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
     margin: 0;
-    background: #FAFAFA;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    background:  var(--darkgrey);
+    font-family: 'Roboto';
+    font-weight: 300;
     color: #000;
 }
 
-body div {
-    padding: 1vw;
+header{
+    height: 5vh;
+    min-height: 3rem;
+    justify-content: center;
+    background-color: var(--darkestgrey);
+    padding: 1rem;
 }
 
+/* --- Universal Settings --- */
+
 h1 {
-    width: 98vw;
     margin: 0;
-    padding: 1vw;
-    background-color: #333;
-    border-style: solid;
-    border-width: 0 0 0.25vh 0;
-    border-color: #FFF;
+    font-family: 'Boogaloo';
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
     color: #FAFAFA;
+    font-size: 3rem;
+    text-align: center;
 }
+
+h2{
+    margin: 0;
+    color: white;
+    font-weight: 400;
+    padding: 0.5rem 1rem ;
+}
+
+ul{
+    list-style-type: none;
+    text-indent: 0;
+    padding: 0;
+}
+
+.button{
+    cursor: pointer;
+    border-radius: 15%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.button:hover{
+    transform: scale(1.1);
+    transition: 0.3s all;
+}
+
+/* --- Main Content --- */
+
+main{
+    background-color: white;
+    height: 95vh;
+    display: grid;
+    grid-template-columns: 2fr 6fr minmax(max-content, max-content);
+    grid-template-rows: auto 3rem;
+}
+
+/* --- Left Sidebar --- */
+
+.sidebar.left {
+    background-color:gray;
+    display: grid;
+    grid-template-rows: minmax(20vh, max-content);
+}
+
+#information{
+    background-color: var(--lighterblue);
+}
+
+#information h2{
+    color: white;
+}
+
+#chat{
+    background-color: var(--blue);
+    display: grid;
+    grid-template-rows: max-content auto max-content;
+}
+
+.message-input-box{
+    width: 100%;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+#message-input{
+    background-color: rgba(255, 255, 255, 0.1);
+    border:0;
+    display: block;
+    height: 36px;
+    flex-grow: 1;
+    border-bottom: 2px solid white;
+    border-style: inset;
+    border-radius: 0.25rem;
+    outline: 0;
+    padding: 0.125rem;
+    padding-left: 0.5rem;
+    color: white;
+    caret-color: white;
+}
+
+#message-input::placeholder{
+    color: rgba(255, 255, 255, 0.9);
+    font-family: 'Roboto';
+}
+
+#meassage-input:active{
+    border-bottom: 2px solid black;
+}
+
+#send-message{
+    font-size: 1.5rem;
+    background-color: white;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.message.box{
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 1rem;
+    color: white;
+    padding: 0.5rem;
+    max-width: max-content;
+    min-width: 5rem;
+    border-radius: 5%;
+}
+
+.message.sender{
+    font-weight: 500;
+}
+
+.message p{
+    margin: 0.5rem;
+}
+
+.message.time{
+    font-size: 0.8rem;
+}
+/* --- Right Sidebar --- */
+
+.sidebar.right{
+    background-color: var(--lighterblue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toolbar{
+    box-sizing: border-box;
+    min-height: min-content;
+    max-height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    padding: 0.5rem;
+}
+
+.tool{
+    color: var(--darkgrey) ;
+    width: 3rem;
+    height: 3rem;
+    font-size: 2.5rem;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    background-color: rgb(196, 196, 196);
+}
+
+.tool:hover{
+    background-color: rgba(255, 255, 255, 0.9);
+    color: black;
+}
+
+/* --- footbar --- */
+
+.footbar{
+    grid-column: 1/-1;
+    background: var(--darkestgrey);
+}
+
+

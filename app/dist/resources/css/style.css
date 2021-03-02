@@ -1,11 +1,22 @@
 :root {
+
+    /* --- UI - Colors --- */
     --darkestgrey: #212121;
-    --darkgrey: #323232;
+    --darkgrey: #535c68;
     --lightgrey: #eeeeee;
-    --blue: #0d7377;
+    --darkblue: #0d7377;
     --lighterblue: #139599;
     --turquoise: #14ffec;
 
+    /* --- Usable Colors (https://flatuicolors.com/palette/tr) --- */
+    --green: #32ff7e;
+    --yellow: #fffa65;
+    --orange: #ffaf40;
+    --red: #ff4d4d;
+    --violet: #cd84f1;
+    --blue: #17c0eb;
+    --black: #000000;
+    --white: #fff;
 }
 
 html {
@@ -21,14 +32,15 @@ body {
     font-family: 'Roboto';
     font-weight: 300;
     color: #000;
+    
 }
 
 header{
     height: 5vh;
     min-height: 3rem;
     justify-content: center;
-    background-color: var(--darkestgrey);
-    padding: 1rem;
+    background-color: var(--darkgrey);
+    padding: 0.5rem;
 }
 
 /* --- Universal Settings --- */
@@ -39,7 +51,7 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 0.2rem;
     color: #FAFAFA;
-    font-size: 3rem;
+    font-size: 2rem;
     text-align: center;
 }
 
@@ -54,6 +66,10 @@ ul{
     list-style-type: none;
     text-indent: 0;
     padding: 0;
+}
+
+menu{
+    list-style-type: none;
 }
 
 .button{
@@ -73,11 +89,21 @@ ul{
 /* --- Main Content --- */
 
 main{
-    background-color: white;
-    height: 95vh;
+    background-color: var(--darkgrey);
+    min-height: 90vh;
     display: grid;
     grid-template-columns: 2fr 6fr minmax(max-content, max-content);
-    grid-template-rows: auto 3rem;
+    grid-template-rows: auto 4rem;
+}
+
+.center{
+    overflow: hidden;
+    background: white;
+}
+
+#brainstorming-canvas{
+    width: 3000px;
+    height: 3000px;
 }
 
 /* --- Left Sidebar --- */
@@ -97,7 +123,7 @@ main{
 }
 
 #chat{
-    background-color: var(--blue);
+    background-color: var(--darkblue);
     display: grid;
     grid-template-rows: max-content auto max-content;
 }
@@ -206,8 +232,94 @@ main{
 /* --- footbar --- */
 
 .footbar{
-    grid-column: 1/-1;
-    background: var(--darkestgrey);
+    grid-column: 2;
+    background: var(--darkgrey);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.footbar input{
+    width: 2rem;
+    height: 2rem;
+    display: none;
+}
+
+.colorpicker{
+    background: brown;
+}
+
+.footbar label{
+    box-sizing: border-box;
+    display: inline-block;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: yellow;
+    border-radius: 50%;
+    margin: 0.5rem;
+    cursor: pointer;
+    filter: brightness(80%);
+}
+
+.footbar input:checked + label{
+    border: 3px solid var(--lightgrey);
+    scale: 1.2;
+    filter: brightness(100%);
+}
+
+.footbar label:hover{
+    scale: 1.2;
+    transition:ease-in-out 0.2s;
+    filter: brightness(100%);
 }
 
 
+#green + label{
+    background: var(--green);
+}
+#yellow + label{
+    background: var(--yellow);
+}
+#orange + label{
+    background: var(--orange);
+}
+#red + label{
+    background: var(--red);
+}
+#violet + label{
+    background: var(--violet);
+}
+#blue + label{
+    background: var(--blue);
+}
+#black + label{
+    background: var(--black);
+}
+#white + label{
+    background: var(--white);
+}
+
+#contextmenu{
+    background: white;
+    display: none;
+    z-index: 5;
+    position: absolute;
+    padding: 0;
+    box-shadow: 4px 7px 18px -7px rgba(0,0,0,0.55);
+    border-radius: 5px;
+}
+
+#contextmenu menu{
+    padding: 0;
+    margin: 0;
+}
+
+#contextmenu menu li{
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+#contextmenu menu li:hover{
+    background-color: var(--lightgrey);
+}

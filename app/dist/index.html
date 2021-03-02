@@ -38,7 +38,9 @@
 					</div>
 				</section>
 			</section>
-			<section class="center"></section>
+			<section class="center">
+				<canvas id="brainstorming-canvas"></canvas>
+			</section>
 			<section class="right sidebar">
 				<menu type="toolbar" class="toolbar">
 					<li class="button tool square">
@@ -58,12 +60,45 @@
 					</li>
 					<li class="button tool image">
 						<i class="fas fa-image"></i>
+						<input type="file" id="image-upload" accept="image/jpeg, image/png" style="display: none;">
+					</li>
+					<li class="button tool delete">
+						<i class="far fa-trash-alt"></i>
 					</li>
 				</menu>
 			</section>
-			<section class="footbar"></section>
+			<section class="footbar">
+				<input type="radio" name="color" id="green" value="green">
+				<label for="green"></label>
+				<input type="radio" name="color" id="yellow" value="yellow">
+				<label for="yellow"></label>
+				<input type="radio" name="color" id="orange" value="orange">
+				<label for="orange"></label>
+				<input type="radio" name="color" id="red" value="red" checked="checked">
+				<label for="red"></label>
+				<input type="radio" name="color" id="violet" value="violet">
+				<label for="violet"></label>
+				<input type="radio" name="color" id="blue" value="blue">
+				<label for="blue"></label>
+				<input type="radio" name="color" id="white" value="white">
+				<label for="white"></label>
+				<input type="radio" name="color" id="black" value="black">
+				<label for="black"></label>
+			</section>
 		</main>
 
+		<div id="contextmenu" oncontextmenu="return false;">
+			<menu type="context">
+				<li id="context-delete">Delete</li>
+				<li id="context-to-top">Move to Top</li>
+				<li id="context-to-bottom">Move to Bottom</li>
+				<li id="context-copy">Copy</li>
+				<li id="context-paste">Paste</li>
+			</menu>
+		</div>
+		
+
+		</menu>
 		<template id="message-template">
 			<li class="message box">
 				<span class="message sender">Name</span>

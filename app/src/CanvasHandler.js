@@ -1,4 +1,5 @@
 import { fabric } from "fabric";
+import { saveAs } from "file-saver";
 import { isObjectBindingPattern } from "typescript";
 import { Observable, Event } from "./Observable.js";
 import uiElements from "./uiElements.js";
@@ -18,6 +19,7 @@ class CanvasHandler extends Observable{
 
     addListener(){
         this.addFileUploadListener();
+        this.addExportCanvasListener();
         uiElements.BTN_RECT.addEventListener("click", this.createRect.bind(this));
         uiElements.BTN_TEXT.addEventListener("click", this.createText.bind(this));
         let colorInputList = uiElements.INPUT_COLORS;
@@ -108,9 +110,19 @@ class CanvasHandler extends Observable{
         });
     }
 
+    addExportCanvasListener(){
+        uiElements.BTN_EXPORT.addEventListener("click", () => {
+            uiElements.CANAVS.toBlob(function(blob){
+                saveAs(blob, "image.png");
+            });
+        });
+    }
+
     deleteObject(){
         this.canvas.remove(this.selectedObject);
+        
     }
+
 }
 
 export default CanvasHandler;

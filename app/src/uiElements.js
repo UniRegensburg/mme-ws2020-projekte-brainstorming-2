@@ -1,3 +1,4 @@
+/* eslint-env browser */
 
 const uiElements = {
     CANAVS : document.getElementById("brainstorming-canvas"),

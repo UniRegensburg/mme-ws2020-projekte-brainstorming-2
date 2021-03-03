@@ -1,25 +1,24 @@
+/* eslint-env browser */
+
 import { fabric } from "fabric";
 import { saveAs } from "file-saver";
-import { isObjectBindingPattern } from "typescript";
-import { Observable, Event } from "./Observable.js";
 import uiElements from "./uiElements.js";
+import Config from "./Config.js";
 
-class CanvasHandler extends Observable{
+class CanvasHandler {
 
     constructor (canvas){
-        super();
         this.canvas = canvas;
         this.contextMenuActive = false;
         this.selectedObject = null;
         this.colors = getComputedStyle(document.documentElement);
         this.activeColor = this.colors.getPropertyValue("--red");
-        this.addContextButtonListeners();
-        this.addListener();
     }
 
     addListener(){
         this.addFileUploadListener();
         this.addExportCanvasListener();
+        this.addContextButtonListeners();
         uiElements.BTN_RECT.addEventListener("click", this.createRect.bind(this));
         uiElements.BTN_TEXT.addEventListener("click", this.createText.bind(this));
         let colorInputList = uiElements.INPUT_COLORS;
@@ -31,17 +30,21 @@ class CanvasHandler extends Observable{
         }
     }
 
+    /* Creates a Rectangle and adds it to canvas */
+
     createRect(){
         let rect = new fabric.Rect({
             left: 100,
             top: 100,
             fill: this.activeColor,
-            width: 100,
-            height: 100,
+            width: Config.OBJECT_DEFAULT_WIDTH,
+            height: Config.OBJECT_DEFAULT_HEIGHT,
             });
         this.addContextmenuListener(rect);
         this.canvas.add(rect);
     }
+
+    /* Creates a Textbox and adds it to canvas */
 
     createText(){
         let text = new fabric.IText("Text",{ 
@@ -56,11 +59,9 @@ class CanvasHandler extends Observable{
     /* Create Contextmenu, when right-clicking on a Canvas-Object */
 
     addContextmenuListener(object){
-        object.on('mousedown', (event) =>{
-            if(event.button === 3){
+        object.on("mousedown", (event) =>{
+            if(event.button === Config.KEY_RIGHT_MOUSEBUTTON){
                 let menu = uiElements.CONTEXTMENU;
-                    //pointer = this.canvas.getPointer(event.e, true);
-                console.log(this.canvas.findTarget(event.e));
                 this.selectedObject = this.canvas.findTarget(event.e);
                 menu.style.left = `${event.e.clientX}px`;
                 menu.style.top = `${event.e.clientY}px`;
@@ -76,11 +77,13 @@ class CanvasHandler extends Observable{
         });
     }
 
+    /* Adds Listeners to each Button of the Contextmenu */
+
     addContextButtonListeners(){
         let contextDelete = uiElements.CONTEXTMENU.querySelector("#context-delete"),
             contextToTop = uiElements.CONTEXTMENU.querySelector("#context-to-top"),
-            contextToBottom = uiElements.CONTEXTMENU.querySelector("#context-to-bottom");
-        let thisinstance = this;
+            contextToBottom = uiElements.CONTEXTMENU.querySelector("#context-to-bottom"),
+            thisinstance = this;
         contextDelete.addEventListener("click", this.deleteObject.bind(thisinstance));
         contextToTop.addEventListener("click", () => {
             this.canvas.bringToFront(this.selectedObject);
@@ -90,11 +93,13 @@ class CanvasHandler extends Observable{
         });
     }
 
+    /* Adds function to upload an image and bring in to the canvas by clicking on the Image-Upload-Button */
+
     addFileUploadListener(){
         uiElements.BTN_IMAGE.addEventListener("click", () => {
             uiElements.IMAGE_UPLOAD.click();
         });
-        uiElements.IMAGE_UPLOAD.addEventListener("change", (event) => {
+        uiElements.IMAGE_UPLOAD.addEventListener("change", () => {
             let reader = new FileReader(),
                 file = uiElements.IMAGE_UPLOAD.files[0];
             if(file){
@@ -102,13 +107,15 @@ class CanvasHandler extends Observable{
             }
             reader.addEventListener("load", () => {
                 fabric.Image.fromURL(reader.result, (image) => {
-                    image.scale(0.5).set('flipX', true);
+                    image.scale(Config.IMAGESCALE_IMPORT).set("flipX", true);
                     this.canvas.add(image);
                     this.addContextmenuListener(image);
                 });
             });
         });
     }
+
+    /* Adds function to export the canavas as an .png-file by clicking on the Export-Button */
 
     addExportCanvasListener(){
         uiElements.BTN_EXPORT.addEventListener("click", () => {
@@ -118,9 +125,10 @@ class CanvasHandler extends Observable{
         });
     }
 
+    /* removes selected object from canvas */
+
     deleteObject(){
         this.canvas.remove(this.selectedObject);
-        
     }
 
 }

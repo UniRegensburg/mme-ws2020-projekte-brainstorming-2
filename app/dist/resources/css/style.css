@@ -1,25 +1,325 @@
+:root {
+
+    /* --- UI - Colors --- */
+    --darkestgrey: #212121;
+    --darkgrey: #535c68;
+    --lightgrey: #eeeeee;
+    --darkblue: #0d7377;
+    --lighterblue: #139599;
+    --turquoise: #14ffec;
+
+    /* --- Usable Colors (https://flatuicolors.com/palette/tr) --- */
+    --green: #32ff7e;
+    --yellow: #fffa65;
+    --orange: #ffaf40;
+    --red: #ff4d4d;
+    --violet: #cd84f1;
+    --blue: #17c0eb;
+    --black: #000000;
+    --white: #fff;
+}
+
 html {
     margin: 0;
 }
 
 body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
     margin: 0;
-    background: #FAFAFA;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    background:  var(--darkgrey);
+    font-family: 'Roboto';
+    font-weight: 300;
     color: #000;
+    
 }
 
-body div {
-    padding: 1vw;
+header{
+    height: 5vh;
+    min-height: 3rem;
+    justify-content: center;
+    background-color: var(--darkgrey);
+    padding: 0.5rem;
 }
+
+/* --- Universal Settings --- */
 
 h1 {
-    width: 98vw;
     margin: 0;
-    padding: 1vw;
-    background-color: #333;
-    border-style: solid;
-    border-width: 0 0 0.25vh 0;
-    border-color: #FFF;
+    font-family: 'Boogaloo';
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
     color: #FAFAFA;
+    font-size: 2rem;
+    text-align: center;
+}
+
+h2{
+    margin: 0;
+    color: white;
+    font-weight: 400;
+    padding: 0.5rem 1rem ;
+}
+
+ul{
+    list-style-type: none;
+    text-indent: 0;
+    padding: 0;
+}
+
+menu{
+    list-style-type: none;
+}
+
+.button{
+    cursor: pointer;
+    border-radius: 15%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.button:hover{
+    transform: scale(1.1);
+    transition: 0.3s all;
+}
+
+/* --- Main Content --- */
+
+main{
+    background-color: var(--darkgrey);
+    min-height: 90vh;
+    display: grid;
+    grid-template-columns: 2fr 6fr minmax(max-content, max-content);
+    grid-template-rows: auto 4rem;
+}
+
+.center{
+    overflow: hidden;
+    background: white;
+}
+
+#brainstorming-canvas{
+    width: 3000px;
+    height: 3000px;
+}
+
+/* --- Left Sidebar --- */
+
+.sidebar.left {
+    background-color:gray;
+    display: grid;
+    grid-template-rows: minmax(20vh, max-content);
+}
+
+#information{
+    background-color: var(--lighterblue);
+}
+
+#information h2{
+    color: white;
+}
+
+#chat{
+    background-color: var(--darkblue);
+    display: grid;
+    grid-template-rows: max-content auto max-content;
+}
+
+.message-input-box{
+    width: 100%;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+#message-input{
+    background-color: rgba(255, 255, 255, 0.1);
+    border:0;
+    display: block;
+    height: 36px;
+    flex-grow: 1;
+    border-bottom: 2px solid white;
+    border-style: inset;
+    border-radius: 0.25rem;
+    outline: 0;
+    padding: 0.125rem;
+    padding-left: 0.5rem;
+    color: white;
+    caret-color: white;
+}
+
+#message-input::placeholder{
+    color: rgba(255, 255, 255, 0.9);
+    font-family: 'Roboto';
+}
+
+#meassage-input:active{
+    border-bottom: 2px solid black;
+}
+
+#send-message{
+    font-size: 1.5rem;
+    background-color: white;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.message.box{
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 1rem;
+    color: white;
+    padding: 0.5rem;
+    max-width: max-content;
+    min-width: 5rem;
+    border-radius: 5%;
+}
+
+.message.sender{
+    font-weight: 500;
+}
+
+.message p{
+    margin: 0.5rem;
+}
+
+.message.time{
+    font-size: 0.8rem;
+}
+/* --- Right Sidebar --- */
+
+.sidebar.right{
+    background-color: var(--lighterblue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toolbar{
+    box-sizing: border-box;
+    min-height: min-content;
+    max-height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    padding: 0.5rem;
+}
+
+.tool{
+    color: var(--darkgrey) ;
+    width: 3rem;
+    height: 3rem;
+    font-size: 2.5rem;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    background-color: rgb(196, 196, 196);
+}
+
+.tool:hover{
+    background-color: rgba(255, 255, 255, 0.9);
+    color: black;
+}
+
+/* --- footbar --- */
+
+.footbar{
+    grid-column: 2;
+    background: var(--darkgrey);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.footbar input{
+    width: 2rem;
+    height: 2rem;
+    display: none;
+}
+
+.colorpicker{
+    background: brown;
+}
+
+.footbar label{
+    box-sizing: border-box;
+    display: inline-block;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: yellow;
+    border-radius: 50%;
+    margin: 0.5rem;
+    cursor: pointer;
+    filter: brightness(80%);
+}
+
+.footbar input:checked + label{
+    border: 3px solid var(--lightgrey);
+    scale: 1.2;
+    filter: brightness(100%);
+}
+
+.footbar label:hover{
+    scale: 1.2;
+    transition:ease-in-out 0.2s;
+    filter: brightness(100%);
+}
+
+
+#green + label{
+    background: var(--green);
+}
+#yellow + label{
+    background: var(--yellow);
+}
+#orange + label{
+    background: var(--orange);
+}
+#red + label{
+    background: var(--red);
+}
+#violet + label{
+    background: var(--violet);
+}
+#blue + label{
+    background: var(--blue);
+}
+#black + label{
+    background: var(--black);
+}
+#white + label{
+    background: var(--white);
+}
+
+#contextmenu{
+    background: white;
+    display: none;
+    z-index: 5;
+    position: absolute;
+    padding: 0;
+    box-shadow: 4px 7px 18px -7px rgba(0,0,0,0.55);
+    border-radius: 5px;
+}
+
+#contextmenu menu{
+    padding: 0;
+    margin: 0;
+}
+
+#contextmenu menu li{
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+#contextmenu menu li:hover{
+    background-color: var(--lightgrey);
 }

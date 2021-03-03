@@ -13,6 +13,6 @@
 - Halten Sie die Readme-Datei(en) stets aktuell und entfernen Sie die Platzhaltertexte.
 
 ## Zusätzliche Übereinkünfte
-
-[Notieren Sie hier alle team-internen Übereinkünfte zur Verwendung des Repositorys, z.B. spezielle Überlegungen zur Codequalität oder zur Formulierung von *Commit Messages*]
+- Commitmessages sollen gemäß der Conventional-Commits-Richtline geschrieben werden
+- Die Sprache in Kommentaren und Issues ist Englisch
 

@@ -1,7 +1,11 @@
 /* eslint-env node */
 
-const path = require("path"),
-  express = require("express");
+import express, { Application } from "express";
+import { Server as SocketServer } from "socket.io";
+import { Server } from "http";
+import path from "path";
+
+import io from "./socket/SocketServer";
 
 /**
  * AppServer
@@ -13,43 +17,45 @@ const path = require("path"),
  */
 
 class AppServer {
-
+  private appDir: string;
+  private app: Application;
+  private server: Server | undefined = undefined;
+  private ws: SocketServer | undefined;
   /**
    * Creates full path to given appDir and constructors express application with
    * static "/app" route to serve files from app directory.
-   * 
+   *
    * @constructor
    * @param  {String} appDir Relative path to application dir (from parent)
    */
-  constructor(appDir) {
-    this.appDir = path.join(__dirname, "../", appDir); 
+  constructor(appDir: string) {
+    this.appDir = path.join(__dirname, "../../", appDir);
     this.app = express();
     this.app.use("/app", express.static(this.appDir));
   }
 
   /**
    * Starts server on given port
-   * 
+   *
    * @param  {Number} port Port to use for serving static files
    */
-  start(port) {
-    this.server = this.app.listen(port, function() {
+  start(port: number) {
+    this.server = this.app.listen(port, function () {
       console.log(
         `AppServer started. Client available at http://localhost:${port}/app`
       );
     });
+
+    this.ws = io.attach(this.server);
   }
 
   /**
    * Stops running express server
    */
   stop() {
-    if (this.server === undefined) {
-      return;
-    }
-    this.server.close();
+    if (this.server) this.server.close();
+    if (this.ws) this.ws.close();
   }
-
 }
 
 module.exports = AppServer;

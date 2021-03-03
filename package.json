@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "start": "node index.js ./app/dist 8000",
     "serve": "npx webpack serve --open --config webpack.dev.js",
     "prestart": "npm run build",
@@ -21,7 +21,9 @@
   "license": "MIT",
   "dependencies": {
     "eslint": "^7.18.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "socket.io": "^3.1.1",
+    "socket.io-client": "^3.1.1"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",

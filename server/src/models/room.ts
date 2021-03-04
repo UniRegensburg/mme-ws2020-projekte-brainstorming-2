@@ -5,7 +5,7 @@ export interface IRoom {
   name: string;
   uniqueLink: string;
   literature?: LiteratureDocument["_id"][];
-  dataUri: string;
+  dataUri?: string;
   created_at?: Date;
   updated_at?: Date;
 }

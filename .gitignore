@@ -6,3 +6,5 @@ app/dist/resources/js
 
 # server build
 server/dist
+
+.env

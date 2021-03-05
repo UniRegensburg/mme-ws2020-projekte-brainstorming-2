@@ -1,4 +1,5 @@
 /* eslint-env node */
+require("dotenv").config();
 
 import express, { Application } from "express";
 import { Server as SocketServer } from "socket.io";
@@ -6,6 +7,7 @@ import { Server } from "http";
 import path from "path";
 
 import io from "./socket/SocketServer";
+import mongoose from "mongoose";
 
 /**
  * AppServer
@@ -32,6 +34,17 @@ class AppServer {
     this.appDir = path.join(__dirname, "../../", appDir);
     this.app = express();
     this.app.use("/app", express.static(this.appDir));
+
+    mongoose.connect(
+      process.env.MONGO_URI as string,
+      { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
+      (err) => {
+        if (err) {
+          console.error(err);
+          process.exit(1);
+        }
+      }
+    );
   }
 
   /**

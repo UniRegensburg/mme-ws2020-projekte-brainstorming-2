@@ -1,0 +1,13 @@
+/* boogaloo-regular - latin */
+@font-face {
+  font-family: 'Boogaloo';
+  font-style: normal;
+  font-weight: 400;
+  src: url('boogaloo-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('boogaloo-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('boogaloo-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('boogaloo-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('boogaloo-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('boogaloo-v12-latin-regular.svg#Boogaloo') format('svg'); /* Legacy iOS */
+}

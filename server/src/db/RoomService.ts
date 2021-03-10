@@ -31,7 +31,7 @@ export const removeRoom = async (id: string) => {
 };
 
 export const updateRoomName = async (id: string, data: any) => {
-  return await Room.findOneAndUpdate({ _id: id }), data, { new: true };
+  return await Room.findOneAndUpdate({ _id: id }, data, { new: true });
 };
 
 export const addLiteratureToRoom = async (id: string, data: ILiterature) => {

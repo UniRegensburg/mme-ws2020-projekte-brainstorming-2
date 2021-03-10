@@ -21,6 +21,7 @@ export interface WSNewRoomResponse extends WSResponse {
 export interface WSChangeRoomNameRequest {
   type: "ChangeRoomName";
   payload: {
+    id: string;
     name: string;
   };
 }
@@ -38,7 +39,7 @@ export interface WSChangeRoomNameResponse extends WSResponse {
 export interface WSDestroyRoomRequest {
   type: "DestroyRoom";
   payload: {
-    name: string;
+    id: string;
   };
 }
 

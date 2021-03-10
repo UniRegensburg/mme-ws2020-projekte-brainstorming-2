@@ -1,18 +1,19 @@
 # Team
 
-[Beschreiben Sie hier die einzelnen Teammitglieder mit Namen, E-Mail-Adresse, Github-Nutzer und Foto. Nennen Sie mindestens eine Komponenten der Anwendung, die in wesentlichen Teilen vom jeweiligen Teammitglied entwickelt wurde.]
+## Felix Wieland (@flexwie)
+<p>
+  <img src="https://avatars.githubusercontent.com/u/1215778?s=400&u=d43460bd47dd816c5e7412ce653fb73ff3b14164&v=4" width="200" title="hover text">
+</p>
+E-Mail-Adresse: felix.wieland@stud.uni-regensburg.de  
 
-- Teammitglied 1: 
-   Name: Felix Wieland
-   E-Mail-Adresse: felix.wieland@stud.uni-regensburg.de
-   Github-Name: flexwie
-   
--Teammitglied 2:
-  Name: Daniela Olenberg
-  E-Mail-Adresse: daniela.olenberg@stud.uni-regensburg.de
-  Github-Name: DanielaOlenberg
-  
--Teammitglied 3:
-  Name: Valentin Wild
-  E-Mail-Adresse: valentin.wild@stud.uni-regensburg.de
-  Github-Name: valentinWild
+## Daniela Olenberg (@DanielaOlenberg)
+<p>
+  <img src="https://www.isarklinikum.de/wp-content/uploads/2015/06/empty_avatar.jpg" width="200" title="hover text">
+</p>
+E-Mail-Adresse: daniela.olenberg@stud.uni-regensburg.de  
+
+## Valentin Wild (@valentinWild)
+<p>
+  <img src="https://www.isarklinikum.de/wp-content/uploads/2015/06/empty_avatar.jpg" width="200" title="hover text">
+</p>
+E-Mail-Adresse: valentin.wild@stud.uni-regensburg.de

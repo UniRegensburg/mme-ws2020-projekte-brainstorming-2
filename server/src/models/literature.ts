@@ -1,28 +1,75 @@
-import { Document, model, Schema } from "mongoose";
+// import { Document, model, Schema } from "mongoose";
+
+// export interface ILiterature {
+//   name: string;
+//   author?: string;
+//   link?: string;
+//   pages?: number[];
+// }
+
+// export interface LiteratureDocument extends ILiterature, Document {}
+
+// export const LiteratureSchema = new Schema({
+//   name: {
+//     type: String,
+//     required: true,
+//   },
+//   author: {
+//     type: String,
+//   },
+//   link: {
+//     type: String,
+//   },
+//   pages: {
+//     type: [Number],
+//   },
+// });
+
+// export default model<LiteratureDocument>("Literature", LiteratureSchema);
+
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from "typeorm";
+import { Room } from "./room";
 
 export interface ILiterature {
   name: string;
   author?: string;
   link?: string;
   pages?: number[];
+  owner: Room;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-export interface LiteratureDocument extends ILiterature, Document {}
+@Entity()
+export class Literature implements ILiterature {
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-export const LiteratureSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  author: {
-    type: String,
-  },
-  link: {
-    type: String,
-  },
-  pages: {
-    type: [Number],
-  },
-});
+  @Column()
+  name: string;
 
-export default model<LiteratureDocument>("Literature", LiteratureSchema);
+  @Column({ nullable: true })
+  author: string;
+
+  @Column({ nullable: true })
+  link: string;
+
+  @Column("simple-array", { nullable: true })
+  pages: number[];
+
+  @ManyToOne(() => Room, (room) => room.literature)
+  owner: Room;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+}

@@ -1,65 +1,46 @@
-import mongoose from "mongoose";
-import Literature, { ILiterature } from "../src/models/literature";
-import Room, { IRoom } from "../src/models/room";
+import { createConnection, getConnection } from "typeorm";
+import { Literature, ILiterature } from "../src/models/literature";
+import { Room, IRoom } from "../src/models/room";
 
-const roomData: IRoom = {
+import { addRoom, removeRoom } from "../src/db/RoomService";
+import { addLiterature } from "../src/db/LiteratureService";
+
+const roomData = {
   name: "testRoom",
   uniqueLink: "oiwenfoiwen",
-  dataUri: "/rooms/oiwenfoiwen",
+  //dataUri: "/rooms/oiwenfoiwen",
 };
 
 describe("Room Model", () => {
   beforeAll(async () => {
-    await mongoose.connect(
-      process.env.MONGO_URL as string,
-      { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
-      (err) => {
-        if (err) {
-          console.error(err);
-          process.exit(1);
-        }
-      }
-    );
+    await createConnection({
+      type: "sqlite",
+      database: "./test.sql",
+      name: "default",
+      entities: [Room, Literature],
+      logging: false,
+      dropSchema: true,
+      synchronize: true,
+    });
   });
 
   afterAll(async () => {
-    await mongoose.disconnect();
+    await getConnection().close();
   });
 
   describe("Create", () => {
     it("creates and saves room succesfully", async () => {
-      const valid = new Room(roomData);
-      const saved = await valid.save();
+      const room = await addRoom();
 
-      expect(saved._id).toBeDefined();
-      expect(saved.name).toBe("testRoom");
+      expect(room.id).toBeDefined();
+      expect(room.name.split("-").length).toBe(3);
     });
 
-    it("creates and saves room without wrong fields", async () => {
-      const invalid = new Room({ ...roomData, invalid: true });
-      const saved = await invalid.save();
-
-      expect(saved._id).toBeDefined();
-      expect((saved as any).invalid).toBeUndefined();
-    });
-
-    it("does not create room with required field", async () => {
-      const invalid = new Room({ name: "invalid" } as any);
-      let err;
-
-      try {
-        const saved = await invalid.save();
-      } catch (error) {
-        err = error;
-      }
-
-      expect(err).toBeInstanceOf(mongoose.Error.ValidationError);
-      expect(err.errors.uniqueLink).toBeDefined();
-    });
+    it.todo("removes room");
   });
 });
 
-const literatureData: ILiterature = {
+const literatureData = {
   name: "Buch",
   author: "Peter",
   pages: [10, 20],
@@ -68,51 +49,24 @@ const literatureData: ILiterature = {
 
 describe("Literature Model", () => {
   beforeAll(async () => {
-    await mongoose.connect(
-      process.env.MONGO_URL as string,
-      { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
-      (err) => {
-        if (err) {
-          console.error(err);
-          process.exit(1);
-        }
-      }
-    );
+    await createConnection({
+      type: "sqlite",
+      database: "./test.sql",
+      name: "default",
+      entities: [Room, Literature],
+      logging: true,
+      dropSchema: true,
+      synchronize: true,
+    });
   });
 
   afterAll(async () => {
-    await mongoose.disconnect();
+    await getConnection().close();
   });
 
   describe("Create", () => {
-    it("creates and saves literature succesfully", async () => {
-      const valid = new Literature(literatureData);
-      const saved = await valid.save();
+    it.todo("creates and saves literature succesfully");
 
-      expect(saved._id).toBeDefined();
-      expect(saved.name).toBe("Buch");
-    });
-
-    it("creates and saves literature without wrong fields", async () => {
-      const invalid = new Literature({ ...literatureData, invalid: true });
-      const saved = await invalid.save();
-
-      expect(saved._id).toBeDefined();
-      expect((saved as any).invalid).toBeUndefined();
-    });
-
-    it("does not create literature with required field", async () => {
-      const invalid = new Literature({ author: "invalid" });
-      let err;
-
-      try {
-        const saved = await invalid.save();
-      } catch (error) {
-        err = error;
-      }
-
-      expect(err).toBeInstanceOf(mongoose.Error.ValidationError);
-      expect(err.errors.name).toBeDefined();
-    });
+    it.todo("removes literature");
   });
 });

@@ -8,3 +8,5 @@ app/dist/resources/js
 server/dist
 
 .env
+db.sql
+test.sql

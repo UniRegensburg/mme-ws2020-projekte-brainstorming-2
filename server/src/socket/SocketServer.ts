@@ -1,9 +1,15 @@
 /* eslint-disable one-var */
 /* eslint-env node */
 import { Server } from "socket.io";
-import { ChatMessage } from "./impl/chat";
 
-import { ChangeRoomName, DestroyRoom, NewRoom } from "./impl/room";
+import {
+  ChangeRoomName,
+  DestroyRoom,
+  NewRoom,
+  ChatMessage,
+  AddLiterature,
+  RemoveLiterature,
+} from "./impl";
 
 const io = new Server();
 
@@ -28,9 +34,15 @@ io.on("connection", (socket) => {
    */
   socket.on("ChatMessage", ChatMessage.bind({ socket }));
 
-  socket.on("Test", () => {
-    io.emit("Test", "kam an");
-  });
+  /**
+   * Add Literature
+   */
+  socket.on("AddLiterature", AddLiterature.bind({ socket }));
+
+  /**
+   * Remove Literature
+   */
+  socket.on("RemoveLiterature", RemoveLiterature.bind({ socket }));
 });
 
 io.on("message", (msg) => {

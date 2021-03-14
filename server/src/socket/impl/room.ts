@@ -5,6 +5,7 @@ import {
   updateRoomName,
   getAll,
 } from "../../db/RoomService";
+import { IThis } from "../../interfaces";
 import {
   WSChangeRoomNameRequest,
   WSChangeRoomNameResponse,
@@ -15,10 +16,6 @@ import {
 } from "../../interfaces/setup";
 
 import { Log } from "../../util/logger";
-
-interface IThis {
-  socket: Socket;
-}
 
 /**
  * Add a new Room

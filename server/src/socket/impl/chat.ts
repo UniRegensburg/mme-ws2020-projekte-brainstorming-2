@@ -1,4 +1,5 @@
 import { Socket } from "socket.io";
+import { WSChatMessage } from "../../interfaces";
 import { Log } from "../../util/logger";
 
 interface IThis {

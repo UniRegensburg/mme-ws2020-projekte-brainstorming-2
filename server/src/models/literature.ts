@@ -42,9 +42,9 @@ export interface ILiterature {
   author?: string;
   link?: string;
   pages?: number[];
-  owner: Room;
-  createdAt: Date;
-  updatedAt: Date;
+  owner?: Room;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 @Entity()

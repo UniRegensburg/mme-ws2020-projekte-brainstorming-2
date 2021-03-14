@@ -1,11 +1,11 @@
-import mongoose from "mongoose";
-import Literature, { ILiterature } from "../models/literature";
+import { Literature, ILiterature } from "../models/literature";
+
+import { getRepository } from "typeorm";
 
 export const addLiterature = async (data: ILiterature) => {
-  const literature = new Literature(data);
-  return await literature.save();
+  return await getRepository(Literature).save(data);
 };
 
 export const getLiterature = async (id: string) => {
-  return await Literature.findById(id);
+  return await getRepository(Literature).findOne(id);
 };

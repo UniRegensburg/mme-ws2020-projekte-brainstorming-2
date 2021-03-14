@@ -18,8 +18,6 @@ const logger = createLogger({
 
 export default logger;
 
-export function log(message: string) {}
-
 export class Log {
   private id = shortid.generate();
   private name: string;

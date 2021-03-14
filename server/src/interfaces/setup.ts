@@ -10,6 +10,7 @@ export interface WSNewRoomRequest {
 export interface WSNewRoomResponse extends WSResponse {
   type: "NewRoom";
   payload: {
+    id: string;
     link: string;
     name: string;
   };

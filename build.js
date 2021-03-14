@@ -10,21 +10,19 @@ const ts = require("gulp-typescript");
  * Webpack build for the frontend
  */
 function bundle() {
-	webpack(webpackConfig, (err, stats) => {
-		// @ts-ignore
-		if (err || stats.hasErrors()) {
-			console.log(err);
-			console.log(stats);
-		}
-	});
+  webpack(webpackConfig, (err, stats) => {
+    // @ts-ignore
+    if (err || stats.hasErrors()) {
+      console.log(err);
+      console.log(stats);
+    }
+  });
 }
 
 function compileServer() {
-	const project = ts.createProject("tsconfig.json");
+  const project = ts.createProject("tsconfig.json");
 
-	gulp.src("server/src/**/*.ts")
-		.pipe(project())
-		.pipe(gulp.dest("server/dist"));
+  gulp.src("server/src/**/*").pipe(project()).pipe(gulp.dest("server/dist"));
 }
 
 /**
@@ -38,13 +36,13 @@ function compileServer() {
  */
 
 function build() {
-	// Implementiere Sie hier die einzelnen Bauschritte
-	console.log("Building \"Project Starter\"");
-	console.log("Running webpack build");
-	bundle();
+  // Implementiere Sie hier die einzelnen Bauschritte
+  console.log('Building "Project Starter"');
+  console.log("Running webpack build");
+  bundle();
 
-	console.log("Compiling Typescript");
-	compileServer();
+  console.log("Compiling Typescript");
+  compileServer();
 }
 
 build();

@@ -102,6 +102,28 @@ interface WSJoinedResponse {
 }
 ```
 
+**Join Room**
+
+Join a room with username and get the cnavas data
+
+```typescript
+interface WSJoinRoomRequest {
+  type: "JoinRoom";
+  payload: {
+    username: string;
+    roomName: string;
+  };
+}
+
+interface WSJoinRoomResponse extends WSResponse {
+  type: "JoinRoom";
+  payload: {
+    canvas: any;
+    room: Room;
+  };
+}
+```
+
 **Update Whiteboard**
 
 > This event gets no response

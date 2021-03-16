@@ -18,29 +18,61 @@
 
 		<main>
 			<section class="left sidebar">
-				<section id="information">
-					<h2>Important information</h2>
-				</section>
-				<section id="chat">
-					<h2>Live-Chat</h2>
-					<ul class="message-history">
-						<li class="message box">
-							<span class="message sender">Name</span>
-							<p>Hello, i am a new User !</p>
-							<span class="message time">13:00</span>
+
+				<nav class="nav_main_menu">
+					<ul class="ul_main_menu">
+						<li class="nav_main_item settings selected_nav">
+							<i class="fas fa-cog"></i>
+						</li>
+						<li class="nav_main_item literature">
+							<i class="fas fa-book"></i>
+						</li>
+						<li class="nav_main_item users">
+							<i class="fas fa-users"></i>
+						</li>
+						<li class="nav_main_item chat">
+							<i class="fas fa-comments"></i>
 						</li>
 					</ul>
-					<div class="message-input-box">
-						<input type="text" id="message-input" placeholder="&nbsp; Your Message ...">
-						<span class="button" id="send-message">
-							<i class="far fa-paper-plane"></i>
-						</span>
-					</div>
-				</section>
+				</nav>
+
+				<div class="nav_main_contentbox">
+					<section class="menu_section settings">
+						<h2>Room Settings</h2>
+					</section>
+
+					<section class="menu_section literature" style="display: none;">
+						<h2>Literature</h2>
+					</section>
+
+					<section class="menu_section users" style="display: none;">
+						<h2>Users</h2>
+					</section>
+
+					<section class="menu_section chat" style="display: none;">
+						<h2>Live-Chat</h2>
+						<ul class="message-history">
+							<li class="message box">
+								<span class="message sender">Name</span>
+								<p>Hello, i am a new User !</p>
+								<span class="message time">13:00</span>
+							</li>
+						</ul>
+						<div class="message-input-box">
+							<input type="text" id="message-input" placeholder="&nbsp; Your Message ...">
+							<span class="button" id="send-message">
+								<i class="far fa-paper-plane"></i>
+							</span>
+						</div>
+					</section>
+				</div>
+
 			</section>
+
 			<section class="center">
 				<canvas id="brainstorming-canvas"></canvas>
 			</section>
+
 			<section class="right sidebar">
 				<menu type="toolbar" class="toolbar">
 					<li class="button tool square">
@@ -67,6 +99,7 @@
 					</li>
 				</menu>
 			</section>
+
 			<section class="footbar">
 				<input type="radio" name="color" id="green" value="green">
 				<label for="green"></label>
@@ -87,6 +120,41 @@
 			</section>
 		</main>
 
+		<div class="modal">
+			<div class="modalbox start-room">
+
+				<form id="form-username">
+					<div class="modalbox-header">
+						<span class="close"></span>
+						<h2>Start Brainstorming</h2>
+					</div>
+					<div class="modalbox-content">
+						<label for="set-username">Please tell us your Username:</label>
+						<input type="text" name="set-username" id="input-set-username" required minlength="3" maxlength="10">
+						<button class="button enter-room">Enter this Room</button>
+						<p>Or do you want to <a class="link" id="link-create-room">create a new Room</a> ?</p>
+					</div>
+				</form>
+
+				<form id="form-create-room" style="display: none">
+					<div class="modalbox-header">
+						<span class="close"></span>
+						<h2>Created a new Room</h2>
+					</div>
+					<div class="modalbox-content">
+						<h3>You created a new Brainstorming-Room!</h3>
+						<p>Copy the following link to Clipboard and send it <br> to other people to invite them:</p>
+						<span class="invite-link-wrapper">
+							<span class="invite-link">http://localhost:8080/</span>
+							<i class="far fa-copy"></i>
+						</span>
+						<p>Do you want to <a class="link" id="link-enter-room">enter the room now</a> ?</p>
+					</div>
+				</form>
+
+			</div>
+		</div>
+
 		<div id="contextmenu" oncontextmenu="return false;">
 			<menu type="context">
 				<li id="context-delete">Delete</li>
@@ -96,7 +164,6 @@
 				<li id="context-paste">Paste</li>
 			</menu>
 		</div>
-		
 
 		</menu>
 		<template id="message-template">

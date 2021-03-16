@@ -3,6 +3,9 @@
 import { fabric } from "fabric";
 import CanvasHandler from "./CanvasHandler.js";
 import Config from "./Config.js";
+import MainMenuHandler from "./MainMenuHandler.js";
+import Roomstarter from "./Roomstarter.js";
+import uiElements from "./uiElements.js";
 
 function init() {
   createCanvas();
@@ -14,9 +17,12 @@ function createCanvas(){
     height: 3000,
     fireRightClick: true,
     stopContextMenu: true }),
-  canvasHandler = new CanvasHandler(canvas);
+  canvasHandler = new CanvasHandler(canvas),
+  roomstarter = new Roomstarter(),
+  mainMenuHandler = new MainMenuHandler();
   canvasHandler.addListener();
-
+  mainMenuHandler.setListener();
+  
   /* Adds functionality to zoom-in and -out and pan the canvas by clicking and pressing the alt-key*/
 
   canvas.on("mouse:wheel", function(opt){
@@ -37,6 +43,7 @@ function createCanvas(){
       this.selection = false;
       this.lastPosX = evt.clientX;
       this.lastPosY = evt.clientY;
+      uiElements.CANAVS.style.cursor = "grab";
     }
   });
 

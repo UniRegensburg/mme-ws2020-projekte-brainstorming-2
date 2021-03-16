@@ -4,8 +4,14 @@ import {
   removeRoom,
   updateRoomName,
   getAll,
+  getRoom,
 } from "../../db/RoomService";
-import { IThis } from "../../interfaces";
+import {
+  IThis,
+  WSJoinedResponse,
+  WSJoinRoomRequest,
+  WSJoinRoomResponse,
+} from "../../interfaces";
 import {
   WSChangeRoomNameRequest,
   WSChangeRoomNameResponse,
@@ -14,6 +20,7 @@ import {
   WSNewRoomRequest,
   WSNewRoomResponse,
 } from "../../interfaces/setup";
+import { Room } from "../../models/room";
 
 import { Log } from "../../util/logger";
 
@@ -127,4 +134,45 @@ async function DestroyRoom(this: IThis, arg: WSDestroyRoomRequest, cb: any) {
   cb(response);
 }
 
-export { NewRoom, ChangeRoomName, DestroyRoom };
+/**
+ * Join a room
+ */
+async function JoinRoom(this: IThis, arg: WSJoinRoomRequest, cb: any) {
+  const logger = new Log("JoinRoom");
+  logger.debug(`Request from ${this.socket.id}`);
+
+  try {
+    // Update socket
+    this.socket.name = arg.payload.username;
+    this.socket.join(arg.payload.roomName);
+
+    // Notify other participants
+    this.socket.to(arg.payload.roomName).emit("Joined", {
+      type: "Joined",
+      payload: { username: arg.payload.username },
+    } as WSJoinedResponse);
+
+    let room = await getRoom(arg.payload.roomName);
+
+    // Respond
+    cb({
+      status: "ok",
+      error: null,
+      type: "JoinRoom",
+      payload: {
+        canvas: null,
+        room,
+      },
+    } as WSJoinRoomResponse);
+  } catch (error) {
+    logger.error(`Error: ${JSON.stringify(error)}`);
+    cb({
+      status: "error",
+      error: "Could not join room",
+      type: "JoinRoom",
+      payload: {},
+    } as WSJoinRoomResponse);
+  }
+}
+
+export { NewRoom, ChangeRoomName, DestroyRoom, JoinRoom };

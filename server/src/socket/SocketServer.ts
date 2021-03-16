@@ -9,7 +9,9 @@ import {
   ChatMessage,
   AddLiterature,
   RemoveLiterature,
+  JoinRoom,
 } from "./impl";
+import { CanvasEvent } from "./impl/canvas";
 
 const io = new Server();
 
@@ -43,6 +45,16 @@ io.on("connection", (socket) => {
    * Remove Literature
    */
   socket.on("RemoveLiterature", RemoveLiterature.bind({ socket }));
+
+  /**
+   * Join Room
+   */
+  socket.on("JoinRoom", JoinRoom.bind({ socket }));
+
+  /**
+   * Canvas Event
+   */
+  socket.on("WhiteBoardUpdated", CanvasEvent.bind({ socket }));
 });
 
 io.on("message", (msg) => {

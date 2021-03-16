@@ -65,14 +65,11 @@ class AppServer {
    * @param  {Number} port Port to use for serving static files
    */
   start(port: number) {
-    this.server = this.app.listen(
-      port,
-      function () {
-        this.ws = io.attach(this.server);
-        this.logger.info(
-          `AppServer started. Client available at http://localhost:${port}/app`
-        );
-      }.bind(this)
+    this.server = this.app.listen(port);
+
+    this.ws = io.attach(this.server);
+    this.logger.info(
+      `AppServer started. Client available at http://localhost:${port}/app`
     );
   }
 

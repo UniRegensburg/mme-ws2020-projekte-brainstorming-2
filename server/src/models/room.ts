@@ -20,20 +20,20 @@ export interface IRoom {
 @Entity()
 export class Room implements IRoom {
   @PrimaryGeneratedColumn("uuid")
-  id: string;
+  id!: string;
 
   @Column()
-  name: string;
+  name!: string;
 
   @Column()
-  uniqueLink: string;
+  uniqueLink!: string;
 
   @OneToMany(() => Literature, (literature) => literature.owner)
-  literature: Literature[];
+  literature!: Literature[];
 
   @CreateDateColumn()
-  createdAd: Date;
+  createdAd!: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt!: Date;
 }

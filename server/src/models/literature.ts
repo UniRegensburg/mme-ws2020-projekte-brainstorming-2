@@ -21,26 +21,26 @@ export interface ILiterature {
 @Entity()
 export class Literature implements ILiterature {
   @PrimaryGeneratedColumn("uuid")
-  id: string;
+  id!: string;
 
   @Column()
-  name: string;
+  name!: string;
 
   @Column({ nullable: true })
-  author: string;
+  author!: string;
 
   @Column({ nullable: true })
-  link: string;
+  link!: string;
 
   @Column("simple-array", { nullable: true })
-  pages: number[];
+  pages!: number[];
 
   @ManyToOne(() => Room, (room) => room.literature)
-  owner: Room;
+  owner!: Room;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt!: Date;
 }

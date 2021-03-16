@@ -20,6 +20,7 @@ function createCanvas(){
   canvasHandler = new CanvasHandler(canvas),
   roomstarter = new Roomstarter(),
   mainMenuHandler = new MainMenuHandler();
+  roomstarter.start();
   canvasHandler.addListener();
   mainMenuHandler.setListener();
   

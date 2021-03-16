@@ -4,10 +4,6 @@ import uiElements from "./uiElements.js";
 
 class MainMenuHandler {
 
-    constructor(){
-
-    }
-
     setListener(){
         this.setNavListeners();
         this.selectedNavItem = uiElements.MAIN_MENU_NAV_SETTINGS;

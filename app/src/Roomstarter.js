@@ -5,7 +5,6 @@ import uiElements from "./uiElements.js";
 class Roomstarter {
 
     constructor(){
-        this.start();
         this.username = "";
     }
 

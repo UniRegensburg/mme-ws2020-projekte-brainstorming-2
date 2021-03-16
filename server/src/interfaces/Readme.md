@@ -37,6 +37,7 @@ Renames the room to the provided name. Does not change the unique URL.
 interface WSChangeRoomNameRequest {
   type: "ChangeRoomName";
   payload: {
+    id: string;
     name: string;
   };
 }
@@ -57,7 +58,7 @@ Deletes the room with its contents
 interface WSDestroyRoomRequest {
   type: "DestroyRoom";
   payload: {
-    name: string;
+    id: string;
   };
 }
 

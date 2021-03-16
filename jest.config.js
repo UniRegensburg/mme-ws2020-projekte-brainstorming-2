@@ -1,5 +1,9 @@
+const ts_preset = require("ts-jest/jest-preset");
+
 module.exports = {
-  preset: "ts-jest",
+  ...ts_preset,
   testEnvironment: "node",
   clearMocks: true,
+  watchIgnorePatterns: ["globalConfig"],
+  setupFiles: ["dotenv/config"],
 };

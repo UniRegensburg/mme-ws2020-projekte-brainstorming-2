@@ -1,14 +1,64 @@
 /* eslint-disable one-var */
 /* eslint-env node */
-
 import { Server } from "socket.io";
 
-const io = new Server({
-  path: "/ws",
+import {
+  ChangeRoomName,
+  DestroyRoom,
+  NewRoom,
+  ChatMessage,
+  AddLiterature,
+  RemoveLiterature,
+  JoinRoom,
+} from "./impl";
+import { CanvasEvent } from "./impl/canvas";
+
+const io = new Server();
+
+io.on("connection", (socket) => {
+  /**
+   * Create Room
+   */
+  socket.on("NewRoom", NewRoom.bind({ socket }));
+
+  /**
+   * Rename Room
+   */
+  socket.on("ChangeRoomName", ChangeRoomName.bind({ socket }));
+
+  /**
+   * Destroy Room
+   */
+  socket.on("DestroyRoom", DestroyRoom.bind({ socket }));
+
+  /**
+   * Chat Message
+   */
+  socket.on("ChatMessage", ChatMessage.bind({ socket }));
+
+  /**
+   * Add Literature
+   */
+  socket.on("AddLiterature", AddLiterature.bind({ socket }));
+
+  /**
+   * Remove Literature
+   */
+  socket.on("RemoveLiterature", RemoveLiterature.bind({ socket }));
+
+  /**
+   * Join Room
+   */
+  socket.on("JoinRoom", JoinRoom.bind({ socket }));
+
+  /**
+   * Canvas Event
+   */
+  socket.on("WhiteBoardUpdated", CanvasEvent.bind({ socket }));
 });
 
-io.on("connection", () => {
-  console.log("Connection");
+io.on("message", (msg) => {
+  io.emit("message", msg);
 });
 
 export default io;

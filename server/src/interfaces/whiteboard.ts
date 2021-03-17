@@ -1,3 +1,4 @@
+import { Room } from "../models/room";
 import { WSResponse } from "./generic";
 
 /**
@@ -12,6 +13,26 @@ export interface WSGetWhiteboardStatusResponse extends WSResponse {
   type: "WhiteBoardGetStatus";
   payload: {
     data: any;
+  };
+}
+
+/**
+ * Join room
+ * Reqeuest to join the room
+ */
+export interface WSJoinRoomRequest {
+  type: "JoinRoom";
+  payload: {
+    username: string;
+    roomName: string;
+  };
+}
+
+export interface WSJoinRoomResponse extends WSResponse {
+  type: "JoinRoom";
+  payload: {
+    canvas: any;
+    room: Room;
   };
 }
 

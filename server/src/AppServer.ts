@@ -6,10 +6,10 @@ import express, { Application } from "express";
 import { Server as SocketServer } from "socket.io";
 import { Server } from "http";
 import path from "path";
-
 import io from "./socket/SocketServer";
+import Logger, { Log } from "./util/logger";
+
 import { createConnection, Connection } from "typeorm";
-import { addRoom } from "./db/RoomService";
 import { Room } from "./models/room";
 import { Literature } from "./models/literature";
 
@@ -28,6 +28,7 @@ class AppServer {
   private server: Server | undefined = undefined;
   private ws: SocketServer | undefined;
   private db: Connection | undefined;
+  private logger = new Log("SERVER");
   /**
    * Creates full path to given appDir and constructors express application with
    * static "/app" route to serve files from app directory.
@@ -45,11 +46,11 @@ class AppServer {
       database: "./db.sql",
       name: "default",
       entities: [Room, Literature],
-      logging: true,
+      logging: false,
       synchronize: true,
     })
       .then((con) => {
-        console.log("Connected to DB");
+        this.logger.info("Connected to database");
         this.db = con;
       })
       .catch((err) => {
@@ -64,13 +65,12 @@ class AppServer {
    * @param  {Number} port Port to use for serving static files
    */
   start(port: number) {
-    this.server = this.app.listen(port, function () {
-      console.log(
-        `AppServer started. Client available at http://localhost:${port}/app`
-      );
-    });
+    this.server = this.app.listen(port);
 
     this.ws = io.attach(this.server);
+    this.logger.info(
+      `AppServer started. Client available at http://localhost:${port}/app`
+    );
   }
 
   /**

@@ -23,6 +23,7 @@ interface WSNewRoomRequest {
 interface WSNewRoomResponse extends WSResponse {
   type: "NewRoom";
   payload: {
+    id: string;
     link: string;
     name: string;
   };
@@ -97,6 +98,28 @@ interface WSJoinedResponse {
   type: "Joined";
   payload: {
     username: string;
+  };
+}
+```
+
+**Join Room**
+
+Join a room with username and get the cnavas data
+
+```typescript
+interface WSJoinRoomRequest {
+  type: "JoinRoom";
+  payload: {
+    username: string;
+    roomName: string;
+  };
+}
+
+interface WSJoinRoomResponse extends WSResponse {
+  type: "JoinRoom";
+  payload: {
+    canvas: any;
+    room: Room;
   };
 }
 ```

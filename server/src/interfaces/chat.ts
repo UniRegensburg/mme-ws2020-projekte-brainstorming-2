@@ -1,7 +1,7 @@
 /**
  * Distribute a new message between participants
  */
-interface WSChatMessage {
+export interface WSChatMessage {
   type: "ChatMessage";
   payload: {
     message: string;

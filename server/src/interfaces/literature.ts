@@ -1,3 +1,4 @@
+import { ILiterature } from "../models/literature";
 import { WSResponse } from "./generic";
 
 /**
@@ -5,7 +6,9 @@ import { WSResponse } from "./generic";
  */
 export interface WSAddLiteratureRequest {
   type: "AddLiterature";
-  payload: Literature;
+  payload: {
+    owner: string; // Room ID
+  } & Literature;
 }
 
 export interface WSAddLiteratureResponse extends WSResponse {
@@ -15,7 +18,7 @@ export interface WSAddLiteratureResponse extends WSResponse {
 export interface WSLiteratureAdded {
   type: "LiteratureAdded";
   payload: {
-    literature: Literature;
+    literature: ILiterature;
     from: string;
   };
 }
@@ -26,7 +29,8 @@ export interface WSLiteratureAdded {
 export interface WSRemoveLiteratureRequest {
   type: "RemoveLiterature";
   payload: {
-    id: string;
+    literatureId: string;
+    roomId: string;
   };
 }
 
@@ -60,7 +64,7 @@ export interface WSExportLiteratureResponse extends WSResponse {
  */
 export type Literature = {
   id?: string;
-  title: string;
+  name: string;
   author?: string;
   url?: string;
   pages?: number[];

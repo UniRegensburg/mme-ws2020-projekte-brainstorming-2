@@ -20,17 +20,25 @@
   "author": "Alexander Bazo <alexander.bazo@ur.de>",
   "license": "MIT",
   "dependencies": {
+    "@types/morgan": "^1.9.2",
+    "@types/shortid": "0.0.29",
     "dotenv": "^8.2.0",
     "eslint": "^7.18.0",
     "express": "^4.17.1",
+<<<<<<< HEAD
     "fabric": "^4.3.1",
     "file-saver": "^2.0.5",
+=======
+    "morgan": "^1.10.0",
+>>>>>>> master
     "reflect-metadata": "^0.1.13",
+    "shortid": "^2.2.16",
     "socket.io": "^3.1.2",
     "socket.io-client": "^3.1.2",
     "sqlite3": "^5.0.2",
     "typeorm": "^0.2.31",
-    "unique-names-generator": "^4.4.0"
+    "unique-names-generator": "^4.4.0",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",

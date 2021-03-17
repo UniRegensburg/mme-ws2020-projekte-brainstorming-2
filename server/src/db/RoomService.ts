@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { Room, IRoom } from "../models/room";
 import { Literature, ILiterature } from "../models/literature";
 
@@ -29,11 +28,30 @@ export const getRoom = async (id: string) => {
 };
 
 export const removeRoom = async (id: string) => {
+  await getRepository(Room)
+    .createQueryBuilder()
+    .where("id = :id", { id })
+    .getOneOrFail();
+
   return await getRepository(Room).delete({ id: id });
 };
 
 export const updateRoomName = async (id: string, data: any) => {
-  return await getRepository(Room).update({ id }, data);
+  await getRepository(Room)
+    .createQueryBuilder()
+    .where("id = :id", { id })
+    .getOneOrFail();
+
+  return await getRepository(Room)
+    .createQueryBuilder()
+    .update()
+    .set(data)
+    .where("id = :id", { id })
+    .execute();
+};
+
+export const getAll = async () => {
+  return await getRepository(Room).find();
 };
 
 // export const addLiteratureToRoom = async (id: string, data: ILiterature) => {

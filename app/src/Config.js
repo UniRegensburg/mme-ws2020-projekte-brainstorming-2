@@ -12,6 +12,7 @@ const Config = {
 
     OBJECT_DEFAULT_WIDTH : 100,
     OBJECT_DEFAULT_HEIGHT : 100,
+    OBJECT_DEFAULT_RADIUS : 100,
 };
 
 export default Config;

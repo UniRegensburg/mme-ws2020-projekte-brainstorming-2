@@ -75,17 +75,26 @@
 
 			<section class="right sidebar">
 				<menu type="toolbar" class="toolbar">
+					<li class="tool-with-tooltip">
+						<span class="button tool draw">
+							<i class="fas fa-pencil-alt"></i>
+						</span>
+						<div class="tooltip draw">
+							<span class="tooltiptext">Stroke thickness: <span id="thickness-value">5</span></span>
+							<input type="range" min="1" max="10" value="5" class="tooltip-slider">
+						</div>
+					</li>
 					<li class="button tool square">
 						<i class="fas fa-vector-square"></i>
+					</li>
+					<li class="button tool circle">
+						<i class="far fa-circle"></i>
 					</li>
 					<li class="button tool arrow">
 						<i class="fas fa-long-arrow-alt-left"></i>
 					</li>
 					<li class="button tool text">
 						<i class="fas fa-font"></i>
-					</li>
-					<li class="button tool draw">
-						<i class="fas fa-pencil-alt"></i>
 					</li>
 					<li class="button tool move">
 						<i class="fas fa-arrows-alt"></i>

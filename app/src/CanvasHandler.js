@@ -19,15 +19,33 @@ class CanvasHandler {
         this.addFileUploadListener();
         this.addExportCanvasListener();
         this.addContextButtonListeners();
+        this.setContextMenuListener();
+        this.setStrokeThicknessListener();
         uiElements.BTN_RECT.addEventListener("click", this.createRect.bind(this));
+        uiElements.BTN_CIRCLE.addEventListener("click", this.createCircle.bind(this));
         uiElements.BTN_TEXT.addEventListener("click", this.createText.bind(this));
+        uiElements.BTN_ARROW.addEventListener("click", this.createArrow.bind(this));
+        uiElements.BTN_DRAW.addEventListener ("click", this.enableDrawing.bind(this));
         let colorInputList = uiElements.INPUT_COLORS;
         for (let i = 0; i < colorInputList.length ; i++) {
             colorInputList[i].addEventListener("click", (event) => {
                 let color = event.target.value;
                 this.activeColor = this.colors.getPropertyValue(`--${color}`);
+                this.changeColor();
             });
         }
+    }
+
+    /* Creates a Circle and adds it to canvas */
+
+    createCircle(){
+        let circle = new fabric.Circle({
+            radius: Config.OBJECT_DEFAULT_RADIUS,
+            left: 100,
+            top: 100,
+            fill: this.activeColor,
+            });
+        this.canvas.add(circle);
     }
 
     /* Creates a Rectangle and adds it to canvas */
@@ -40,8 +58,29 @@ class CanvasHandler {
             width: Config.OBJECT_DEFAULT_WIDTH,
             height: Config.OBJECT_DEFAULT_HEIGHT,
             });
-        this.addContextmenuListener(rect);
         this.canvas.add(rect);
+    }
+
+    /* Creates an Arrow and adds it to canvas */
+
+    createArrow(){
+        let line = new fabric.Line( [250, 125, 250, 175 ], {
+            fill: this.activeColor,
+            stroke: this.activeColor,
+            strokeWidth: 5,
+            selectable: true,
+            evented: true,
+            lockScalingX: true,
+          });
+        line.setControlsVisibility({
+            ml: false, 
+            mr: false, 
+            bl: false,
+            br: false, 
+            tl: false, 
+            tr: false,
+        });
+        this.canvas.add(line);
     }
 
     /* Creates a Textbox and adds it to canvas */
@@ -52,8 +91,14 @@ class CanvasHandler {
             top: 100,
             fill: this.activeColor, 
             });
-        this.addContextmenuListener(text);
         this.canvas.add(text);
+    }
+
+    /* Activates Drawingmode an sets Context menu to ne Path-Objects */
+
+    enableDrawing(){
+        this.canvas.freeDrawingBrush.color = this.activeColor;
+        this.canvas.isDrawingMode = !this.canvas.isDrawingMode;
     }
 
     /* Create Contextmenu, when right-clicking on a Canvas-Object */
@@ -62,7 +107,7 @@ class CanvasHandler {
         object.on("mousedown", (event) =>{
             if(event.button === Config.KEY_RIGHT_MOUSEBUTTON){
                 let menu = uiElements.CONTEXTMENU;
-                this.selectedObject = this.canvas.findTarget(event.e);
+                this.selectedObject = this.canvas.getActiveObject();
                 menu.style.left = `${event.e.clientX}px`;
                 menu.style.top = `${event.e.clientY}px`;
                 menu.style.display = "block";
@@ -74,6 +119,44 @@ class CanvasHandler {
                 let menu = uiElements.CONTEXTMENU;
                 menu.style.display = "none";
             }
+        });
+    }
+
+    setContextMenuListener(){
+        this.canvas.on("mouse:down", (event) => {
+            if(event.target !== null){
+                if(event.button === Config.KEY_RIGHT_MOUSEBUTTON){
+                    let menu = uiElements.CONTEXTMENU;
+                    this.selectedObject = this.canvas.getActiveObject();
+                    menu.style.left = `${event.e.clientX}px`;
+                    menu.style.top = `${event.e.clientY}px`;
+                    menu.style.display = "block";
+                    this.contextMenuActive = true;
+                }
+            }
+        });
+        window.addEventListener("click", () => {
+            if(this.contextMenuActive){
+                let menu = uiElements.CONTEXTMENU;
+                menu.style.display = "none";
+            }
+        });
+    }
+
+    /* Sets Listener on Input-Slider for Stroke-thickness of pencil */
+
+    setStrokeThicknessListener(){
+        let input = uiElements.INPUT_STROKE;
+        uiElements.TOOL_WITH_TOOLTIP.addEventListener("mouseover", () => {
+            uiElements.TOOLTIP_DRAW.style = "display: flex";
+            
+        });
+        uiElements.TOOL_WITH_TOOLTIP.addEventListener("mouseout", () => {
+            uiElements.TOOLTIP_DRAW.style = "display: none";
+        });
+        input.addEventListener("input", () => {
+            uiElements.STROKE_THICKNESS_VALUE.innerHTML = input.value;
+            this.canvas.freeDrawingBrush.width = input.value;
         });
     }
 
@@ -125,10 +208,32 @@ class CanvasHandler {
         });
     }
 
+    /* change color of selcted objects */
+
+    changeColor(){
+        let activeObjects = this.canvas.getActiveObjects();
+        for (let index = 0; index < activeObjects.length; index++) {
+            let object = activeObjects[index];
+            object.set("fill", this.activeColor);
+            if(object.stroke !== null){
+                object.set("stroke", this.activeColor);
+            }
+        }
+        this.canvas.freeDrawingBrush.color = this.activeColor;
+        this.canvas.renderAll(); 
+    }
+
     /* removes selected object from canvas */
 
     deleteObject(){
-        this.canvas.remove(this.selectedObject);
+        let selected = this.canvas.getActiveObjects(),
+            selectedGroup = new fabric.ActiveSelection(selected, {
+            canvas: this.canvas,
+            });
+        selectedGroup.forEachObject( (obj) => {
+            this.canvas.remove(obj);
+        });
+        this.canvas.discardActiveObject().renderAll();
     }
 
 }

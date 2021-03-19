@@ -25,12 +25,8 @@
     "dotenv": "^8.2.0",
     "eslint": "^7.18.0",
     "express": "^4.17.1",
-<<<<<<< HEAD
     "fabric": "^4.3.1",
     "file-saver": "^2.0.5",
-=======
-    "morgan": "^1.10.0",
->>>>>>> master
     "reflect-metadata": "^0.1.13",
     "shortid": "^2.2.16",
     "socket.io": "^3.1.2",

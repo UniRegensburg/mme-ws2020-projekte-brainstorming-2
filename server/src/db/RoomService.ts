@@ -24,7 +24,11 @@ export const addRoom = async () => {
 };
 
 export const getRoom = async (id: string) => {
-  return await getRepository(Room).findOne(id);
+    return await getRepository(Room)
+    .createQueryBuilder("user")
+    .where("user.id = :id", { id })
+    .orWhere("user.uniqueLink = :id", { id })
+    .getOne();
 };
 
 export const removeRoom = async (id: string) => {

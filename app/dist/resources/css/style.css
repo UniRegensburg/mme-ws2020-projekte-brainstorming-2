@@ -62,7 +62,7 @@ header{
     min-height: 3rem;
     align-items: center;
     justify-content: center;
-    background-color: var(--cool-grey-800);
+    background-color: var(--cool-grey-900);
     padding: 0.5rem;
 }
 
@@ -126,7 +126,7 @@ input[type="text"]{
 
 input[type="range"]{
     -webkit-appearance: none;
-    height: 0.5rem;
+    height: 0.2rem;
     border-radius: 5px;  
     background: var(--cool-grey-200);
     outline: none;
@@ -170,12 +170,13 @@ main{
     min-height: 90vh;
     display: grid;
     grid-template-columns: auto 6fr minmax(max-content, max-content);
-    grid-template-rows: auto 4rem;
+    grid-template-rows: minmax(20rem, auto) 4rem;
 }
 
 .center{
     overflow: hidden;
     background: white;
+    box-shadow: inset 0px 0px 10px -1px #000000;
 }
 
 #brainstorming-canvas{
@@ -190,9 +191,9 @@ main{
 
 
 .sidebar.left {
-    background: var(--cool-grey-700);
-    display: grid;
-    grid-template-columns: max-content auto;
+    grid-row: 1;
+    background: var(--cool-grey-800);
+    display: flex;
 }
 
 .nav_main_menu{
@@ -223,7 +224,7 @@ main{
 }
 
 .selected_nav {
-    background-color: var(--cool-grey-600);
+    background-color: var(--cool-grey-700);
     color: var(--cyan-middle);
     border-left: 4px solid var(--cyan-light);
 }
@@ -232,10 +233,67 @@ main{
     grid-column: 2;
     width: 20rem;
     height: 100%;
+    background: var(--cool-grey-700);
+}
+
+.menu_section{
+    height: 100%;
+    flex-direction: column;
+}
+
+.menu_section_header{
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    background: var(--cool-grey-800);
+    border-bottom: 2px solid var(--cyan-middle);
+}
+
+.menu_section_header h2{
+    padding: 0rem;
+    color: var(--cyan-middle);
+}
+
+/* --- Literature --- */
+
+.literature .menu_section_header{
+    box-shadow: 0px 11px 11px -9px #000000;
+    z-index: 1;
+}
+
+#button-add-literature{
+    color: var(--cool-grey-50);
+    background-color: var(--cool-grey-900);
+    padding: 0.5rem;
+    margin-right: 1rem;
+}
+
+.literature-list{
+    overflow: auto;
+    height: 100%;
+    box-shadow: inset 0px 11px 20px -7px #000000;
+}
+
+.literature-entry{
+    color: var(--cool-grey-50);
     background: var(--cool-grey-600);
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 4px 4px 18px -7px rgba(0,0,0,0.55);
+}
+
+.literature-title{
+    color: var(--cyan-light);
+    margin: 0rem 0rem 1rem 0rem;
+}
+
+.literature-entry-facts li{
+    margin: 0.5rem 0rem 0.5rem 0rem;
 }
 
 /* --- Meassage-Chat --- */
+
 .menu_section.chat{
     display: flex;
     flex-direction: column;
@@ -286,21 +344,22 @@ main{
 
 .message.box{
     box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--cool-grey-800);
     margin: 1rem;
-    color: white;
+    color: var(--cool-grey-50);
     padding: 0.5rem;
     max-width: max-content;
     min-width: 5rem;
-    border-radius: 5%;
+    border-radius: 5px;
 }
 
 .message.sender{
     font-weight: 500;
+    color: var(--cyan-light);
 }
 
 .message p{
-    margin: 0.5rem;
+    margin: 0.5rem 0rem 0.5rem 0rem;
 }
 
 .message.time{
@@ -336,6 +395,28 @@ main{
     padding: 0.5rem;
     margin: 0.5rem;
     background-color: var(--cyan-light);
+}
+
+.tool.draw{
+    box-sizing: border-box;
+    width: 3rem;
+    height: 3rem;
+    background: none;
+    color: var(--cyan-middle);
+    border: 3px solid var(--cyan-middle);
+}
+
+.tool.draw:hover{
+    scale: 0.9;
+    color: var(--cool-grey-50);
+    border-color: var(--cool-grey-50);
+    background: none;
+}
+
+.tool.draw.active{
+    color: var(--cool-grey-50);
+    border-color: var(--cool-grey-50);
+    background-color: var(--cool-grey-700);
 }
 
 .tool-with-tooltip{
@@ -449,7 +530,6 @@ main{
 
 /* --- modalboxes --- */
 
-
 .modal{
     display: none;
     position: fixed;
@@ -478,14 +558,32 @@ main{
 .modalbox-header{
     background: var(--cyan-light);
     margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .modalbox h2{
     color: var(--darkestgrey);
     text-align: left;
     font-weight: 300;
-    padding: 2rem 5rem 2rem 3rem;
+    padding: 2rem 2rem 2rem 3rem;
     margin: 0rem;
+}
+
+.modalbox-header .close{
+    margin: 2rem 3rem 2rem 2rem;
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: var(--cyan-dark);
+}
+
+.modalbox-header .close:hover{
+    color: var(--cool-grey-800);
+    transition: 0.5s all;
 }
 
 .modalbox hr{
@@ -537,8 +635,9 @@ main{
 }
 
 
-/* --- form-username --- */
+/* --- Modalbox-start-room --- */
 
+/* --- form-username --- */
 
 #form-username .button{
     margin: 2rem 0rem 3rem 0rem;
@@ -588,6 +687,79 @@ main{
     color: var(--cool-grey-50);
     background: var(--cool-grey-800);
     transition: 0.5s all;
+}
+
+/* --- Modalbox-add-literature --- */
+
+.modalbox.add-literature{
+    min-width: 20rem;
+    max-width: 30rem;
+}
+
+.modalbox.add-literature .modalbox-content{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    column-gap: 2rem;
+    margin-top: 1rem;
+}
+
+.modalbox.add-literature label{
+    margin-top: 2rem;
+    font-size: 0.9rem;
+}
+
+.modalbox.add-literature input{
+    margin-top: 0.3rem;
+}
+
+label[for="set-title"]{
+    margin-top: 0;
+}
+
+label[for="set-title"], #input-set-title{
+    grid-column: 1/-1;
+    box-sizing: border-box;
+}
+
+label[for="set-author"], #input-set-author{
+    grid-column: 1;
+    box-sizing: border-box;
+}
+
+label[for="set-year"], #input-set-year{
+    grid-column: 2;
+    box-sizing: border-box;
+}
+
+label[for="set-year"]{
+    grid-row: 3;
+}
+
+label[for="set-url"], #input-set-url{
+    grid-column: 1;
+    box-sizing: border-box;
+}
+
+label[for="set-pages"], #input-set-pages{
+    grid-column: 2;
+    box-sizing: border-box;
+}
+
+label[for="set-pages"]{
+    grid-row: 5;
+}
+
+.button.add-entry{
+    margin-top: 2rem;
+    grid-column: 1/-1;
+    background: none;
+    border: 2px solid var(--cool-grey-900);
+}
+
+.button.add-entry:hover{
+    transform: scale(1);
+    color: var(--cool-grey-50);
+    background: var(--cool-grey-800);
 }
 
 /* --- context-menu --- */

@@ -11,6 +11,7 @@ class CanvasHandler {
         this.canvas = canvas;
         this.contextMenuActive = false;
         this.selectedObject = null;
+        this.drawingmode = false;
         this.colors = getComputedStyle(document.documentElement);
         this.activeColor = this.colors.getPropertyValue("--red");
     }
@@ -97,6 +98,12 @@ class CanvasHandler {
     /* Activates Drawingmode an sets Context menu to ne Path-Objects */
 
     enableDrawing(){
+        this.drawingmode = !this.drawingmode;
+        if(this.drawingmode === true){
+            uiElements.BTN_DRAW.classList.add("active");
+        }else{
+            uiElements.BTN_DRAW.classList.remove("active");
+        }
         this.canvas.freeDrawingBrush.color = this.activeColor;
         this.canvas.isDrawingMode = !this.canvas.isDrawingMode;
     }
@@ -149,7 +156,6 @@ class CanvasHandler {
         let input = uiElements.INPUT_STROKE;
         uiElements.TOOL_WITH_TOOLTIP.addEventListener("mouseover", () => {
             uiElements.TOOLTIP_DRAW.style = "display: flex";
-            
         });
         uiElements.TOOL_WITH_TOOLTIP.addEventListener("mouseout", () => {
             uiElements.TOOLTIP_DRAW.style = "display: none";

@@ -6,9 +6,31 @@ import Config from "./Config.js";
 import MainMenuHandler from "./MainMenuHandler.js";
 import Roomstarter from "./Roomstarter.js";
 import uiElements from "./uiElements.js";
+import { io } from "socket.io-client";
+import LiteratureHandler from "./Literature/LiteratureHandler.js";
 
 function init() {
+  let idofroom = "",
+      aroomname = "";
   createCanvas();
+      /*const ioClient = io.connect("http://localhost:9000");
+      ioClient.on("connection", (socket) => {
+        console.log("hello"); 
+      });
+      ioClient.emit("NewRoom", {}, (socket)=>{
+        console.log(socket);
+        if (socket.status === "ok"){
+          idofroom = socket.payload.id;
+          aroomname = socket.payload.name;
+          console.log(idofroom);
+          console.log(socket.payload.name);
+          const payload = new 
+          console.log(payload);
+          ioClient.emit( "JoinRoom" , payload , (socket) => {
+              console.log(socket);
+          });
+        }
+      });*/
 }
 
 function createCanvas(){
@@ -19,7 +41,8 @@ function createCanvas(){
     stopContextMenu: true }),
   canvasHandler = new CanvasHandler(canvas),
   roomstarter = new Roomstarter(),
-  mainMenuHandler = new MainMenuHandler();
+  mainMenuHandler = new MainMenuHandler(),
+  literatureHandler = new LiteratureHandler();
   roomstarter.start();
   canvasHandler.addListener();
   mainMenuHandler.setListener();

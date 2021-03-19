@@ -1,5 +1,6 @@
 /* eslint-env browser */
 
+import { createDocumentRegistry } from "typescript";
 import uiElements from "./uiElements.js";
 
 class Roomstarter {
@@ -10,6 +11,7 @@ class Roomstarter {
 
     start(){
         uiElements.MODAL_BACKGROUND.style = "display: flex";
+        uiElements.MODAL_START_ROOM ="display: block";
         document.querySelector("main").style = "filter: blur(3px)";
         document.querySelector("header").style = "filter: blur(3px)";
         this.setListeners();
@@ -47,7 +49,8 @@ class Roomstarter {
     }
 
     closeModal(){
-        uiElements.MODAL_BACKGROUND.style = "display: none";
+        uiElements.MODAL_BACKGROUND.style = "display: none;";
+        document.querySelector(".modalbox.start-room").style = "display: none";
         document.querySelector("main").style = "filter: none";
         document.querySelector("header").style = "filter: none";
     }

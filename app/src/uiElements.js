@@ -28,10 +28,12 @@ const uiElements = {
     MAIN_MENU_SECTION_LITERATURE : document.querySelector(".menu_section.literature"),
     MAIN_MENU_SECTION_USERS : document.querySelector(".menu_section.users"),
     MAIN_MENU_SECTION_CHAT : document.querySelector(".menu_section.chat"),
+    BTN_ADD_LITERATURE : document.getElementById("button-add-literature"),
+    UL_LITERATURE_LIST : document.querySelector(".literature-list"),
     // Modal 
     MODAL_BACKGROUND : document.querySelector(".modal"),
     // Modalbox Start-Room
-    MODAL_START_ROOM : document.querySelector(".modalbox start-room"),
+    MODAL_START_ROOM : document.querySelector(".modalbox.start-room"),
     MODAL_FORM_USERNAME : document.getElementById("form-username"),
     MODAL_FORM_CREATEROOM : document.getElementById("form-create-room"),
     MODAL_START_USERNAME_INPUT : document.getElementById("input-set-username"),
@@ -40,6 +42,19 @@ const uiElements = {
     MODAL_LINK_CREATE_ROOM : document.getElementById("link-create-room"),
     MODAL_LINK_ENTER_ROOM : document.getElementById("link-enter-room"),
     MODAL_INVITELINK : document.querySelector(".invite-link"),
+    // Modalbox Add-literature
+    MODAL_ADD_LITERATURE : document.querySelector(".modalbox.add-literature"),
+    MODAL_FORM_LITERATURE : document.getElementById("form-literature"),
+    MODAL_LITERATURE_CLOSE : document.getElementById("close-literature"),
+    MODAL_LITERATURE_TITLE_INPUT : document.getElementById("input-set-title"),
+    MODAL_LITERATURE_AUTHOR_INPUT : document.getElementById("input-set-author"),
+    MODAL_LITERATURE_YEAR_INPUT : document.getElementById("input-set-year"),
+    MODAL_LITERATURE_URL_INPUT : document.getElementById("input-set-url"),
+    MODAL_LITERATURE_PAGES_INPUT : document.getElementById("input-set-pages"),
+    MODAL_LITERATURE_BUTTON_ADD_ENTRY : document.querySelector(".button.add-entry"),
+    // Templates
+    TEMPLATE_MESSAGE : document.getElementById("template-message"),
+    TEMPLATE_LITERATURE : document.getElementById("literature-template"),
 };
 
 export default uiElements;

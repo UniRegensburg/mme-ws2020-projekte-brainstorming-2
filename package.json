@@ -27,7 +27,6 @@
     "express": "^4.17.1",
     "fabric": "^4.3.1",
     "file-saver": "^2.0.5",
-    "morgan": "^1.10.0",
     "reflect-metadata": "^0.1.13",
     "shortid": "^2.2.16",
     "socket.io": "^3.1.2",

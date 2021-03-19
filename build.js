@@ -22,7 +22,10 @@ function bundle() {
 function compileServer() {
   const project = ts.createProject("tsconfig.json");
 
-  gulp.src("server/src/**/*").pipe(project()).pipe(gulp.dest("server/dist"));
+  gulp
+    .src(["server/src/**/*", "!server/src/**/*.md"])
+    .pipe(project())
+    .pipe(gulp.dest("server/dist"));
 }
 
 /**

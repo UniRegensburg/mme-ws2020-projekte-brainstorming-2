@@ -27,6 +27,7 @@ class CanvasHandler {
         uiElements.BTN_TEXT.addEventListener("click", this.createText.bind(this));
         uiElements.BTN_ARROW.addEventListener("click", this.createArrow.bind(this));
         uiElements.BTN_DRAW.addEventListener ("click", this.enableDrawing.bind(this));
+        uiElements.BTN_NOTE.addEventListener("click", this.createNote.bind(this));
         let colorInputList = uiElements.INPUT_COLORS;
         for (let i = 0; i < colorInputList.length ; i++) {
             colorInputList[i].addEventListener("click", (event) => {
@@ -82,6 +83,19 @@ class CanvasHandler {
             tr: false,
         });
         this.canvas.add(line);
+    }
+
+    /* Creates a Sticky-Note and adds it to canvas */
+
+    createNote(){
+        let note = new fabric.Textbox("Sticky Note",{ 
+            left: 100, 
+            top: 100,
+            backgroundColor: this.activeColor,
+            padding: 20,
+            fill: "black", 
+            });
+        this.canvas.add(note);
     }
 
     /* Creates a Textbox and adds it to canvas */

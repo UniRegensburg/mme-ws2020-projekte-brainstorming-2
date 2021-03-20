@@ -6,31 +6,32 @@ import Config from "./Config.js";
 import MainMenuHandler from "./MainMenuHandler.js";
 import Roomstarter from "./Roomstarter.js";
 import uiElements from "./uiElements.js";
-import { io } from "socket.io-client";
 import LiteratureHandler from "./Literature/LiteratureHandler.js";
+import ChatHandler from "./Chat/ChatHandler.js";
+import SocketClient from "./SocketClient.js";
+
+var canvasHandler,
+    roomstarter,
+    mainMenuHandler,
+    literatureHandler,
+    chatHandler,
+    socketClient;
 
 function init() {
-  let idofroom = "",
-      aroomname = "";
+  createComponents();
+}
+
+function createComponents(){
+  socketClient = new SocketClient();
+  roomstarter = new Roomstarter();
+  mainMenuHandler = new MainMenuHandler();
+  literatureHandler = new LiteratureHandler();
+  chatHandler = new ChatHandler("Valentin");
+  roomstarter.start();
+  mainMenuHandler.setListener();
+  socketClient.start();
+  socketClient.requestNewRoom();
   createCanvas();
-      /*const ioClient = io.connect("http://localhost:9000");
-      ioClient.on("connection", (socket) => {
-        console.log("hello"); 
-      });
-      ioClient.emit("NewRoom", {}, (socket)=>{
-        console.log(socket);
-        if (socket.status === "ok"){
-          idofroom = socket.payload.id;
-          aroomname = socket.payload.name;
-          console.log(idofroom);
-          console.log(socket.payload.name);
-          const payload = new 
-          console.log(payload);
-          ioClient.emit( "JoinRoom" , payload , (socket) => {
-              console.log(socket);
-          });
-        }
-      });*/
 }
 
 function createCanvas(){
@@ -39,14 +40,8 @@ function createCanvas(){
     height: 3000,
     fireRightClick: true,
     stopContextMenu: true }),
-  canvasHandler = new CanvasHandler(canvas),
-  roomstarter = new Roomstarter(),
-  mainMenuHandler = new MainMenuHandler(),
-  literatureHandler = new LiteratureHandler();
-  roomstarter.start();
+    canvasHandler = new CanvasHandler(canvas);
   canvasHandler.addListener();
-  mainMenuHandler.setListener();
-  
   /* Adds functionality to zoom-in and -out and pan the canvas by clicking and pressing the alt-key*/
 
   canvas.on("mouse:wheel", function(opt){

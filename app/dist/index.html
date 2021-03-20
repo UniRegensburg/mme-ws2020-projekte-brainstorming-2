@@ -49,22 +49,32 @@
 							<span class="button" id="button-add-literature">Add Item</span>
 						</div>
 						<ul class="literature-list">
-							<li class="literature-entry" id="">
-								<h4 class="literature-title">Tolles Buch</h4>
+							<li class="literature-entry" literature-id="">
+								<div class="literature-entry-header">
+									<h4 class="literature-title">Das tolle Buch</h4>
+									<span class="button-delete-literature">
+										<i class="fas fa-trash"></i>
+									</span>
+								</div>
 								<ul class="literature-entry-facts">
-									<li class="literature-author"> <b>Author:</b> Peter Pan</li>
-									<li class="literature-year"> <b>Year:</b> 2015</li>
-									<li class="literature-url"> <b>URL:</b> https://www.thalia.de/shop/home/artikeldetails/ID148123815.html</li>
-									<li class="literature-pages"> <b>Pages:</b> 205</li>
+									<li class="literature-author"> <b>Author:</b> Hans Huber</li>
+									<li class="literature-year"> <b>Year:</b> 2030</li>
+									<li class="literature-url"><b>URL:</b> https://fontawesome.com/icons/trash?style=solid</li>
+									<li class="literature-pages"><b>Pages:</b> 503</li>
 								</ul>
 							</li>
-							<li class="literature-entry" id="">
-								<h4 class="literature-title">Tolles Buch</h4>
+							<li class="literature-entry" literature-id="">
+								<div class="literature-entry-header">
+									<h4 class="literature-title">Ein Buch</h4>
+									<span class="button-delete-literature">
+										<i class="fas fa-trash"></i>
+									</span>
+								</div>
 								<ul class="literature-entry-facts">
-									<li class="literature-author"> <b>Author:</b> Peter Pan</li>
-									<li class="literature-year"> <b>Year:</b> 2015</li>
-									<li class="literature-url"> <b>URL:</b> https://www.thalia.de/shop/home/artikeldetails/ID148123815.html</li>
-									<li class="literature-pages"> <b>Pages:</b> 205</li>
+									<li class="literature-author"> <b>Author:</b> Huber Hans</li>
+									<li class="literature-year"> <b>Year:</b> 2007</li>
+									<li class="literature-url"><b>URL:</b> https://fontawesome.com/icons/trash?style=solid</li>
+									<li class="literature-pages"><b>Pages:</b> 298</li>
 								</ul>
 							</li>
 						</ul>
@@ -121,6 +131,9 @@
 					</li>
 					<li class="button tool arrow">
 						<i class="fas fa-long-arrow-alt-left"></i>
+					</li>
+					<li class="button tool note">
+						<i class="far fa-sticky-note"></i>
 					</li>
 					<li class="button tool text">
 						<i class="fas fa-font"></i>
@@ -228,14 +241,19 @@
 		<template id="message-template">
 			<li class="message box">
 				<span class="message sender">Name</span>
-				<p>Hi !</p>
+				<p class="message content">Hi !</p>
 				<span class="message time">13:00</span>
 			</li>
 		</template>
 
 		<template id="literature-template">
 			<li class="literature-entry" literature-id="">
-				<h4 class="literature-title"></h4>
+				<div class="literature-entry-header">
+					<h4 class="literature-title"></h4>
+					<span class="button-delete-literature">
+						<i class="fas fa-trash"></i>
+					</span>
+				</div>
 				<ul class="literature-entry-facts">
 					<li class="literature-author"> <b>Author:</b> </li>
 					<li class="literature-year"> <b>Year:</b> </li>

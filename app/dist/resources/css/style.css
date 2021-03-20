@@ -278,14 +278,39 @@ main{
     color: var(--cool-grey-50);
     background: var(--cool-grey-600);
     margin: 1rem;
-    padding: 1rem;
     border-radius: 5px;
     box-shadow: 4px 4px 18px -7px rgba(0,0,0,0.55);
 }
 
+.literature-entry-header{
+    display: flex;
+    padding: 1rem;
+    flex-direction: row;
+    justify-content: space-between;
+    background: var(--cyan-dark);
+    color: var(--cool-grey-700);
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
 .literature-title{
-    color: var(--cyan-light);
-    margin: 0rem 0rem 1rem 0rem;
+    display: block;
+    flex-grow: 1;
+    max-width: 100%;
+    margin: 0;
+}
+
+.button-delete-literature{
+    color: var(--cool-grey-50);
+    cursor: pointer;
+}
+
+.button-delete-literature:hover{
+    color: var(--red);
+}
+
+.literature-entry-facts{
+    padding: 1rem;
 }
 
 .literature-entry-facts li{
@@ -302,6 +327,7 @@ main{
 }
 .message-history{
     height: 100%;
+    overflow: auto;
 }
 .message-input-box{
     width: 100%;

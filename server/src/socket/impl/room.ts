@@ -140,7 +140,6 @@ async function DestroyRoom(this: IThis, arg: WSDestroyRoomRequest, cb: any) {
 async function JoinRoom(this: IThis, arg: WSJoinRoomRequest, cb: any) {
   const logger = new Log("JoinRoom");
   logger.debug(`Request from ${this.socket.id}`);
-
   try {
     // Update socket
     this.socket.name = arg.payload.username;
@@ -175,4 +174,22 @@ async function JoinRoom(this: IThis, arg: WSJoinRoomRequest, cb: any) {
   }
 }
 
-export { NewRoom, ChangeRoomName, DestroyRoom, JoinRoom };
+async function GetAll(this: IThis, arg: any, cb: any) {
+  const logger = new Log("GetALl");
+  logger.debug(`Request from ${this.socket.id}`);
+
+  const all = await getAll()
+
+logger.debug(JSON.stringify(all))
+
+  const response: WSDestroyRoomResponse = {
+    status: "ok",
+    error: null,
+    type: "DestroyRoom",
+    //payload: all
+  };
+
+  cb(response);
+}
+
+export { NewRoom, ChangeRoomName, DestroyRoom, JoinRoom, GetAll };

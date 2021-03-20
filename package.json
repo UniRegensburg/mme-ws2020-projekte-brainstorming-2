@@ -11,7 +11,7 @@
     "start": "node index.js ./app/dist 8000",
     "serve": "npx webpack serve --open --config webpack.dev.js",
     "prestart": "npm run build",
-    "prebuild": "npm install && npm run check",
+    "prebuild": "npm install",
     "build": "node build.js",
     "check": "eslint app/src",
     "deploy": "forever index.js ./app/dist 9901",

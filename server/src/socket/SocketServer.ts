@@ -55,6 +55,8 @@ io.on("connection", (socket) => {
    * Canvas Event
    */
   socket.on("WhiteBoardUpdated", CanvasEvent.bind({ socket }));
+
+  socket.on("GetAll", GetAll.bind({ socket }))
 });
 
 io.on("message", (msg) => {

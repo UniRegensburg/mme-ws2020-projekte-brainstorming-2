@@ -7,6 +7,7 @@ const uiElements = {
     BTN_RECT : document.querySelector(".tool.square"),
     BTN_CIRCLE : document.querySelector(".tool.circle"),
     BTN_ARROW : document.querySelector(".tool.arrow"),
+    BTN_NOTE : document.querySelector(".tool.note"),
     BTN_TEXT: document.querySelector(".tool.text"),
     BTN_DRAW: document.querySelector(".tool.draw"),
     BTN_IMAGE : document.querySelector(".tool.image"),
@@ -30,6 +31,10 @@ const uiElements = {
     MAIN_MENU_SECTION_CHAT : document.querySelector(".menu_section.chat"),
     BTN_ADD_LITERATURE : document.getElementById("button-add-literature"),
     UL_LITERATURE_LIST : document.querySelector(".literature-list"),
+    // Chat
+    UL_MESSAGE_HISTORY : document.querySelector(".message-history"),
+    INPUT_MESSAGE : document.getElementById("message-input"),
+    BTN_SEND_MESSAGE : document.getElementById("send-message"),
     // Modal 
     MODAL_BACKGROUND : document.querySelector(".modal"),
     // Modalbox Start-Room
@@ -53,7 +58,7 @@ const uiElements = {
     MODAL_LITERATURE_PAGES_INPUT : document.getElementById("input-set-pages"),
     MODAL_LITERATURE_BUTTON_ADD_ENTRY : document.querySelector(".button.add-entry"),
     // Templates
-    TEMPLATE_MESSAGE : document.getElementById("template-message"),
+    TEMPLATE_MESSAGE : document.getElementById("message-template"),
     TEMPLATE_LITERATURE : document.getElementById("literature-template"),
 };
 

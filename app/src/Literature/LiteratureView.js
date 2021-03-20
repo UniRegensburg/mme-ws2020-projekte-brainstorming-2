@@ -17,7 +17,15 @@ class LiteratureView {
         if ( this.literatureEntry.url.length !== 0) { this.literatureElement.querySelector(".literature-url").innerHTML = `<b>URL: </b> ${this.literatureEntry.url}`;}
         if ( this.literatureEntry.pages.length !== 0) { this.literatureElement.querySelector(".literature-pages").innerHTML = `<b>Pages: </b> ${this.literatureEntry.pages}`;}
         this.literatureElement.querySelector(".literature-entry").setAttribute("literature-id", this.literatureEntry.id);
+        this.literatureElement.querySelector(".button-delete-literature").addEventListener("click", (event) => {
+            let id = this.literatureEntry.id;
+            this.removeEntry(id);
+        });
         uiElements.UL_LITERATURE_LIST.appendChild(this.literatureElement);
+    }
+
+    removeEntry(entryID){
+        console.log(entryID);
     }
 
 }

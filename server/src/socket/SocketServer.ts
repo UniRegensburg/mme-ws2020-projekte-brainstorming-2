@@ -10,6 +10,7 @@ import {
   AddLiterature,
   RemoveLiterature,
   JoinRoom,
+  GetAll,
 } from "./impl";
 import { CanvasEvent } from "./impl/canvas";
 
@@ -56,7 +57,7 @@ io.on("connection", (socket) => {
    */
   socket.on("WhiteBoardUpdated", CanvasEvent.bind({ socket }));
 
-  socket.on("GetAll", GetAll.bind({ socket }))
+  socket.on("GetAll", GetAll.bind({ socket }));
 });
 
 io.on("message", (msg) => {

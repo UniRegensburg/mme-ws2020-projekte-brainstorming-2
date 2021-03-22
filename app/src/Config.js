@@ -13,6 +13,9 @@ const Config = {
     OBJECT_DEFAULT_WIDTH : 100,
     OBJECT_DEFAULT_HEIGHT : 100,
     OBJECT_DEFAULT_RADIUS : 100,
+
+    DEFAULT_CLIENT_URL : "http://localhost:8080/",
+    DEAFULT_SERVER_URL : "http://localhost:8000",
 };
 
 export default Config;

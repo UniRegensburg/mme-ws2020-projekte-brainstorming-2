@@ -1,12 +1,14 @@
 /* eslint-env browser */
 
+import { Event, Observable } from "../Observable.js";
 import uiElements from "../uiElements.js";
 import ChatMessage from "./ChatMessage.js";
 import MessageView from "./MessageView.js";
 
-class ChatHandler {
+class ChatHandler extends Observable{
 
     constructor(username){
+        super();
         this.username = username;
         this.setListener();
     }
@@ -19,9 +21,16 @@ class ChatHandler {
                 minutes = date.getMinutes(),
                 time = `${hour}:${minutes}`,
                 chatMessage = new ChatMessage(this.username, messageContent, time),
-                messageView = new MessageView(chatMessage);
+                messageView = new MessageView(chatMessage),
+                ev = new Event ("SendChatMessage", messageContent);
             messageView.createDOMElement();
+            this.notifyAll(ev);
             uiElements.INPUT_MESSAGE.value = "";
+        });
+        
+        this.addEventListener( "NewChatMessage", (event) => {
+            console.log("ChatHandler: New Message");
+            console.log(event);
         });
     }
 

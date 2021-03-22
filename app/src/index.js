@@ -9,6 +9,7 @@ import uiElements from "./uiElements.js";
 import LiteratureHandler from "./Literature/LiteratureHandler.js";
 import ChatHandler from "./Chat/ChatHandler.js";
 import SocketClient from "./SocketClient.js";
+import Observable from "./Observable.js";
 
 var canvasHandler,
     roomstarter,
@@ -19,20 +20,40 @@ var canvasHandler,
 
 function init() {
   createComponents();
+  registerEventListener();
 }
 
 function createComponents(){
   socketClient = new SocketClient();
-  roomstarter = new Roomstarter();
+  roomstarter = new Roomstarter(socketClient);
   mainMenuHandler = new MainMenuHandler();
   literatureHandler = new LiteratureHandler();
   chatHandler = new ChatHandler("Valentin");
   roomstarter.start();
   mainMenuHandler.setListener();
   socketClient.start();
-  socketClient.requestNewRoom();
   createCanvas();
 }
+
+/* Register Event Listenener for internal Communication */
+
+function registerEventListener(){
+  chatHandler.addEventListener("SendChatMessage", (event) => {
+    socketClient.sendMessage(event.data);
+  });
+  roomstarter.addEventListener("CreateNewRoom", () => {
+    socketClient.requestNewRoom();
+  });
+  socketClient.addEventListener("NewRoomCreated", (event) => {
+    roomstarter.setRoomCreatedScreen(event.data);
+  });
+  literatureHandler.addEventListener("AddLiterature", (event) => {
+    socketClient.requestAddLiterature(event.data);
+    console.log(event.data);
+  });
+}
+
+/* Create and init Canvas */
 
 function createCanvas(){
   let canvas = new fabric.Canvas("brainstorming-canvas", { 
@@ -42,6 +63,7 @@ function createCanvas(){
     stopContextMenu: true }),
     canvasHandler = new CanvasHandler(canvas);
   canvasHandler.addListener();
+
   /* Adds functionality to zoom-in and -out and pan the canvas by clicking and pressing the alt-key*/
 
   canvas.on("mouse:wheel", function(opt){

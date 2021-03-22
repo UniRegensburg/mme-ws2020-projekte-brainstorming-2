@@ -11,6 +11,17 @@ class LiteratureEntry {
         this.id = Date.now().toString();
     }
 
+    getObject(){
+        let Literature = {
+            id: this.id,
+            title: this.title,
+            author: this.author,
+            url: this.url, 
+            pages: this.pages,
+        };
+        return Literature;
+    }
+
 }
 
 export default LiteratureEntry;

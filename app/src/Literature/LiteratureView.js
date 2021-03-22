@@ -1,7 +1,6 @@
 /* eslint-env browser */
 
 import uiElements from "../uiElements.js";
-import literatureEntry from "./LiteratureEntry.js";
 
 class LiteratureView {
 

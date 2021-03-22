@@ -1,3 +1,5 @@
+/* eslint-env browser */
+
 class Event {
     constructor(type, data) {
         this.type = type;
@@ -31,4 +33,3 @@ class Observable {
 
 export { Event, Observable };
 export default Observable;
-

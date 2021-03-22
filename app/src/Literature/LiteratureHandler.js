@@ -1,12 +1,14 @@
 /* eslint-env browser */
 
+import Observable, { Event } from "../Observable.js";
 import uiElements from "../uiElements.js";
 import LiteratureEntry from "./LiteratureEntry.js";
 import LiteratureView from "./LiteratureView.js";
 
-class LiteratureHandler {
+class LiteratureHandler extends Observable{
 
     constructor(){
+        super();
         this.setListener();
     }
 
@@ -35,7 +37,10 @@ class LiteratureHandler {
             url = document.getElementById("input-set-url").value,
             pages = document.getElementById("input-set-pages").value,
             entry = new LiteratureEntry(title, author, year, url, pages),
-            view = new LiteratureView(entry);
+            view = new LiteratureView(entry),
+            Literature = entry.getObject(),
+            ev = new Event ( "AddLiterature" , Literature);
+        this.notifyAll(ev);    
         view.createDOMElement();
     }
 

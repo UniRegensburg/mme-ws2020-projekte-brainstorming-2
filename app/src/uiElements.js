@@ -39,6 +39,7 @@ const uiElements = {
     MODAL_BACKGROUND : document.querySelector(".modal"),
     // Modalbox Start-Room
     MODAL_START_ROOM : document.querySelector(".modalbox.start-room"),
+    MODAl_FORM_START_HOME : document.getElementById("form-start-home"),
     MODAL_FORM_USERNAME : document.getElementById("form-username"),
     MODAL_FORM_CREATEROOM : document.getElementById("form-create-room"),
     MODAL_START_USERNAME_INPUT : document.getElementById("input-set-username"),

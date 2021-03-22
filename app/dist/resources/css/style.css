@@ -663,6 +663,26 @@ main{
 
 /* --- Modalbox-start-room --- */
 
+/* --- form-start-home --- */
+
+#form-start-home p{
+    line-height: 1.6rem;
+}
+
+.button.create-room{
+    margin: 2rem 0rem 3rem 0rem;
+    width: 100%;
+    font-size: 1rem;
+    background: none;
+    border: 1px solid var(--cool-grey-800);
+}
+
+.button.create-room:hover{
+    transform: scale(1);
+    color: var(--cool-grey-50);
+    background: var(--cool-grey-800);
+}
+
 /* --- form-username --- */
 
 #form-username .button{

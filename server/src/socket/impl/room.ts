@@ -140,6 +140,17 @@ async function DestroyRoom(this: IThis, arg: WSDestroyRoomRequest, cb: any) {
 async function JoinRoom(this: IThis, arg: WSJoinRoomRequest, cb: any) {
   const logger = new Log("JoinRoom");
   logger.debug(`Request from ${this.socket.id}`);
+
+  if (!arg.payload.roomName || arg.payload.roomName.length < 0) {
+    logger.error(`Couldn't join room: No room specified`);
+    return cb({
+      status: "error",
+      error: "Please provide a room name",
+      type: "JoinRoom",
+      payload: {},
+    });
+  }
+
   try {
     // Update socket
     this.socket.name = arg.payload.username;

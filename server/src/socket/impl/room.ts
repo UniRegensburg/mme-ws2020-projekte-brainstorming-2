@@ -140,10 +140,22 @@ async function DestroyRoom(this: IThis, arg: WSDestroyRoomRequest, cb: any) {
 async function JoinRoom(this: IThis, arg: WSJoinRoomRequest, cb: any) {
   const logger = new Log("JoinRoom");
   logger.debug(`Request from ${this.socket.id}`);
+
+  if (!arg.payload.roomName || arg.payload.roomName.length < 0) {
+    logger.error(`Couldn't join room: No room specified`);
+    return cb({
+      status: "error",
+      error: "Please provide a room name",
+      type: "JoinRoom",
+      payload: {},
+    });
+  }
+
   try {
     // Update socket
     this.socket.name = arg.payload.username;
     this.socket.join(arg.payload.roomName);
+    this.socket.room = arg.payload.roomName;
 
     // Notify other participants
     this.socket.to(arg.payload.roomName).emit("Joined", {
@@ -152,6 +164,8 @@ async function JoinRoom(this: IThis, arg: WSJoinRoomRequest, cb: any) {
     } as WSJoinedResponse);
 
     let room = await getRoom(arg.payload.roomName);
+
+    logger.debug(`Joined ${this.socket.id} to ${this.socket.room!}`);
 
     // Respond
     cb({
@@ -178,9 +192,9 @@ async function GetAll(this: IThis, arg: any, cb: any) {
   const logger = new Log("GetALl");
   logger.debug(`Request from ${this.socket.id}`);
 
-  const all = await getAll()
+  const all = await getAll();
 
-logger.debug(JSON.stringify(all))
+  logger.debug(JSON.stringify(all));
 
   const response: WSDestroyRoomResponse = {
     status: "ok",

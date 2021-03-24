@@ -51,6 +51,18 @@ interface WSChangeRoomNameResponse extends WSResponse {
 }
 ```
 
+> This is an emit-only event
+
+```typescript
+export interface WSRoomNameChanges {
+  type: "RoomNameChanged";
+  payload: {
+    oldName: string;
+    newName: string;
+  };
+}
+```
+
 **Destroy Room**
 
 Deletes the room with its contents

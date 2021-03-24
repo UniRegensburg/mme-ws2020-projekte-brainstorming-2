@@ -19,6 +19,7 @@ import {
   WSDestroyRoomResponse,
   WSNewRoomRequest,
   WSNewRoomResponse,
+  WSRoomNameChanges,
 } from "../../interfaces/setup";
 import { Room } from "../../models/room";
 
@@ -82,6 +83,14 @@ async function ChangeRoomName(
     await updateRoomName(arg.payload.id, {
       name: arg.payload.name,
     });
+
+    this.socket.to(this.socket.room!).emit("RoomNameChanged", {
+      type: "RoomNameChanged",
+      payload: {
+        oldName: arg.payload.id,
+        newName: arg.payload.name,
+      },
+    } as WSRoomNameChanges);
   } catch (error) {
     logger.error(`Error: ${JSON.stringify(error)}`);
     return cb({

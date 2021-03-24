@@ -34,6 +34,14 @@ export interface WSChangeRoomNameResponse extends WSResponse {
   };
 }
 
+export interface WSRoomNameChanges {
+  type: "RoomNameChanged";
+  payload: {
+    oldName: string;
+    newName: string;
+  };
+}
+
 /**
  * Destroy a room and its contents
  */

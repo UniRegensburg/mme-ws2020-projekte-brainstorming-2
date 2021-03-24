@@ -148,7 +148,11 @@ async function DestroyRoom(this: IThis, arg: WSDestroyRoomRequest, cb: any) {
 /**
  * Join a room
  */
-async function JoinRoom(this: IThis, arg: WSJoinRoomRequest, cb: any) {
+async function JoinRoom(
+  this: IThis<{ userInRoom: Record<string, string[]> }>,
+  arg: WSJoinRoomRequest,
+  cb: any
+) {
   const logger = new Log("JoinRoom");
   logger.debug(`Request from ${this.socket.id}`);
 
@@ -168,14 +172,16 @@ async function JoinRoom(this: IThis, arg: WSJoinRoomRequest, cb: any) {
     this.socket.join(arg.payload.roomName);
     this.socket.room = arg.payload.roomName;
 
-    userInRoom[arg.payload.roomName].push(arg.payload.username);
+    if (!this.userInRoom[arg.payload.roomName])
+      this.userInRoom[arg.payload.roomName] = [];
+    this.userInRoom[arg.payload.roomName].push(arg.payload.username);
 
     // Notify other participants
     this.socket.to(arg.payload.roomName).emit("Joined", {
       type: "Joined",
       payload: {
         username: arg.payload.username,
-        userInRoom: userInRoom[arg.payload.roomName],
+        userInRoom: this.userInRoom[arg.payload.roomName],
       },
     } as WSJoinedResponse);
 
@@ -189,13 +195,13 @@ async function JoinRoom(this: IThis, arg: WSJoinRoomRequest, cb: any) {
       error: null,
       type: "JoinRoom",
       payload: {
-        userInRoom: userInRoom[arg.payload.roomName],
+        userInRoom: this.userInRoom[arg.payload.roomName],
         canvas: null,
         room,
       },
     } as WSJoinRoomResponse);
   } catch (error) {
-    logger.error(`Error: ${JSON.stringify(error)}`);
+    logger.error(`Error: ${error}`);
     cb({
       status: "error",
       error: "Could not join room",

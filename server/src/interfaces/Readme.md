@@ -249,7 +249,7 @@ interface WSRemoveLiteratureResponse extends WSResponse {
 }
 
 interface WSLiteratureRemoved {
-  type: "LiteratureAdded";
+  type: "LiteratureRemoved";
   payload: {
     id: string;
   };

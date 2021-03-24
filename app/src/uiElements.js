@@ -2,7 +2,6 @@
 
 const uiElements = {
     CANAVS : document.getElementById("brainstorming-canvas"),
-    COPY_TO_CLIPBOARD : document.querySelector(".fa-copy"),
     // Canvas-Tools
     BTN_RECT : document.querySelector(".tool.square"),
     BTN_CIRCLE : document.querySelector(".tool.circle"),
@@ -31,6 +30,14 @@ const uiElements = {
     MAIN_MENU_SECTION_CHAT : document.querySelector(".menu_section.chat"),
     BTN_ADD_LITERATURE : document.getElementById("button-add-literature"),
     UL_LITERATURE_LIST : document.querySelector(".literature-list"),
+    //Settings
+    SETTINGS_INPUT_ROOMNAME : document.getElementById("rename-room"),
+    SETTINGS_INPUT_USERNAME : document.getElementById("rename-username"),
+    SETTINGS_BTN_DELETE_ROOM : document.querySelector(".button.delete-room"),
+    SETTINGS_INVITELINK : document.querySelector(".settings.invite-link"),
+    SETTINGS_COPY_TO_CLIPBOARD : document.getElementById("copy-link-settings"),
+    //Users
+    UL_USERLIST : document.querySelector(".user-list"),
     // Chat
     UL_MESSAGE_HISTORY : document.querySelector(".message-history"),
     INPUT_MESSAGE : document.getElementById("message-input"),
@@ -47,7 +54,8 @@ const uiElements = {
     MODAL_START_BUTTON_ENTER_ROOM : document.querySelector(".button.enter-room"),
     MODAL_LINK_CREATE_ROOM : document.getElementById("link-create-room"),
     MODAL_LINK_ENTER_ROOM : document.getElementById("link-enter-room"),
-    MODAL_INVITELINK : document.querySelector(".invite-link"),
+    MODAL_INVITELINK : document.querySelector(".modalbox.invite-link"),
+    MODAL_COPY_TO_CLIPBOARD : document.getElementById("copy-link-modal"),
     // Modalbox Add-literature
     MODAL_ADD_LITERATURE : document.querySelector(".modalbox.add-literature"),
     MODAL_FORM_LITERATURE : document.getElementById("form-literature"),
@@ -61,6 +69,7 @@ const uiElements = {
     // Templates
     TEMPLATE_MESSAGE : document.getElementById("message-template"),
     TEMPLATE_LITERATURE : document.getElementById("literature-template"),
+    TEMPALTE_USER : document.getElementById("user-template"),
 };
 
 export default uiElements;

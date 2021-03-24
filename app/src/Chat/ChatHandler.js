@@ -16,22 +16,23 @@ class ChatHandler extends Observable{
     setListener(){
         uiElements.BTN_SEND_MESSAGE.addEventListener("click", () => {
             let messageContent = uiElements.INPUT_MESSAGE.value,
-                date = new Date(),
-                hour = date.getHours(),
-                minutes = date.getMinutes(),
-                time = `${hour}:${minutes}`,
-                chatMessage = new ChatMessage(this.username, messageContent, time),
+                chatMessage = new ChatMessage(this.username, messageContent),
                 messageView = new MessageView(chatMessage),
                 ev = new Event ("SendChatMessage", messageContent);
             messageView.createDOMElement();
             this.notifyAll(ev);
             uiElements.INPUT_MESSAGE.value = "";
         });
-        
-        this.addEventListener( "NewChatMessage", (event) => {
-            console.log("ChatHandler: New Message");
-            console.log(event);
-        });
+    }
+
+    addMessage(payload){
+        let message = new ChatMessage("User?", payload),
+            messageView = new MessageView(message);
+        messageView.createDOMElement();
+    }
+
+    updateUsername(username){
+        this.username = username;
     }
 
 }

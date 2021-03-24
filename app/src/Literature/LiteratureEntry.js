@@ -7,19 +7,25 @@ class LiteratureEntry {
         this.author = author;
         this.year = year;
         this.url = url;
-        this.pages = pages;
+        this.pages = this.getPagesArray(pages);
         this.id = Date.now().toString();
     }
 
     getObject(){
         let Literature = {
             id: this.id,
-            title: this.title,
+            name: this.title,
             author: this.author,
             url: this.url, 
             pages: this.pages,
         };
         return Literature;
+    }
+
+    getPagesArray(string){
+        let str = string.toString().trim(),
+            result = str.split(",");
+        return result;
     }
 
 }

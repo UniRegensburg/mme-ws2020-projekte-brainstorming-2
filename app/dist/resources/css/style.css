@@ -254,6 +254,87 @@ main{
     color: var(--cyan-middle);
 }
 
+/* --- Settings --- */
+
+.menu_section.settings{
+    overflow: auto;
+}
+
+.settings{
+    color: var(--cool-grey-100);
+}
+
+.settings h3{
+    color: var(--cool-grey-200);
+}
+
+.settings input{
+    background: none;
+    border: 1px solid var(--cool-grey-500);
+    padding: 0.5rem;
+    border-radius: 5px;
+    color: var(--cool-grey-100);
+}
+
+.settings input:focus{
+    border: 2px solid var(--cyan-light);
+    transition: 0.2s all;
+}
+
+.settings hr{
+    border: 1px solid var(--cool-grey-500);
+    width: 99%;
+}
+
+.settings-item{
+    margin: 1rem 0rem 1rem 0rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-title{
+    box-sizing: border-box;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+}
+
+#room-settings{
+    padding: 0rem 1rem 1rem 1rem;
+}
+
+.settings .invite-link-wrapper{
+    margin-bottom: 0rem;
+    border: 1px solid var(--cool-grey-500);
+}
+
+.settings .invite-link-wrapper i{
+    background: var(--cool-grey-500);
+    width: 1rem;
+    color: var(--cool-grey-50);
+}
+
+.settings .invite-link-wrapper i:hover{
+    color: var(--cyan-middle);
+    background: var(--cool-grey-900);
+}
+
+.button.delete-room{
+    margin-top: 1.5rem;
+    font-weight: 400;
+    color: var(--cool-grey-50);
+    border: 2px solid var(--red);
+    padding: 0.5rem;
+}
+
+.button.delete-room:hover{
+    background: var(--red);
+    transform: scale(1);
+}
+
+#user-settings{
+    padding: 0rem 1rem 1rem 1rem;
+}
+
 /* --- Literature --- */
 
 .literature .menu_section_header{
@@ -315,6 +396,22 @@ main{
 
 .literature-entry-facts li{
     margin: 0.5rem 0rem 0.5rem 0rem;
+}
+
+/* --- Users --- */
+
+.user-list{
+    overflow: auto;
+}
+
+.user-item{
+    margin: 1rem;
+    color: var(--cool-grey-100);
+    background: var(--cool-grey-800);
+    padding: 1rem;
+    font-weight: 400;
+    border-radius: 5px;
+    border-left: 5px solid red;
 }
 
 /* --- Meassage-Chat --- */
@@ -390,7 +487,9 @@ main{
 
 .message.time{
     font-size: 0.8rem;
+    margin-left: 0.3rem;
 }
+
 /* --- Right Sidebar --- */
 
 .sidebar.right{
@@ -654,6 +753,7 @@ main{
 
 .modalbox.start-room{
     box-sizing: border-box;
+    width: 30rem;
 }
 
 .modalbox-content{
@@ -711,7 +811,9 @@ main{
 }
 
 .invite-link-wrapper{
-    display: inline-block;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     border: 1px solid var(--cool-grey-800);
     overflow: hidden;
     border-radius: 3px;
@@ -721,6 +823,8 @@ main{
 .invite-link{
     box-sizing: border-box;
     padding: 0.5rem;
+    border-radius: 0px;
+    width: 100%;
 }
 
 .invite-link-wrapper i{
@@ -819,6 +923,7 @@ label[for="set-pages"]{
     padding: 0;
     box-shadow: 4px 7px 18px -7px rgba(0,0,0,0.55);
     border-radius: 5px;
+    overflow: hidden;
 }
 
 #contextmenu menu{

@@ -4,18 +4,20 @@ import { fabric } from "fabric";
 import CanvasHandler from "./CanvasHandler.js";
 import Config from "./Config.js";
 import MainMenuHandler from "./MainMenuHandler.js";
-import Roomstarter from "./Roomstarter.js";
+import RoomManager from "./RoomManager.js";
 import uiElements from "./uiElements.js";
 import LiteratureHandler from "./Literature/LiteratureHandler.js";
 import ChatHandler from "./Chat/ChatHandler.js";
 import SocketClient from "./SocketClient.js";
 import Observable from "./Observable.js";
+import UserListHandler from "./UserListHandler.js";
 
 var canvasHandler,
-    roomstarter,
+    roomManager,
     mainMenuHandler,
     literatureHandler,
     chatHandler,
+    userListHandler,
     socketClient;
 
 function init() {
@@ -25,11 +27,12 @@ function init() {
 
 function createComponents(){
   socketClient = new SocketClient();
-  roomstarter = new Roomstarter(socketClient);
+  roomManager = new RoomManager(socketClient);
   mainMenuHandler = new MainMenuHandler();
   literatureHandler = new LiteratureHandler();
-  chatHandler = new ChatHandler("Valentin");
-  roomstarter.start();
+  chatHandler = new ChatHandler("Unknown User");
+  userListHandler = new UserListHandler();
+  roomManager.start();
   mainMenuHandler.setListener();
   socketClient.start();
   createCanvas();
@@ -41,15 +44,40 @@ function registerEventListener(){
   chatHandler.addEventListener("SendChatMessage", (event) => {
     socketClient.sendMessage(event.data);
   });
-  roomstarter.addEventListener("CreateNewRoom", () => {
+  roomManager.addEventListener("CreateNewRoom", () => {
     socketClient.requestNewRoom();
   });
+  roomManager.addEventListener("RoomNameChanged", (event) => {
+    socketClient.requestRenameRoom(event.data);
+  });
+  roomManager.addEventListener("RequestJoinRoom", (event) => {
+    socketClient.requestJoinRoom(event.data); 
+    chatHandler.updateUsername(event.data.username);
+    console.log(event.data);
+  });
+
+  socketClient.addEventListener("JoinedRequestedRoom", (event) => {
+    roomManager.enterRoom(event.data);
+  }); 
+
   socketClient.addEventListener("NewRoomCreated", (event) => {
-    roomstarter.setRoomCreatedScreen(event.data);
+    roomManager.setRoomCreatedScreen(event.data);
+  });
+  socketClient.addEventListener("NewRoomName", (event) => {
+    roomManager.updateRoomName(event.data);
+  });
+  socketClient.addEventListener("UserJoined", (event) => {
+    userListHandler.createDOMElement(event.data);
+  });
+  socketClient.addEventListener("NewChatMessage", (event) => {
+    chatHandler.addMessage(event.data);
   });
   literatureHandler.addEventListener("AddLiterature", (event) => {
     socketClient.requestAddLiterature(event.data);
     console.log(event.data);
+  });
+  literatureHandler.addEventListener("RequestRemoveLiterature", (event) => {
+    socketClient.requestRemoveLiterature(event.data);
   });
 }
 

@@ -1,10 +1,12 @@
 /* eslint-env browser */
 
+import { Observable, Event } from "../Observable.js";
 import uiElements from "../uiElements.js";
 
-class LiteratureView {
+class LiteratureView extends Observable{
 
     constructor(literatureEntry){
+        super();
         this.literatureEntry = literatureEntry;
         this.literatureElement = uiElements.TEMPLATE_LITERATURE.content.cloneNode(true);
     }
@@ -17,14 +19,17 @@ class LiteratureView {
         if ( this.literatureEntry.pages.length !== 0) { this.literatureElement.querySelector(".literature-pages").innerHTML = `<b>Pages: </b> ${this.literatureEntry.pages}`;}
         this.literatureElement.querySelector(".literature-entry").setAttribute("literature-id", this.literatureEntry.id);
         this.literatureElement.querySelector(".button-delete-literature").addEventListener("click", (event) => {
-            let id = this.literatureEntry.id;
-            this.removeEntry(id);
+            let id = this.literatureEntry.id,
+                ev = new Event ("RequestRemoveLiterature", id);
+            this.notifyAll(ev);
+            this.removeDOMElement(id);
         });
         uiElements.UL_LITERATURE_LIST.appendChild(this.literatureElement);
     }
 
-    removeEntry(entryID){
-        console.log(entryID);
+    removeDOMElement(entryID){
+        let element = document.querySelector(`[literature-id="${entryID}"]`);
+        element.remove();
     }
 
 }

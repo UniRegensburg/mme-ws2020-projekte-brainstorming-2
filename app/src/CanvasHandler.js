@@ -12,6 +12,9 @@ class CanvasHandler {
         this.contextMenuActive = false;
         this.selectedObject = null;
         this.drawingmode = false;
+        this.clipboard = null;
+        this.pointerX = null;
+        this.pointerY = null;
         this.colors = getComputedStyle(document.documentElement);
         this.activeColor = this.colors.getPropertyValue("--red");
     }
@@ -129,8 +132,8 @@ class CanvasHandler {
             if(event.button === Config.KEY_RIGHT_MOUSEBUTTON){
                 let menu = uiElements.CONTEXTMENU;
                 this.selectedObject = this.canvas.getActiveObject();
-                menu.style.left = `${event.e.clientX}px`;
-                menu.style.top = `${event.e.clientY}px`;
+                menu.style.left = this.clientX;
+                menu.style.top = this.clientY;
                 menu.style.display = "block";
                 this.contextMenuActive = true;
             }
@@ -145,12 +148,25 @@ class CanvasHandler {
 
     setContextMenuListener(){
         this.canvas.on("mouse:down", (event) => {
-            if(event.target !== null){
-                if(event.button === Config.KEY_RIGHT_MOUSEBUTTON){
+            if(event.button === Config.KEY_RIGHT_MOUSEBUTTON){
+                let x = `${event.e.clientX}px`,
+                    y = `${event.e.clientY}px`,
+                    offset = fabric.util.getElementOffset(this.canvas.lowerCanvasEl);
+                this.pointerX = event.e.clientX - offset.left;
+                this.pointerY = event.e.clientY - offset.top;
+                if(event.target !== null){
+                        let menu = uiElements.CONTEXTMENU;
+                        this.switchContextMenu("onObject");
+                        this.selectedObject = this.canvas.getActiveObject();
+                        menu.style.left = x;
+                        menu.style.top = y;
+                        menu.style.display = "block";
+                        this.contextMenuActive = true;
+                } else {
                     let menu = uiElements.CONTEXTMENU;
-                    this.selectedObject = this.canvas.getActiveObject();
-                    menu.style.left = `${event.e.clientX}px`;
-                    menu.style.top = `${event.e.clientY}px`;
+                    this.switchContextMenu("notOnObject");
+                    menu.style.left = x;
+                    menu.style.top = y;
                     menu.style.display = "block";
                     this.contextMenuActive = true;
                 }
@@ -162,6 +178,20 @@ class CanvasHandler {
                 menu.style.display = "none";
             }
         });
+    }
+
+    switchContextMenu(type){
+        if (type === "notOnObject") {
+            uiElements.CONTEXTMENU.querySelector("#context-delete").style = "display: none";
+            uiElements.CONTEXTMENU.querySelector("#context-to-top").style = "display: none";
+            uiElements.CONTEXTMENU.querySelector("#context-to-bottom").style = "display: none";
+            uiElements.CONTEXTMENU.querySelector("#context-copy").style = "display: none";
+        } else {
+            uiElements.CONTEXTMENU.querySelector("#context-delete").style = "display: block";
+            uiElements.CONTEXTMENU.querySelector("#context-to-top").style = "display: block";
+            uiElements.CONTEXTMENU.querySelector("#context-to-bottom").style = "display: block";
+            uiElements.CONTEXTMENU.querySelector("#context-copy").style = "display: block";
+        }
     }
 
     /* Sets Listener on Input-Slider for Stroke-thickness of pencil */
@@ -186,6 +216,8 @@ class CanvasHandler {
         let contextDelete = uiElements.CONTEXTMENU.querySelector("#context-delete"),
             contextToTop = uiElements.CONTEXTMENU.querySelector("#context-to-top"),
             contextToBottom = uiElements.CONTEXTMENU.querySelector("#context-to-bottom"),
+            contextCopy = uiElements.CONTEXTMENU.querySelector("#context-copy"),
+            contextPaste = uiElements.CONTEXTMENU.querySelector("#context-paste"),
             thisinstance = this;
         contextDelete.addEventListener("click", this.deleteObject.bind(thisinstance));
         contextToTop.addEventListener("click", () => {
@@ -193,6 +225,38 @@ class CanvasHandler {
         });
         contextToBottom.addEventListener("click", () => {
             this.canvas.sendToBack(this.selectedObject);
+        });
+
+        /* Copy-Paste of Objects (like in Fabric-Documentation: http://fabricjs.com/copypaste) */
+
+        contextCopy.addEventListener("click", () => {
+            if(this.selectedObject){
+                this.selectedObject.clone( (cloned) => {
+                    this.clipboard = cloned;
+                });
+            }
+        });
+        contextPaste.addEventListener("click", (event) => {
+            if (this.clipboard){
+                this.clipboard.clone( (clonedObject) => {
+                    this.canvas.discardActiveObject();
+                    clonedObject.set({
+                        left: this.pointerX,
+                        top: this.pointerY,
+                        evented: true,
+                    });
+                    if (clonedObject.type === "activeSelection" ) {
+                        clonedObject.canvas = this.canvas;
+                        clonedObject.forEachObject( (object) => {
+                            this.canvas.add(object);
+                        });
+                    } else {
+                        this.canvas.add(clonedObject);
+                    }
+                    this.canvas.setActiveObject(clonedObject);
+                    this.canvas.requestRenderAll();
+                });
+            }
         });
     }
 
@@ -210,7 +274,7 @@ class CanvasHandler {
             }
             reader.addEventListener("load", () => {
                 fabric.Image.fromURL(reader.result, (image) => {
-                    image.scale(Config.IMAGESCALE_IMPORT).set("flipX", true);
+                    image.scale(Config.IMAGESCALE_IMPORT).set("flipX", false);
                     this.canvas.add(image);
                     this.addContextmenuListener(image);
                 });

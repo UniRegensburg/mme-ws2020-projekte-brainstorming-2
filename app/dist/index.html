@@ -49,7 +49,7 @@
 									<input id="rename-room" type="text" value="Averyniceroom" required minlength="3" maxlength="30">
 								</li>
 								<li class="settings-item"> 
-									<span class="settings-title">Inavtionlink:</span> 
+									<span class="settings-title">Invitation link:</span> 
 									<span class="invite-link-wrapper">
 										<span class="settings invite-link">http://localhost:8080/</span>
 										<i id="copy-link-settings" class="far fa-copy"></i>
@@ -172,9 +172,6 @@
 					<li class="button tool text">
 						<i class="fas fa-font"></i>
 					</li>
-					<li class="button tool move">
-						<i class="fas fa-arrows-alt"></i>
-					</li>
 					<li class="button tool image">
 						<i class="fas fa-image"></i>
 						<input type="file" id="image-upload" accept="image/jpeg, image/png" style="display: none;">
@@ -264,7 +261,7 @@
 						<label for="set-url">URL to source:</label>
 						<input type="text" name="set-url" id="input-set-url" placeholder="">
 						<label for="set-pages">Pages:</label>
-						<input type="text" name="set-pages" id="input-set-pages" placeholder="">
+						<input type="text" name="set-pages" id="input-set-pages" placeholder="e.g. 14,15" pattern="([0-9]*[,]{0,}[0-9]{1,}){0,}">
 						<button class="button add-entry">Add to Literature</button>
 					</div>
 				</form>
@@ -285,9 +282,9 @@
 		</menu>
 		<template id="message-template">
 			<li class="message box">
-				<span class="message sender">Name</span>
-				<p class="message content">Hi !</p>
-				<span class="message time">13:00</span>
+				<span class="message sender"></span>
+				<span class="message time"></span>
+				<p class="message content"></p>
 			</li>
 		</template>
 

@@ -97,6 +97,7 @@ Gets emited if a new user joins the room
 interface WSJoinedResponse {
   type: "Joined";
   payload: {
+    userInRoom: string[];
     username: string;
   };
 }
@@ -104,7 +105,7 @@ interface WSJoinedResponse {
 
 **Join Room**
 
-Join a room with username and get the cnavas data
+Join a room with username and get the canvas data
 
 ```typescript
 interface WSJoinRoomRequest {
@@ -119,6 +120,7 @@ interface WSJoinRoomResponse extends WSResponse {
   type: "JoinRoom";
   payload: {
     canvas: any;
+    userInRoom: string[];
     room: Room;
   };
 }

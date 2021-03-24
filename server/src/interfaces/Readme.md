@@ -171,6 +171,7 @@ Send a new message to the chat
 interface WSChatMessage {
   type: "ChatMessage";
   payload: {
+    from: string;
     message: string;
   };
 }

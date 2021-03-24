@@ -42,6 +42,9 @@ class LiteratureHandler extends Observable{
             ev = new Event ( "AddLiterature" , Literature);
         this.notifyAll(ev);    
         view.createDOMElement();
+        view.addEventListener("RequestRemoveLiterature", (event) => {
+            this.notifyAll(event);
+        });
     }
 
 }

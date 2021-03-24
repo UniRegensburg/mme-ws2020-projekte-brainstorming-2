@@ -1,7 +1,6 @@
 /* eslint-env browser */
 
 import { io } from "socket.io-client";
-import { createKeywordTypeNode } from "typescript";
 import Config from "./Config.js";
 import Observable, { Event } from "./Observable";
 
@@ -30,7 +29,8 @@ class SocketClient extends Observable{
 
     this.ioClient.on("ChatMessage", (socket) => {
       let ev = new Event("NewChatMessage", socket.payload.message);
-      console.log("SocketClient: Message received");
+      console.log(socket.payload);
+      this.notifyAll(ev);
     });
 
     this.ioClient.on("ChangeRoomName", (socket) => {
@@ -58,9 +58,8 @@ class SocketClient extends Observable{
   }
 
   requestRenameRoom(payload){
-    console.log(payload);
     this.ioClient.emit("ChangeRoomName", { payload }, (socket) => {
-      console.log(socket.payload);
+      console.log(socket.name);
     });
   }
 
@@ -81,16 +80,23 @@ class SocketClient extends Observable{
     console.log("SocketClient: Sended Message");
   }
 
-  requestAddLiterature(literature){
-    let payload = literature ;
+  requestAddLiterature(Literature){
+    let payload = Literature;
     this.ioClient.emit( "AddLiterature", { payload }, (socket) => {
       if (socket.status === "ok"){
         let ev = new Event ("LiteratureAdded", socket.payload);
         this.notifyAll(ev);
         console.log("SocketClient: literatureAdded, status ok");
       } else {
+        console.log(socket);
         this.notifyAll( new Event("AddLiteratureFailed"));
       }
+    });
+  }
+
+  requestRemoveLiterature(payload){
+    this.ioClient.emit("RemoveLiterature", { payload }, (socket) => {
+      console.log(socket);
     });
   }
 

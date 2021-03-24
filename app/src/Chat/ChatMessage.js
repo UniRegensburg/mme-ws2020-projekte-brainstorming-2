@@ -16,6 +16,14 @@ class ChatMessage {
         return time;
     }
 
+    getObject(){
+        let payload = {
+            message: this.messageContent,
+            username: this.sender,
+        };
+        return payload;
+    }
+
 }
 
 export default ChatMessage;

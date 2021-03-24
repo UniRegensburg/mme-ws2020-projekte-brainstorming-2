@@ -20,6 +20,13 @@ class UserListHandler {
         let number = Math.floor(Math.random() * (7 - 0)) + 0;
         return this.colors[number];
     }
+
+    setupUserlist(userlist){
+        for (let i = 0; i < userlist.length; i++) {
+            const username = userlist[i];
+            this.createDOMElement(username);
+        }
+    }
 }
 
 export default UserListHandler;

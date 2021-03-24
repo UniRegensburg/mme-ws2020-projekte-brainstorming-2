@@ -46,8 +46,8 @@ class CanvasHandler {
     createCircle(){
         let circle = new fabric.Circle({
             radius: Config.OBJECT_DEFAULT_RADIUS,
-            left: 100,
-            top: 100,
+            left: 200,
+            top: 200,
             fill: this.activeColor,
             });
         this.canvas.add(circle);
@@ -92,8 +92,8 @@ class CanvasHandler {
 
     createNote(){
         let note = new fabric.Textbox("Sticky Note",{ 
-            left: 100, 
-            top: 100,
+            left: 0, 
+            top: 0,
             backgroundColor: this.activeColor,
             padding: 20,
             fill: "black", 
@@ -152,8 +152,11 @@ class CanvasHandler {
                 let x = `${event.e.clientX}px`,
                     y = `${event.e.clientY}px`,
                     offset = fabric.util.getElementOffset(this.canvas.lowerCanvasEl);
-                this.pointerX = event.e.clientX - offset.left;
-                this.pointerY = event.e.clientY - offset.top;
+                this.pointerX = event.e.layerX; //- offset.left;
+                this.pointerY = event.e.layerY; //- offset.top;
+                console.log(event.e.clientX);
+                console.log(event.e.layerX);
+                console.log(this.canvas.calcOffset());
                 if(event.target !== null){
                         let menu = uiElements.CONTEXTMENU;
                         this.switchContextMenu("onObject");

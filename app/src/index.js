@@ -57,7 +57,8 @@ function registerEventListener(){
   });
 
   socketClient.addEventListener("JoinedRequestedRoom", (event) => {
-    roomManager.enterRoom(event.data);
+    roomManager.enterRoom(event.data.room);
+    userListHandler.setupUserlist(event.data.userInRoom);
   }); 
 
   socketClient.addEventListener("NewRoomCreated", (event) => {

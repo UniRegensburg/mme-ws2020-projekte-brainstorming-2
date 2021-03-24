@@ -30,7 +30,7 @@ function createComponents(){
   roomManager = new RoomManager(socketClient);
   mainMenuHandler = new MainMenuHandler();
   literatureHandler = new LiteratureHandler();
-  chatHandler = new ChatHandler("Valentin");
+  chatHandler = new ChatHandler("Unknown User");
   userListHandler = new UserListHandler();
   roomManager.start();
   mainMenuHandler.setListener();
@@ -52,11 +52,12 @@ function registerEventListener(){
   });
   roomManager.addEventListener("RequestJoinRoom", (event) => {
     socketClient.requestJoinRoom(event.data); 
+    chatHandler.updateUsername(event.data.username);
+    console.log(event.data);
   });
 
   socketClient.addEventListener("JoinedRequestedRoom", (event) => {
     roomManager.enterRoom(event.data);
-    console.log(event.data);
   }); 
 
   socketClient.addEventListener("NewRoomCreated", (event) => {
@@ -68,9 +69,15 @@ function registerEventListener(){
   socketClient.addEventListener("UserJoined", (event) => {
     userListHandler.createDOMElement(event.data);
   });
+  socketClient.addEventListener("NewChatMessage", (event) => {
+    chatHandler.addMessage(event.data);
+  });
   literatureHandler.addEventListener("AddLiterature", (event) => {
     socketClient.requestAddLiterature(event.data);
     console.log(event.data);
+  });
+  literatureHandler.addEventListener("RequestRemoveLiterature", (event) => {
+    socketClient.requestRemoveLiterature(event.data);
   });
 }
 

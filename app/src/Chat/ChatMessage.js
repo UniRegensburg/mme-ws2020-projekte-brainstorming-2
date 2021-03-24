@@ -2,10 +2,18 @@
 
 class ChatMessage {
 
-    constructor(sender, messageContent, time){
+    constructor(sender, messageContent){
         this.sender = sender;
         this.messageContent = messageContent;
-        this.time = time;
+        this.time = this.getTime();
+    }
+
+    getTime(){
+        let date = new Date(),
+            hour = date.getHours(),
+            minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes(),
+            time = `${hour}:${minutes}`;
+        return time;
     }
 
 }

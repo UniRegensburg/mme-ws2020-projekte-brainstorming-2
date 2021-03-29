@@ -74,6 +74,12 @@ class RoomManager extends Observable{
             let ev = new Event ("DestroyRoom");
             this.notifyAll(ev);
         });
+
+        uiElements.SETTINGS_INPUT_USERNAME.addEventListener("change", () => {
+            let newUsername = uiElements.SETTINGS_INPUT_USERNAME.value,
+                ev = new Event("ChangeName", newUsername);
+            this.notifyAll(ev);
+        });
     }
 
     checkURL(){

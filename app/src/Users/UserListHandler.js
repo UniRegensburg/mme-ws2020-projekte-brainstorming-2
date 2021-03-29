@@ -26,6 +26,14 @@ class UserListHandler {
             this.addUser(username);
         }
     }
+    
+    replaceUsername(oldUsername, newUsername){
+        for (let i = 0; i < this.userlist.length; i++) {
+            if(this.userlist[i] === oldUsername){
+                this.userlist[i] = newUsername;
+            }
+        }
+    }
 
     getUserlist(){
         return this.userlist;

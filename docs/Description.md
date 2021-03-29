@@ -32,11 +32,11 @@ Das Whiteboard stellt verschiedene Werkzeuge bereit um Ideen zu präsentieren un
 - Export  
   Um das Whiteboard anschließen verwerten zu können, kann man den Inhalt als Bild exportieren.
   
-// BILD WERKZEUGE
+![tools](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/dev/docs/assets/Tools_PNG.PNG?raw=true)
 
 Auf dem Whiteboard kann man mit verschiedenen Farben zeichnen. Das macht es einfacher verschiedene Ideen voneinander zu trennen.
 
-// BILD FARBEN
+![colors](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/dev/docs/assets/Color_PNG.PNG?raw=true)
 
 #### Literatur
 Um zu Ideen auch Literatur oder Onlinequellen hinzuzufügen, hat die Webapp ein Literaturverzeichnis. Die Referenzen an jedem Eintrag machen es leicht, sie im Whiteboard zu verankern.

@@ -41,14 +41,18 @@ class SocketClient extends Observable{
     });
 
     this.ioClient.on("LiteratureRemoved", (socket) => {
+      console.log("removed");
       let ev = new Event ("LiteratureRemoved", socket.payload.id);
       this.notifyAll(ev);
     });
 
     this.ioClient.on("WhiteBoardUpdated", (socket) => {
-      console.log(socket.payload.data);
       let ev = new Event ( "CanvasChanged", socket.payload.data);
       this.notifyAll(ev);
+    });
+
+    this.ioClient.on("NameChanged", (socket) => {
+      console.log(socket);
     });
 
   }
@@ -106,6 +110,7 @@ class SocketClient extends Observable{
         payload.owner = this.roomId;
     this.ioClient.emit( "AddLiterature", { payload }, (socket) => {
       if (socket.status === "ok"){
+        console.log(socket);
         let ev = new Event ("LiteratureAdded", socket.payload.literature );
         this.notifyAll(ev);
       } else {
@@ -130,6 +135,20 @@ class SocketClient extends Observable{
       data: canvas,
     };
     this.ioClient.emit("WhiteBoardUpdated", { payload });
+  }
+
+  requestChangeUsername(username){
+    let payload = {
+      username: username.toString(),  
+    };
+    console.log(payload);
+    this.ioClient.emit("ChangeName", { payload }, (socket) => {
+      console.log("ResponseforUsername");
+      if (socket.status === "ok") {
+        let ev = new Event ("ChangedUsername", socket.payload.username);
+        this.notifyAll(ev);
+      }
+    });
   }
 
 }

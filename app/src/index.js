@@ -64,6 +64,9 @@ function registerEventListener(){
   roomManager.addEventListener("DestroyRoom", (event) => {
     socketClient.requestDestroyRoom();
   });
+  roomManager.addEventListener("ChangeName", (event) => {
+    socketClient.requestChangeUsername(event.data);
+  });
 
   /* Set Listener on SocketClient */
 
@@ -92,6 +95,10 @@ function registerEventListener(){
   });
   socketClient.addEventListener("CanvasChanged", (event) => {
     canvasHandler.updateCanvas(event.data);
+  });
+  socketClient.addEventListener("ChangedUsername", (event) => {
+    userListHandler.replaceUsername(roomManager.username, event.data);
+    roomManager.username = event.data;
   });
 
   /* Set Listener on LiteratureHandler */

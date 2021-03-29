@@ -20,6 +20,7 @@ async function AddLiterature(
   try {
     literature = await addLiterature(arg.payload as any, arg.payload.owner);
   } catch (error) {
+    console.log(error);
     logger.error(`Error: ${JSON.stringify(error)}`);
     return cb({
       type: "AddLiterature",
@@ -63,7 +64,7 @@ async function RemoveLiterature(
   try {
     await removeLiterature(arg.payload.literatureId, arg.payload.roomId);
   } catch (error) {
-    logger.error(`Error: ${JSON.stringify(error)}`);
+    logger.error(error);
     return cb({
       type: "RemoveLiterature",
       status: "error",
@@ -74,7 +75,7 @@ async function RemoveLiterature(
 
   // Inform other participants in room
   this.socket.room &&
-    this.socket.to(this.socket.room).emit("RemoveLiterature", {
+    this.socket.to(this.socket.room).emit("LiteratureRemoved", {
       type: "RemoveLiterature",
       status: "ok",
       error: null,

@@ -1,7 +1,5 @@
 ## App
 
-[Beschreiben Sie hier in einer kurzen Zusammenfassung Hintergrund, Ziele und Funktionen Ihrer Anwendung. Fügen Sie einen repräsentativen Screenshot ein. Dokumentieren Sie anschließend ausführlich alle Funktionen der Anwendung. Verwenden Sie Screenshots und ggf. auch Gif-Dateien um zentrale Elemente und Abläufe zu beschreiben.]
-
 StudyBoard soll eine Plattform zur kollaborativen Erarbeitung von Ideen werden. Als primäre Zielgruppe sehen wir dabei Mitglieder einer Forschungseinrichtung die unkompliziert miteinander arbeiten wollen. Dabei bieten wir den nutzer:innen einen Ort an dem sie in ihrere Gruppe oder alleine Ideen schnell festhalten, teilen, gemeinsam ausarbeiten und am Ende für die Weiterverwendung in Arbeit oder ähnlichem verwenden können. Dazu bauen wir eine Webapp mit einem Whitebaord als Hauptfeature, auf dem sich die Nutzer:innen austauschen können. Für einfachere Kommunikation haben wir noch einen Chat eingebaut und außerdem, für die akademische Zielgruppe, eine Literaturverwaltung hinzugefügt. Die Webapp kann von verschiedenen Gruppen unabhängig benutzt werden und bietet Möglichkeiten die Daten zu persistieren.
 
 ### Nutzungsszenarien
@@ -51,3 +49,8 @@ Man kann den Inhalt des Verzeichnisses am Ende als Text-Datei exportieren.
 Um besser miteinander kommunizieren zu können, kann man sich über den Chat Nachrichten schreiben. Um die Privatssphäre der Nutzer:innen zu schützen, werden diese Nachrichten nicht gespeichert und können nicht exportiert werden.
 
 ![chat](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/dev/docs/assets/Chat_GIF.gif?raw=true)
+
+#### Einstellungen
+In den Einstellungen kann man den Raumnnamen ändern, den Link zum teilen abrufen und den eigenen Username ändern.
+
+// BILD SETTINGS

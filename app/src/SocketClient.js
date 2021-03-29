@@ -28,7 +28,7 @@ class SocketClient extends Observable{
     });
 
     this.ioClient.on("ChatMessage", (socket) => {
-      let ev = new Event("NewChatMessage", socket.payload.message);
+      let ev = new Event("NewChatMessage", socket.payload);
       console.log(socket.payload);
       this.notifyAll(ev);
     });
@@ -44,6 +44,7 @@ class SocketClient extends Observable{
   requestNewRoom() {
     this.ioClient.emit("NewRoom", {}, (socket) => {
       if (socket.status === "ok") {
+        console.log(socket.payload);
         this.roomId = socket.payload.id;
         this.roomName = socket.payload.name;
         this.roomLink = socket.payload.link;
@@ -66,16 +67,18 @@ class SocketClient extends Observable{
   requestJoinRoom (payload) {
     this.ioClient.emit("JoinRoom", { payload }, (socket) => {
       if (socket.status === "ok" ) {
-        let ev = new Event ("JoinedRequestedRoom", socket.payload.room);
+        let ev = new Event ("JoinedRequestedRoom", socket.payload);
         this.notifyAll(ev);
+        this.roomId = socket.payload.room.id;
+        this.roomLink = socket.payload.room.link;
+        this.roomName = socket.payload.room.name;
       } else {
         this.notifyAll( new Event ("JoinRoomFailed") );
       }
     });
   }
 
-  sendMessage(ChatMessage){
-    let payload = { message: ChatMessage};
+  sendMessage(payload){
     this.ioClient.emit( "ChatMessage", { payload });
     console.log("SocketClient: Sended Message");
   }

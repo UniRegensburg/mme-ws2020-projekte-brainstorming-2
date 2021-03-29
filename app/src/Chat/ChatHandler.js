@@ -18,7 +18,7 @@ class ChatHandler extends Observable{
             let messageContent = uiElements.INPUT_MESSAGE.value,
                 chatMessage = new ChatMessage(this.username, messageContent),
                 messageView = new MessageView(chatMessage),
-                ev = new Event ("SendChatMessage", messageContent);
+                ev = new Event ("SendChatMessage", chatMessage.getObject());
             messageView.createDOMElement();
             this.notifyAll(ev);
             uiElements.INPUT_MESSAGE.value = "";
@@ -26,7 +26,7 @@ class ChatHandler extends Observable{
     }
 
     addMessage(payload){
-        let message = new ChatMessage("User?", payload),
+        let message = new ChatMessage(payload.username , payload.message),
             messageView = new MessageView(message);
         messageView.createDOMElement();
     }

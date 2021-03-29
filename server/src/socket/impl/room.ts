@@ -25,8 +25,6 @@ import { Room } from "../../models/room";
 
 import { Log } from "../../util/logger";
 
-const userInRoom: Record<string, string[]> = {};
-
 /**
  * Add a new Room
  */
@@ -149,7 +147,10 @@ async function DestroyRoom(this: IThis, arg: WSDestroyRoomRequest, cb: any) {
  * Join a room
  */
 async function JoinRoom(
-  this: IThis<{ userInRoom: Record<string, string[]> }>,
+  this: IThis<{
+    userInRoom: Record<string, string[]>;
+    canvasPerRoom: Record<string, any>;
+  }>,
   arg: WSJoinRoomRequest,
   cb: any
 ) {
@@ -176,6 +177,9 @@ async function JoinRoom(
       this.userInRoom[arg.payload.roomName] = [];
     this.userInRoom[arg.payload.roomName].push(arg.payload.username);
 
+    let canvasData = this.canvasPerRoom[this.socket.room];
+    if (!canvasData) canvasData = {};
+
     // Notify other participants
     this.socket.to(arg.payload.roomName).emit("Joined", {
       type: "Joined",
@@ -186,6 +190,7 @@ async function JoinRoom(
     } as WSJoinedResponse);
 
     let room = await getRoom(arg.payload.roomName);
+    console.log(room);
 
     logger.debug(`Joined ${this.socket.id} to ${this.socket.room!}`);
 
@@ -196,7 +201,7 @@ async function JoinRoom(
       type: "JoinRoom",
       payload: {
         userInRoom: this.userInRoom[arg.payload.roomName],
-        canvas: null,
+        canvas: canvasData,
         room,
       },
     } as WSJoinRoomResponse);

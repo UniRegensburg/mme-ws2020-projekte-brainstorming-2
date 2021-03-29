@@ -24,11 +24,12 @@ export const addRoom = async () => {
 };
 
 export const getRoom = async (id: string) => {
-    return await getRepository(Room)
-    .createQueryBuilder("user")
-    .where("user.id = :id", { id })
-    .orWhere("user.uniqueLink = :id", { id })
-    .getOne();
+  return await getRepository(Room)
+    .createQueryBuilder("room")
+    .where("room.id = :id", { id })
+    .orWhere("room.uniqueLink = :id", { id })
+    .leftJoinAndSelect("room.literature", "literature")
+    .getOneOrFail();
 };
 
 export const removeRoom = async (id: string) => {

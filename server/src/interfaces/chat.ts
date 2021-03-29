@@ -30,7 +30,7 @@ export interface WSChangeNameResponse extends WSResponse {
  * Notify participants
  */
 export interface WSUsernameChanged {
-  type: "NameCahnged";
+  type: "NameChanged";
   payload: {
     oldUsername: string;
     newUsername: string;

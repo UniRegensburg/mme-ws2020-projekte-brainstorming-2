@@ -11,6 +11,7 @@ import {
   RemoveLiterature,
   JoinRoom,
   GetAll,
+  ChangeName,
 } from "./impl";
 import { CanvasEvent } from "./impl/canvas";
 
@@ -38,6 +39,11 @@ io.on("connection", (socket) => {
    * Chat Message
    */
   socket.on("ChatMessage", ChatMessage.bind({ socket }));
+
+  /**
+   * Change Username
+   */
+  socket.on("ChangeName", ChangeName.bind({ socket, userInRoom }));
 
   /**
    * Add Literature

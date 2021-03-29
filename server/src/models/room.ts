@@ -30,6 +30,7 @@ export class Room implements IRoom {
 
   @OneToMany((type) => Literature, (literature) => literature.owner, {
     eager: true,
+    onDelete: "CASCADE",
   })
   literature!: Literature[];
 

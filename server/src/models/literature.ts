@@ -36,7 +36,7 @@ export class Literature implements ILiterature {
   @Column("simple-array", { nullable: true })
   pages!: number[];
 
-  @ManyToOne(() => Room, (room) => room.literature)
+  @ManyToOne(() => Room, (room) => room.literature, { onDelete: "CASCADE" })
   owner!: Room;
 
   @CreateDateColumn()

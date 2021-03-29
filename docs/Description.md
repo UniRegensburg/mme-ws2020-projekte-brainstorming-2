@@ -8,14 +8,14 @@ StudyBoard soll eine Plattform zur kollaborativen Erarbeitung von Ideen werden. 
 #### Mehrere Räume
 Nutzer:innen können beim Betreten der Webapp einen Raum für ihre Gruppe anlegen, oder mit einem Link einem bereits erstellten Raum beitreten. Beim beitreten bekommen sie den aktuellen Stand des Whiteboards und alle Literatureinträge übermittelt und können so direkt mitarbeiten.
 
-// INSERT GIF CREATE ROOM
+![room create](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/dev/docs/assets/ezgif.com-gif-maker.gif?raw=true)
 
-// INSERT GIF ENTER ROOM
+![room join](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/dev/docs/assets/startscreen%2Croomlink.gif?raw=true)
 
 #### Whiteboard
 Der aktuelle Stand des Whiteboards wird in Echtzeit an alle im Raum kommuniziert. Davon unbetroffen sind Mitglieder anderer Gruppen, jede Gruppe hat einen eigenen Raum und interferiert nicht.
 
-// GIF WHITEBOARD
+![whiteboard](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/dev/docs/assets/Whiteboard_GIF.gif?raw=true)
 
 #### Werkzeuge
 Das Whiteboard stellt verschiedene Werkzeuge bereit um Ideen zu präsentieren und manipulieren:
@@ -50,4 +50,4 @@ Man kann den Inhalt des Verzeichnisses am Ende als Text-Datei exportieren.
 #### Chat
 Um besser miteinander kommunizieren zu können, kann man sich über den Chat Nachrichten schreiben. Um die Privatssphäre der Nutzer:innen zu schützen, werden diese Nachrichten nicht gespeichert und können nicht exportiert werden.
 
-// GIF CHAT
+![chat](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/dev/docs/assets/Chat_GIF.gif?raw=true)

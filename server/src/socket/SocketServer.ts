@@ -18,6 +18,7 @@ import { CanvasEvent } from "./impl/canvas";
 const io = new Server();
 
 const userInRoom: Record<string, string[]> = {};
+const canvasPerRoom: Record<string, any> = {};
 
 io.on("connection", (socket) => {
   /**
@@ -58,12 +59,12 @@ io.on("connection", (socket) => {
   /**
    * Join Room
    */
-  socket.on("JoinRoom", JoinRoom.bind({ socket, userInRoom }));
+  socket.on("JoinRoom", JoinRoom.bind({ socket, userInRoom, canvasPerRoom }));
 
   /**
    * Canvas Event
    */
-  socket.on("WhiteBoardUpdated", CanvasEvent.bind({ socket }));
+  socket.on("WhiteBoardUpdated", CanvasEvent.bind({ socket, canvasPerRoom }));
 
   socket.on("GetAll", GetAll.bind({ socket }));
 });

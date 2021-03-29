@@ -16,20 +16,13 @@ class LiteratureView extends Observable{
         this.literatureElement.querySelector(".literature-author").innerHTML = `<b>Author: </b> ${this.literatureEntry.author}`;
         this.literatureElement.querySelector(".literature-year").innerHTML = `<b>Year: </b> ${this.literatureEntry.year}`;
         if ( this.literatureEntry.url.length !== 0) { this.literatureElement.querySelector(".literature-url").innerHTML = `<b>URL: </b> ${this.literatureEntry.url}`;}
-        if ( this.literatureEntry.pages.length !== 0) { this.literatureElement.querySelector(".literature-pages").innerHTML = `<b>Pages: </b> ${this.literatureEntry.pages}`;}
+        if ( this.literatureEntry.pages[0] !== "" ) { this.literatureElement.querySelector(".literature-pages").innerHTML = `<b>Pages: </b> ${this.literatureEntry.pages}`;}
         this.literatureElement.querySelector(".literature-entry").setAttribute("literature-id", this.literatureEntry.id);
-        this.literatureElement.querySelector(".button-delete-literature").addEventListener("click", (event) => {
-            let id = this.literatureEntry.id,
-                ev = new Event ("RequestRemoveLiterature", id);
+        this.literatureElement.querySelector(".button-delete-literature").addEventListener("click", () => {
+            let ev = new Event ("RequestRemoveLiterature", this.literatureEntry.id);
             this.notifyAll(ev);
-            this.removeDOMElement(id);
         });
         uiElements.UL_LITERATURE_LIST.appendChild(this.literatureElement);
-    }
-
-    removeDOMElement(entryID){
-        let element = document.querySelector(`[literature-id="${entryID}"]`);
-        element.remove();
     }
 
 }

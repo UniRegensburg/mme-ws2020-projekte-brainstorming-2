@@ -11,6 +11,7 @@ class MessageView {
 
     createDOMElement(){
         this.messageElement.querySelector(".message.sender").innerHTML = this.chatMessage.sender;
+        this.messageElement.querySelector(".message.sender").style = `color: ${this.chatMessage.color}`;
         this.messageElement.querySelector(".message.content").innerHTML = this.chatMessage.messageContent;
         this.messageElement.querySelector(".message.time").innerHTML = this.chatMessage.time;
         uiElements.UL_MESSAGE_HISTORY.appendChild(this.messageElement);

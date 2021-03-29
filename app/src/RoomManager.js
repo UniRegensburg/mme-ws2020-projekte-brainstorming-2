@@ -24,7 +24,7 @@ class RoomManager extends Observable{
     setListeners(){
         uiElements.MODAL_FORM_USERNAME.addEventListener("submit", (event) => {
             event.preventDefault();
-            this.username = uiElements.MODAL_START_USERNAME_INPUT.value;
+            this.username = uiElements.MODAL_START_USERNAME_INPUT.value.trim();
             let payload = {username: this.username, roomName: this.roomLink},
                 ev = new Event ("RequestJoinRoom", payload);
             this.notifyAll(ev);
@@ -69,6 +69,11 @@ class RoomManager extends Observable{
             window.getSelection().addRange(range);
             document.execCommand("copy");
         });
+
+        uiElements.SETTINGS_BTN_DELETE_ROOM.addEventListener("click", () => {
+            let ev = new Event ("DestroyRoom");
+            this.notifyAll(ev);
+        });
     }
 
     checkURL(){
@@ -105,6 +110,11 @@ class RoomManager extends Observable{
 
     updateRoomName(name){
         uiElements.SETTINGS_INPUT_ROOMNAME.value = name;
+    }
+
+    restart(){
+        location.href = Config.DEFAULT_CLIENT_URL;
+        location.reload();
     }
 
     /* UI-Modal Function */

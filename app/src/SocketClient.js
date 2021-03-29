@@ -21,21 +21,33 @@ class SocketClient extends Observable{
     });
 
     this.ioClient.on("Joined", (socket) => {
-      console.log("SocketClient: A new User Joined the room");
-      console.log(socket);
       let ev = new Event ("UserJoined", socket.payload.username);
       this.notifyAll(ev);
     });
 
     this.ioClient.on("ChatMessage", (socket) => {
       let ev = new Event("NewChatMessage", socket.payload);
-      console.log(socket.payload);
       this.notifyAll(ev);
     });
 
-    this.ioClient.on("ChangeRoomName", (socket) => {
-      console.log("SocketClient: RoomNameChanged");
-      let ev = new Event ("NewRoomName", socket.payload.name);
+    this.ioClient.on("RoomNameChanged", (socket) => {
+      let ev = new Event ("RoomNameChanged", socket.payload.newName);
+      this.notifyAll(ev);
+    });
+
+    this.ioClient.on("AddLiterature", (socket) => {
+      let ev = new Event ("LiteratureAdded", socket.payload.literature );
+      this.notifyAll(ev);
+    });
+
+    this.ioClient.on("LiteratureRemoved", (socket) => {
+      let ev = new Event ("LiteratureRemoved", socket.payload.id);
+      this.notifyAll(ev);
+    });
+
+    this.ioClient.on("WhiteBoardUpdated", (socket) => {
+      console.log(socket.payload.data);
+      let ev = new Event ( "CanvasChanged", socket.payload.data);
       this.notifyAll(ev);
     });
 
@@ -44,14 +56,11 @@ class SocketClient extends Observable{
   requestNewRoom() {
     this.ioClient.emit("NewRoom", {}, (socket) => {
       if (socket.status === "ok") {
-        console.log(socket.payload);
         this.roomId = socket.payload.id;
         this.roomName = socket.payload.name;
         this.roomLink = socket.payload.link;
         let ev = new Event( "NewRoomCreated", socket.payload);
         this.notifyAll(ev);
-        console.log("SocketClient: New Room created");
-        console.log(this.roomName);
       } else {
           this.notifyAll("CreateRoomFailed");
       }
@@ -60,47 +69,67 @@ class SocketClient extends Observable{
 
   requestRenameRoom(payload){
     this.ioClient.emit("ChangeRoomName", { payload }, (socket) => {
-      console.log(socket.name);
+      if(socket.status === "ok"){
+        let ev = new Event ("RoomNameChanged", socket.payload.name);
+        this.notifyAll(ev);
+      }
     });
   }
 
   requestJoinRoom (payload) {
     this.ioClient.emit("JoinRoom", { payload }, (socket) => {
       if (socket.status === "ok" ) {
-        let ev = new Event ("JoinedRequestedRoom", socket.payload);
-        this.notifyAll(ev);
         this.roomId = socket.payload.room.id;
         this.roomLink = socket.payload.room.link;
         this.roomName = socket.payload.room.name;
+        let ev = new Event ("JoinedRequestedRoom", socket.payload);
+        this.notifyAll(ev);
       } else {
         this.notifyAll( new Event ("JoinRoomFailed") );
       }
     });
   }
 
+  requestDestroyRoom(){
+    let payload = {id: this.roomId};
+    this.ioClient.emit("DestroyRoom", { payload }, (socket) => {
+      console.log(socket);
+    });
+  }
+
   sendMessage(payload){
     this.ioClient.emit( "ChatMessage", { payload });
-    console.log("SocketClient: Sended Message");
   }
 
   requestAddLiterature(Literature){
     let payload = Literature;
+        payload.owner = this.roomId;
     this.ioClient.emit( "AddLiterature", { payload }, (socket) => {
       if (socket.status === "ok"){
-        let ev = new Event ("LiteratureAdded", socket.payload);
+        let ev = new Event ("LiteratureAdded", socket.payload.literature );
         this.notifyAll(ev);
-        console.log("SocketClient: literatureAdded, status ok");
       } else {
-        console.log(socket);
         this.notifyAll( new Event("AddLiteratureFailed"));
       }
     });
   }
 
-  requestRemoveLiterature(payload){
+  requestRemoveLiterature(id){
+    let payload = {roomId: this.roomId,
+                  literatureId: id.toString() };
     this.ioClient.emit("RemoveLiterature", { payload }, (socket) => {
-      console.log(socket);
+      if(socket.status === "ok"){
+        let ev = new Event ("LiteratureRemoved", socket.payload.id);
+        this.notifyAll(ev);
+      }
     });
+  }
+
+  requestUpdateCanvas(canvas){
+    let payload = {
+      data: canvas,
+    };
+    this.ioClient.emit("WhiteBoardUpdated", { payload });
   }
 
 }

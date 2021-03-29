@@ -2,8 +2,9 @@
 
 class ChatMessage {
 
-    constructor(sender, messageContent){
+    constructor(sender, color, messageContent){
         this.sender = sender;
+        this.color = color;
         this.messageContent = messageContent;
         this.time = this.getTime();
     }

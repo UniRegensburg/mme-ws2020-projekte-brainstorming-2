@@ -1,7 +1,7 @@
 /* eslint-env browser */
 
 import { fabric } from "fabric";
-import CanvasHandler from "./CanvasHandler.js";
+import CanvasHandler from "./Canvas/CanvasHandler.js";
 import Config from "./Config.js";
 import MainMenuHandler from "./MainMenuHandler.js";
 import RoomManager from "./RoomManager.js";
@@ -10,7 +10,7 @@ import LiteratureHandler from "./Literature/LiteratureHandler.js";
 import ChatHandler from "./Chat/ChatHandler.js";
 import SocketClient from "./SocketClient.js";
 import Observable from "./Observable.js";
-import UserListHandler from "./UserListHandler.js";
+import UserListHandler from "./Users/UserListHandler.js";
 
 var canvasHandler,
     roomManager,
@@ -30,20 +30,26 @@ function createComponents(){
   roomManager = new RoomManager(socketClient);
   mainMenuHandler = new MainMenuHandler();
   literatureHandler = new LiteratureHandler();
-  chatHandler = new ChatHandler("Unknown User");
   userListHandler = new UserListHandler();
+  chatHandler = new ChatHandler("Unknown User", userListHandler);
+  createCanvas();
   roomManager.start();
   mainMenuHandler.setListener();
   socketClient.start();
-  createCanvas();
 }
 
 /* Register Event Listenener for internal Communication */
 
 function registerEventListener(){
+
+  /* Set Listener on ChatHandler */
+
   chatHandler.addEventListener("SendChatMessage", (event) => {
     socketClient.sendMessage(event.data);
   });
+
+  /* Set Listener on RoomManager */
+
   roomManager.addEventListener("CreateNewRoom", () => {
     socketClient.requestNewRoom();
   });
@@ -55,30 +61,52 @@ function registerEventListener(){
     chatHandler.updateUsername(event.data.username);
     console.log(event.data);
   });
+  roomManager.addEventListener("DestroyRoom", (event) => {
+    socketClient.requestDestroyRoom();
+  });
+
+  /* Set Listener on SocketClient */
 
   socketClient.addEventListener("JoinedRequestedRoom", (event) => {
     roomManager.enterRoom(event.data.room);
     userListHandler.setupUserlist(event.data.userInRoom);
   }); 
-
   socketClient.addEventListener("NewRoomCreated", (event) => {
     roomManager.setRoomCreatedScreen(event.data);
   });
-  socketClient.addEventListener("NewRoomName", (event) => {
+  socketClient.addEventListener("RoomNameChanged", (event) => {
     roomManager.updateRoomName(event.data);
   });
   socketClient.addEventListener("UserJoined", (event) => {
-    userListHandler.createDOMElement(event.data);
+    userListHandler.addUser(event.data);
   });
   socketClient.addEventListener("NewChatMessage", (event) => {
-    chatHandler.addMessage(event.data);
+    chatHandler.addMessage(event.data.username, event.data.message);
   });
+  socketClient.addEventListener("LiteratureAdded", (event) => {
+    console.log(event.data);
+    literatureHandler.addToList(event.data);
+  });
+  socketClient.addEventListener("LiteratureRemoved", (event) => {
+    literatureHandler.removeFromList(event.data);
+  });
+  socketClient.addEventListener("CanvasChanged", (event) => {
+    canvasHandler.updateCanvas(event.data);
+  });
+
+  /* Set Listener on LiteratureHandler */
+
   literatureHandler.addEventListener("AddLiterature", (event) => {
     socketClient.requestAddLiterature(event.data);
-    console.log(event.data);
   });
   literatureHandler.addEventListener("RequestRemoveLiterature", (event) => {
     socketClient.requestRemoveLiterature(event.data);
+  });
+
+  /* Set Listener on CanvasHandler */
+
+  canvasHandler.addEventListener("CanvasContentChanged", (event) => {
+    socketClient.requestUpdateCanvas(event.data);
   });
 }
 
@@ -89,8 +117,8 @@ function createCanvas(){
     width: 3000 , 
     height: 3000,
     fireRightClick: true,
-    stopContextMenu: true }),
-    canvasHandler = new CanvasHandler(canvas);
+    stopContextMenu: true });
+  canvasHandler = new CanvasHandler(canvas);
   canvasHandler.addListener();
 
   /* Adds functionality to zoom-in and -out and pan the canvas by clicking and pressing the alt-key*/

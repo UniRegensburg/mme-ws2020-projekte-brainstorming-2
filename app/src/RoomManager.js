@@ -21,6 +21,8 @@ class RoomManager extends Observable{
         this.setListeners();
     }
 
+    /* Set Listener on UI-Elements */
+
     setListeners(){
         uiElements.MODAL_FORM_USERNAME.addEventListener("submit", (event) => {
             event.preventDefault();
@@ -29,7 +31,6 @@ class RoomManager extends Observable{
                 ev = new Event ("RequestJoinRoom", payload);
             this.notifyAll(ev);
         });
-        console.log(uiElements.MODAL_LINK_CREATE_ROOM);
         uiElements.MODAL_LINK_CREATE_ROOM.forEach(element => {
             element.addEventListener("click", () => {
                 let ev = new Event ("CreateNewRoom");
@@ -52,7 +53,7 @@ class RoomManager extends Observable{
             window.location.href = `${Config.DEFAULT_CLIENT_URL}#${this.roomLink}`;
             window.location.reload();
         });
-        uiElements.MODAl_FORM_START_HOME.addEventListener("submit", (event) => {
+        uiElements.MODAL_FORM_START_HOME.addEventListener("submit", (event) => {
             event.preventDefault();
             let ev = new Event ("CreateNewRoom");
             this.notifyAll(ev);
@@ -126,7 +127,7 @@ class RoomManager extends Observable{
         location.reload();
     }
 
-    /* UI-Modal Function */
+    /* UI-Modal Functions */
 
     openStartRoomModal(){
         uiElements.MODAL_BACKGROUND.style = "display: flex";
@@ -142,22 +143,22 @@ class RoomManager extends Observable{
 
     changeToScreen(screen){
         if (screen === "screen-username") {
-            uiElements.MODAl_FORM_START_HOME.style = "display: none";
+            uiElements.MODAL_FORM_START_HOME.style = "display: none";
             uiElements.MODAL_FORM_CREATEROOM.style = "display: none";
             uiElements.MODAL_FORM_USERNAME.style = "display: block";
             uiElements.MODAL_FORM_JOINING_FAILED.style = "display:none";
         } else if(screen === "screen-create-link") {
-            uiElements.MODAl_FORM_START_HOME.style = "display: none";
+            uiElements.MODAL_FORM_START_HOME.style = "display: none";
             uiElements.MODAL_FORM_USERNAME.style = "display: none";
             uiElements.MODAL_FORM_CREATEROOM.style ="display: block";
             uiElements.MODAL_FORM_JOINING_FAILED.style = "display:none";
         } else if (screen === "screen-start-home") {
-            uiElements.MODAl_FORM_START_HOME.style = "display: block";
+            uiElements.MODAL_FORM_START_HOME.style = "display: block";
             uiElements.MODAL_FORM_USERNAME.style = "display: none";
             uiElements.MODAL_FORM_CREATEROOM.style ="display: none";
             uiElements.MODAL_FORM_JOINING_FAILED.style = "display:none";
         } else if(screen === "screen-joining-failed"){
-            uiElements.MODAl_FORM_START_HOME.style = "display: none";
+            uiElements.MODAL_FORM_START_HOME.style = "display: none";
             uiElements.MODAL_FORM_CREATEROOM.style = "display: none";
             uiElements.MODAL_FORM_USERNAME.style = "display: none";
             uiElements.MODAL_FORM_JOINING_FAILED.style = "display:block";
@@ -165,7 +166,6 @@ class RoomManager extends Observable{
     }
 
     closeModal(){
-        console.log("closed");
         uiElements.MODAL_BACKGROUND.style = "display: none;";
         document.querySelector(".modalbox.start-room").style = "display: none";
         document.querySelector("main").style = "filter: none";

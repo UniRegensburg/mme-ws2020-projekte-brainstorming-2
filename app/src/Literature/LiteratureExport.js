@@ -8,18 +8,20 @@ class LiteratureExport {
 
   saveTextFile() {
     let content = "";
+    var blob = null;
     this.literatureArray.forEach(entry => {
-      content += this._parseLiterature(entry).toString() ;
+      content += this.parseLiterature(entry).toString() ;
     });
-    var blob = new Blob([content.toString()], { type: "text/plain;charset=utf-8" });
+    blob = new Blob([content.toString()], { type: "text/plain;charset=utf-8" });
+    // eslint-disable-next-line no-undef
     saveAs(blob, "lib.txt");
   }
 
-  _parseLiterature(literature) {
+  parseLiterature(literature) {
     let data = literature.getObject();
     return `${data.author}: ${data.name} [${data.year}], Pages: ${data.pages}, ${data.link}\n`;
   }
-  
+
 }
 
 export default LiteratureExport;

@@ -6,7 +6,7 @@ import Config from "../Config.js";
 class Line {
 
     static createLine(color){
-        let line = new fabric.Line( [250, 125, 250, 175 ], {
+        let line = new fabric.Line( Config.OBJECT_DEFAULT_LINE_COORDS, {
             fill: color,
             stroke: color,
             strokeWidth: 5,

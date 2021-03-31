@@ -11,6 +11,8 @@ class LiteratureView extends Observable{
         this.literatureElement = uiElements.TEMPLATE_LITERATURE.content.cloneNode(true);
     }
 
+    /* Create a HTML-Literature-Element and add it to Unordered List */
+    
     createDOMElement(){
         this.literatureElement.querySelector(".literature-title").innerHTML = this.literatureEntry.title;
         this.literatureElement.querySelector(".literature-author").innerHTML = `<b>Author: </b> ${this.literatureEntry.author}`;

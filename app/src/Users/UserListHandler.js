@@ -1,5 +1,6 @@
 /* eslint-env browser */
 
+import Config from "../Config.js";
 import uiElements from "../uiElements.js";
 import User from "./User.js";
 
@@ -24,7 +25,7 @@ class UserListHandler {
     }
 
     generateRandomColor(){
-        let number = Math.floor(Math.random() * (8 - 0)) + 0;
+        let number = Math.floor(Math.random() * (Config.MAX_USER_COLORS - 0)) + 0;
         return this.colors[number];
     }
 
@@ -42,7 +43,6 @@ class UserListHandler {
         list.splice(index,1);
         list.push(newUsername);
         this.clearUserlist();
-        console.log(list);
         this.setupUserlist(list);
     }
 

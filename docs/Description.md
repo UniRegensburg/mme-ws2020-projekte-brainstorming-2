@@ -39,11 +39,9 @@ Auf dem Whiteboard kann man mit verschiedenen Farben zeichnen. Das macht es einf
 #### Literatur
 Um zu Ideen auch Literatur oder Onlinequellen hinzuzufügen, hat die Webapp ein Literaturverzeichnis. Die Referenzen an jedem Eintrag machen es leicht, sie im Whiteboard zu verankern.
 
-// BILD LITERATUR
+![chat](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/dev/docs/assets/Literature.PNG?raw=true)
 
 Man kann den Inhalt des Verzeichnisses am Ende als Text-Datei exportieren.
-
-// BILD EXPORT
 
 #### Chat
 Um besser miteinander kommunizieren zu können, kann man sich über den Chat Nachrichten schreiben. Um die Privatssphäre der Nutzer:innen zu schützen, werden diese Nachrichten nicht gespeichert und können nicht exportiert werden.
@@ -53,4 +51,4 @@ Um besser miteinander kommunizieren zu können, kann man sich über den Chat Nac
 #### Einstellungen
 In den Einstellungen kann man den Raumnnamen ändern, den Link zum teilen abrufen und den eigenen Username ändern.
 
-// BILD SETTINGS
+![chat](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/dev/docs/assets/Settings.PNG?raw=true)

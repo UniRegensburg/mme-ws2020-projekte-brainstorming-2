@@ -1,19 +1,17 @@
 import { Socket } from "socket.io";
-import { WSUpdateWhiteboardRequest } from "../../interfaces";
+import { IThis, WSUpdateWhiteboardRequest } from "../../interfaces";
 import { Log } from "../../util/logger";
 
-interface IThis {
-  socket: Socket & {
-    name?: string;
-    room?: string;
-  };
-}
-
-async function CanvasEvent(this: IThis, arg: WSUpdateWhiteboardRequest) {
+async function CanvasEvent(
+  this: IThis<{ canvasPerRoom: Record<string, any> }>,
+  arg: WSUpdateWhiteboardRequest
+) {
   const logger = new Log("UpdateWhiteboard");
 
   logger.debug(`Request from ${this.socket.id}`);
   if (this.socket.room) {
+    this.canvasPerRoom[this.socket.room] = arg.payload.data;
+
     this.socket.to(this.socket.room).emit("WhiteBoardUpdated", arg);
     logger.debug(`Distributed: ${JSON.stringify(arg)}`);
   } else {

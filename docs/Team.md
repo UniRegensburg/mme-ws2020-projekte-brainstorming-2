@@ -8,7 +8,7 @@ E-Mail-Adresse: felix.wieland@stud.uni-regensburg.de
 
 ## Daniela Olenberg (@DanielaOlenberg)
 <p>
-  <img src="https://www.isarklinikum.de/wp-content/uploads/2015/06/empty_avatar.jpg" width="200" title="hover text">
+  <img src="https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/dev/docs/assets/image0.jpg?raw=true" width="200" title="hover text">
 </p>
 E-Mail-Adresse: daniela.olenberg@stud.uni-regensburg.de  
 

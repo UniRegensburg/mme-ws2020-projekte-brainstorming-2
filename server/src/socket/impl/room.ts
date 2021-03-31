@@ -19,6 +19,7 @@ import {
   WSDestroyRoomResponse,
   WSNewRoomRequest,
   WSNewRoomResponse,
+  WSRoomNameChanges,
 } from "../../interfaces/setup";
 import { Room } from "../../models/room";
 
@@ -80,6 +81,14 @@ async function ChangeRoomName(
     await updateRoomName(arg.payload.id, {
       name: arg.payload.name,
     });
+
+    this.socket.to(this.socket.room!).emit("RoomNameChanged", {
+      type: "RoomNameChanged",
+      payload: {
+        oldName: arg.payload.id,
+        newName: arg.payload.name,
+      },
+    } as WSRoomNameChanges);
   } catch (error) {
     logger.error(`Error: ${JSON.stringify(error)}`);
     return cb({
@@ -137,22 +146,52 @@ async function DestroyRoom(this: IThis, arg: WSDestroyRoomRequest, cb: any) {
 /**
  * Join a room
  */
-async function JoinRoom(this: IThis, arg: WSJoinRoomRequest, cb: any) {
+async function JoinRoom(
+  this: IThis<{
+    userInRoom: Record<string, string[]>;
+    canvasPerRoom: Record<string, any>;
+  }>,
+  arg: WSJoinRoomRequest,
+  cb: any
+) {
   const logger = new Log("JoinRoom");
   logger.debug(`Request from ${this.socket.id}`);
+
+  if (!arg.payload.roomName || arg.payload.roomName.length < 0) {
+    logger.error(`Couldn't join room: No room specified`);
+    return cb({
+      status: "error",
+      error: "Please provide a room name",
+      type: "JoinRoom",
+      payload: {},
+    });
+  }
 
   try {
     // Update socket
     this.socket.name = arg.payload.username;
     this.socket.join(arg.payload.roomName);
+    this.socket.room = arg.payload.roomName;
+
+    if (!this.userInRoom[arg.payload.roomName])
+      this.userInRoom[arg.payload.roomName] = [];
+    this.userInRoom[arg.payload.roomName].push(arg.payload.username);
+
+    let canvasData = this.canvasPerRoom[this.socket.room];
+    if (!canvasData) canvasData = {};
 
     // Notify other participants
     this.socket.to(arg.payload.roomName).emit("Joined", {
       type: "Joined",
-      payload: { username: arg.payload.username },
+      payload: {
+        username: arg.payload.username,
+        userInRoom: this.userInRoom[arg.payload.roomName],
+      },
     } as WSJoinedResponse);
 
     let room = await getRoom(arg.payload.roomName);
+
+    logger.debug(`Joined ${this.socket.id} to ${this.socket.room!}`);
 
     // Respond
     cb({
@@ -160,12 +199,13 @@ async function JoinRoom(this: IThis, arg: WSJoinRoomRequest, cb: any) {
       error: null,
       type: "JoinRoom",
       payload: {
-        canvas: null,
+        userInRoom: this.userInRoom[arg.payload.roomName],
+        canvas: canvasData,
         room,
       },
     } as WSJoinRoomResponse);
   } catch (error) {
-    logger.error(`Error: ${JSON.stringify(error)}`);
+    logger.error(`Error: ${error}`);
     cb({
       status: "error",
       error: "Could not join room",
@@ -175,4 +215,22 @@ async function JoinRoom(this: IThis, arg: WSJoinRoomRequest, cb: any) {
   }
 }
 
-export { NewRoom, ChangeRoomName, DestroyRoom, JoinRoom };
+async function GetAll(this: IThis, arg: any, cb: any) {
+  const logger = new Log("GetALl");
+  logger.debug(`Request from ${this.socket.id}`);
+
+  const all = await getAll();
+
+  logger.debug(JSON.stringify(all));
+
+  const response: WSDestroyRoomResponse = {
+    status: "ok",
+    error: null,
+    type: "DestroyRoom",
+    //payload: all
+  };
+
+  cb(response);
+}
+
+export { NewRoom, ChangeRoomName, DestroyRoom, JoinRoom, GetAll };

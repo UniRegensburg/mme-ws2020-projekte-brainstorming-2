@@ -28,7 +28,10 @@ export class Room implements IRoom {
   @Column()
   uniqueLink!: string;
 
-  @OneToMany(() => Literature, (literature) => literature.owner)
+  @OneToMany((type) => Literature, (literature) => literature.owner, {
+    eager: true,
+    onDelete: "CASCADE",
+  })
   literature!: Literature[];
 
   @CreateDateColumn()

@@ -6,11 +6,15 @@ import { Room } from "../models/room";
 export const addLiterature = async (data: ILiterature, room: string) => {
   let literature = await getRepository(Literature).save(data);
 
-  await getConnection()
-    .createQueryBuilder()
-    .relation(Room, "literature")
-    .of(room)
-    .add(literature);
+  console.log(room);
+
+  // await getConnection()
+  //   .createQueryBuilder()
+  //   .relation(Room, "literature")
+  //   .of(room)
+  //   .add(literature.id);
+
+  //let literature = await getRepository(Literature).findOne({});
 
   return literature;
 };

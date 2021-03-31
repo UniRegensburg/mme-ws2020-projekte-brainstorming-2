@@ -3,13 +3,296 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>MME</title>
+		<title>Brainstorming</title>
 		<link rel="stylesheet" href="resources/css/style.css" />
+		<link rel="stylesheet" href="resources/fonts/roboto/roboto.css">
+		<link rel="stylesheet" href="resources/fonts/boogaloo/boogaloo.css">
+		<script src="https://kit.fontawesome.com/d0113a2dd4.js" crossorigin="anonymous"></script>
 	</head>
 
+
 	<body>
-		<h1>Multimedia Engineering</h1>
-		<div></div>
+		<header>
+			<h1>Studyboard</h1>
+		</header>
+
+		<main>
+			<section class="left sidebar">
+
+				<nav class="nav_main_menu">
+					<ul class="ul_main_menu">
+						<li class="nav_main_item settings selected_nav">
+							<i class="fas fa-cog"></i>
+						</li>
+						<li class="nav_main_item literature">
+							<i class="fas fa-book"></i>
+						</li>
+						<li class="nav_main_item users">
+							<i class="fas fa-users"></i>
+						</li>
+						<li class="nav_main_item chat">
+							<i class="fas fa-comments"></i>
+						</li>
+					</ul>
+				</nav>
+
+				<div class="nav_main_contentbox">
+
+
+					
+					<section class="menu_section settings">
+						<div class="menu_section_header">
+							<h2>Settings</h2>
+						</div>
+						<div id="room-settings">
+							<ul class="ul-room-settings">
+								<li class="settings-item"> 
+									<span class="settings-title">Roomname:</span>
+									<input id="rename-room" type="text" value="" required minlength="3" maxlength="30">
+								</li>
+								<li class="settings-item"> 
+									<span class="settings-title">Invitation link:</span> 
+									<span class="invite-link-wrapper">
+										<span class="settings invite-link">http://localhost:8080/</span>
+										<i id="copy-link-settings" class="far fa-copy"></i>
+									</span>
+								</li>
+								<li class= "settings-item">
+									<span class="button delete-room">Delete this Room</span>
+								</li>
+							</ul>
+						</div>
+						<hr>
+						<div id="user-settings">
+							<ul class="ul-user-settings">
+								<li class= "settings-item"> 
+									<span class="settings-title">Username:</span>
+									<input id="rename-username" type="text" value="Your Name" required minlength="3" maxlength="15">
+								</li>
+							</ul>
+						</div>
+					</section>
+
+					<section class="menu_section literature" style="display: none;">
+						<div class="menu_section_header">
+							<h2>Literature</h2>
+							<div class="literature_btn_container">
+								<span class="button" id="button-export-literature">
+									<i class="fas fa-download"></i>
+								</span>
+								<span class="button" id="button-add-literature">Add Item</span>
+							</div>
+						</div>
+						<ul class="literature-list">
+
+						</ul>
+					</section>
+
+					<section class="menu_section users" style="display: none;">
+						<div class="menu_section_header">
+							<h2>Users</h2>
+						</div>
+						<ul class="user-list">
+						</ul>
+					</section>
+					
+					<section class="menu_section chat" style="display: none;">
+						<div class="menu_section_header">
+							<h2>Live-Chat</h2>
+						</div>
+						<ul class="message-history">
+						</ul>
+						<div class="message-input-box">
+							<input type="text" id="message-input" placeholder="&nbsp; Your Message ...">
+							<span class="button" id="send-message">
+								<i class="far fa-paper-plane"></i>
+							</span>
+						</div>
+					</section>
+				</div>
+
+			</section>
+
+			<section class="center">
+				<canvas id="brainstorming-canvas"></canvas>
+			</section>
+
+			<section class="right sidebar">
+				<menu type="toolbar" class="toolbar">
+					<li class="tool-with-tooltip">
+						<span class="button tool draw">
+							<i class="fas fa-pencil-alt"></i>
+						</span>
+						<div class="tooltip draw">
+							<span class="tooltiptext">Stroke thickness: <span id="thickness-value">5</span></span>
+							<input type="range" min="1" max="10" value="5" class="tooltip-slider">
+						</div>
+					</li>
+					<li class="button tool square">
+						<i class="fas fa-vector-square"></i>
+					</li>
+					<li class="button tool circle">
+						<i class="far fa-circle"></i>
+					</li>
+					<li class="button tool arrow">
+						<i class="fas fa-long-arrow-alt-left"></i>
+					</li>
+					<li class="button tool note">
+						<i class="far fa-sticky-note"></i>
+					</li>
+					<li class="button tool text">
+						<i class="fas fa-font"></i>
+					</li>
+					<li class="button tool image">
+						<i class="fas fa-image"></i>
+						<input type="file" id="image-upload" accept="image/jpeg, image/png" style="display: none;">
+					</li>
+					<li class="button tool export">
+						<i class="fas fa-file-export"></i>
+					</li>
+				</menu>
+			</section>
+
+			<section class="footbar">
+				<input type="radio" name="color" id="green" value="green">
+				<label for="green"></label>
+				<input type="radio" name="color" id="yellow" value="yellow">
+				<label for="yellow"></label>
+				<input type="radio" name="color" id="orange" value="orange">
+				<label for="orange"></label>
+				<input type="radio" name="color" id="red" value="red" checked="checked">
+				<label for="red"></label>
+				<input type="radio" name="color" id="violet" value="violet">
+				<label for="violet"></label>
+				<input type="radio" name="color" id="blue" value="blue">
+				<label for="blue"></label>
+				<input type="radio" name="color" id="white" value="white">
+				<label for="white"></label>
+				<input type="radio" name="color" id="black" value="black">
+				<label for="black"></label>
+			</section>
+		</main>
+
+		<div class="modal">
+			<div class="modalbox start-room" >
+
+				<form id="form-start-home">
+					<div class="modalbox-header">
+						<h2>Welcome to Studyboard</h2>
+					</div>
+					<div class="modalbox-content">
+						<p>Start a collabroating Brainstorm-Session with other Students to create fresh Ideas for your Project ! </p>
+						<p>You can easily create a new Brainstroming-Room <br> and invite others by sending them an Invation Link :</p>
+						<button class="button create-room">Create a new Room</button>
+					</div>
+				</form>
+
+				<form id="form-username" style="display: none;">
+					<div class="modalbox-header">
+						<h2>Start with your Studyboard</h2>
+					</div>
+					<div class="modalbox-content">
+						<label for="set-username">Please tell us your Username:</label>
+						<input type="text" name="set-username" id="input-set-username" required minlength="3" maxlength="15">
+						<button class="button enter-room">Enter this Room</button>
+						<p>Or do you want to <a class="link link-create-room">create a new Room</a> ?</p>
+					</div>
+				</form>
+
+				<form id="form-create-room" style="display: none">
+					<div class="modalbox-header">
+						<h2>Created a new Room</h2>
+					</div>
+					<div class="modalbox-content">
+						<h3>You created a new Brainstorming-Room!</h3>
+						<p>Copy the following link to Clipboard and send it <br> to other people to invite them:</p>
+						<span class="invite-link-wrapper">
+							<span class="modalbox invite-link">http://localhost:8080/</span>
+							<i id="copy-link-modal" class="far fa-copy"></i>
+						</span>
+						<p>Do you want to <a class="link" id="link-enter-room">enter the room now</a> ?</p>
+					</div>
+				</form>
+
+				<form id="form-joining-failed" style="display: none;">
+					<div class="modalbox-header">
+						<h2>Joining the Room failed</h2>
+					</div>
+					<div class="modalbox-content">
+						<span class="icon-wrapper joining-failed"><i class="far fa-frown"></i></span>
+						<p> <b>We are sorry, joining this room failed !</b> <br> Either this room was deleted or you entered a wrong Invation-Link.</p>
+						<p>You can enter a new Invation-Link or <a class="link link-create-room">create a new Room</a>.</p>
+					</div>
+				</form>
+
+			</div>
+
+			<div class="modalbox add-literature" style="display: none;">
+				<form id="form-literature">
+					<div class="modalbox-header">
+						<h2>Add a new Literature Entry</h2>
+						<span class="close" id="close-literature"> <i class="fas fa-times"></i> </span>
+					</div>
+					<div class="modalbox-content">
+						<label for="set-title">Title:</label>
+						<input type="text" name="set-title" id="input-set-title" required minlength="1" maxlength="40">
+						<label for="set-author">Author:</label>
+						<input type="text" name="set-author" id="input-set-author" required minlength="1" maxlength="40">
+						<label for="set-year">Year:</label>
+						<input type="text" name="set-year" id="input-set-year" required minlength="1" maxlength="4">
+						<label for="set-url">URL to source:</label>
+						<input type="text" name="set-url" id="input-set-url" placeholder="">
+						<label for="set-pages">Pages:</label>
+						<input type="text" name="set-pages" id="input-set-pages" placeholder="e.g. 14,15" pattern="([0-9]*[,]{0,}[0-9]{1,}){0,}">
+						<button class="button add-entry">Add to Literature</button>
+					</div>
+				</form>
+			</div>
+
+		</div>
+
+		<div id="contextmenu" oncontextmenu="return false;">
+			<menu type="context">
+				<li id="context-delete">Delete</li>
+				<li id="context-to-top">Move to Top</li>
+				<li id="context-to-bottom">Move to Bottom</li>
+				<li id="context-copy">Copy</li>
+				<li id="context-paste">Paste</li>
+			</menu>
+		</div>
+
+		</menu>
+		<template id="message-template">
+			<li class="message box">
+				<span class="message sender"></span>
+				<span class="message time"></span>
+				<p class="message content"></p>
+			</li>
+		</template>
+
+		<template id="literature-template">
+			<li class="literature-entry" literature-id="">
+				<div class="literature-entry-header">
+					<h4 class="literature-title"></h4>
+					<span class="button-delete-literature">
+						<i class="fas fa-trash"></i>
+					</span>
+				</div>
+				<ul class="literature-entry-facts">
+					<li class="literature-author"> <b>Author:</b> </li>
+					<li class="literature-year"> <b>Year:</b> </li>
+					<li class="literature-url"></li>
+					<li class="literature-pages"></li>
+				</ul>
+			</li>
+		</template>
+
+		<template id="user-template">
+			<li class="user-item">
+				<span class="username"></span>
+			</li>
+		</template>
+
 		<script type="module" src="resources/js/build.js"></script>
 	</body>
 </html>

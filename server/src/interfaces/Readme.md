@@ -51,6 +51,18 @@ interface WSChangeRoomNameResponse extends WSResponse {
 }
 ```
 
+> This is an emit-only event
+
+```typescript
+export interface WSRoomNameChanges {
+  type: "RoomNameChanged";
+  payload: {
+    oldName: string;
+    newName: string;
+  };
+}
+```
+
 **Destroy Room**
 
 Deletes the room with its contents
@@ -97,6 +109,7 @@ Gets emited if a new user joins the room
 interface WSJoinedResponse {
   type: "Joined";
   payload: {
+    userInRoom: string[];
     username: string;
   };
 }
@@ -104,7 +117,7 @@ interface WSJoinedResponse {
 
 **Join Room**
 
-Join a room with username and get the cnavas data
+Join a room with username and get the canvas data
 
 ```typescript
 interface WSJoinRoomRequest {
@@ -119,6 +132,7 @@ interface WSJoinRoomResponse extends WSResponse {
   type: "JoinRoom";
   payload: {
     canvas: any;
+    userInRoom: string[];
     room: Room;
   };
 }
@@ -171,6 +185,7 @@ Send a new message to the chat
 interface WSChatMessage {
   type: "ChatMessage";
   payload: {
+    from: string;
     message: string;
   };
 }
@@ -235,7 +250,7 @@ interface WSRemoveLiteratureResponse extends WSResponse {
 }
 
 interface WSLiteratureRemoved {
-  type: "LiteratureAdded";
+  type: "LiteratureRemoved";
   payload: {
     id: string;
   };

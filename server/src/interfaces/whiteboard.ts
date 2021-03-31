@@ -31,6 +31,7 @@ export interface WSJoinRoomRequest {
 export interface WSJoinRoomResponse extends WSResponse {
   type: "JoinRoom";
   payload: {
+    userInRoom: string[];
     canvas: any;
     room: Room;
   };
@@ -43,6 +44,7 @@ export interface WSJoinRoomResponse extends WSResponse {
 export interface WSJoinedResponse {
   type: "Joined";
   payload: {
+    userInRoom: string[];
     username: string;
   };
 }

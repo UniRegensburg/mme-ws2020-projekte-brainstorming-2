@@ -19,7 +19,7 @@ const Config = {
     MAX_FILESIZE_IMAGE : 51200,
     ALERT_MAX_FILESIZE: "The selected File is too Big, please select a file less than 50 kb",
 
-    DEFAULT_CLIENT_URL : "http://localhost:8080/",
+    DEFAULT_CLIENT_URL : "http://localhost:8000/app",
     DEAFULT_SERVER_URL : "http://localhost:8000",
 
 };

@@ -190,7 +190,6 @@ async function JoinRoom(
     } as WSJoinedResponse);
 
     let room = await getRoom(arg.payload.roomName);
-    console.log(room);
 
     logger.debug(`Joined ${this.socket.id} to ${this.socket.room!}`);
 

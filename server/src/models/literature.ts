@@ -15,6 +15,7 @@ export interface ILiterature {
   link?: string;
   pages?: number[];
   owner?: Room;
+  year?: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -32,6 +33,9 @@ export class Literature implements ILiterature {
 
   @Column({ nullable: true })
   link!: string;
+
+  @Column({ nullable: true })
+  year!: number;
 
   @Column("simple-array", { nullable: true })
   pages!: number[];

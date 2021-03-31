@@ -50,7 +50,7 @@ class RoomManager extends Observable{
             window.sessionStorage.setItem("roomId", this.roomId);
             window.sessionStorage.setItem("username", this.username);
             window.location.href = `${Config.DEFAULT_CLIENT_URL}#${this.roomLink}`;
-            window.location.reload();
+            //window.location.reload();
         });
         uiElements.MODAl_FORM_START_HOME.addEventListener("submit", (event) => {
             event.preventDefault();

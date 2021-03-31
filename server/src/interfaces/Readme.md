@@ -214,7 +214,8 @@ Adds a new literature to the room and database
 ```typescript
 interface WSAddLiteratureRequest {
   type: "AddLiterature";
-  payload: Literature;
+  payload: Literature &
+  {owner: string;} // Room ID
 }
 
 interface WSAddLiteratureResponse extends WSResponse {

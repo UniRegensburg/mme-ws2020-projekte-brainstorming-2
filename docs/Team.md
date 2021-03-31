@@ -16,7 +16,7 @@ Bereich: Frontend, UI
 
 ## Valentin Wild (@valentinWild)
 <p>
-  <img src="https://www.isarklinikum.de/wp-content/uploads/2015/06/empty_avatar.jpg" width="200" title="hover text">
+  <img src="https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/master/docs/assets/img_04.jpg" width="200" title="hover text">
 </p>
 E-Mail-Adresse: valentin.wild@stud.uni-regensburg.de  
 Bereich: Frontend, Logik

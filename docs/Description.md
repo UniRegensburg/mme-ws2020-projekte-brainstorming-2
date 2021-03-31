@@ -6,14 +6,14 @@ StudyBoard soll eine Plattform zur kollaborativen Erarbeitung von Ideen werden. 
 #### Mehrere Räume
 Nutzer:innen können beim Betreten der Webapp einen Raum für ihre Gruppe anlegen, oder mit einem Link einem bereits erstellten Raum beitreten. Beim beitreten bekommen sie den aktuellen Stand des Whiteboards und alle Literatureinträge übermittelt und können so direkt mitarbeiten.
 
-![room create](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/dev/docs/assets/ezgif.com-gif-maker.gif?raw=true)
+![room create](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/master/docs/assets/ezgif.com-gif-maker.gif?raw=true)
 
-![room join](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/dev/docs/assets/startscreen%2Croomlink.gif?raw=true)
+![room join](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/master/docs/assets/startscreen%2Croomlink.gif?raw=true)
 
 #### Whiteboard
 Der aktuelle Stand des Whiteboards wird in Echtzeit an alle im Raum kommuniziert. Davon unbetroffen sind Mitglieder anderer Gruppen, jede Gruppe hat einen eigenen Raum und interferiert nicht.
 
-![whiteboard](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/dev/docs/assets/Whiteboard_GIF.gif?raw=true)
+![whiteboard](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/master/docs/assets/Whiteboard_GIF.gif?raw=true)
 
 #### Werkzeuge
 Das Whiteboard stellt verschiedene Werkzeuge bereit um Ideen zu präsentieren und manipulieren:
@@ -30,25 +30,25 @@ Das Whiteboard stellt verschiedene Werkzeuge bereit um Ideen zu präsentieren un
 - Export  
   Um das Whiteboard anschließen verwerten zu können, kann man den Inhalt als Bild exportieren.
   
-![tools](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/dev/docs/assets/Tools_PNG.PNG?raw=true)
+![tools](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/master/docs/assets/Tools_PNG.PNG?raw=true)
 
 Auf dem Whiteboard kann man mit verschiedenen Farben zeichnen. Das macht es einfacher verschiedene Ideen voneinander zu trennen.
 
-![colors](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/dev/docs/assets/Color_PNG.PNG?raw=true)
+![colors](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/master/docs/assets/Color_PNG.PNG?raw=true)
 
 #### Literatur
 Um zu Ideen auch Literatur oder Onlinequellen hinzuzufügen, hat die Webapp ein Literaturverzeichnis. Die Referenzen an jedem Eintrag machen es leicht, sie im Whiteboard zu verankern.
 
-![chat](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/dev/docs/assets/Literature.PNG?raw=true)
+![chat](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/master/docs/assets/Literature.PNG?raw=true)
 
 Man kann den Inhalt des Verzeichnisses am Ende als Text-Datei exportieren.
 
 #### Chat
 Um besser miteinander kommunizieren zu können, kann man sich über den Chat Nachrichten schreiben. Um die Privatssphäre der Nutzer:innen zu schützen, werden diese Nachrichten nicht gespeichert und können nicht exportiert werden.
 
-![chat](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/dev/docs/assets/Chat_GIF.gif?raw=true)
+![chat](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/master/docs/assets/Chat_GIF.gif?raw=true)
 
 #### Einstellungen
 In den Einstellungen kann man den Raumnnamen ändern, den Link zum teilen abrufen und den eigenen Username ändern.
 
-![chat](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/dev/docs/assets/Settings.PNG?raw=true)
+![chat](https://github.com/UniRegensburg/mme-ws2020-projekte-brainstorming-2/blob/master/docs/assets/Settings.PNG?raw=true)

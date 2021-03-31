@@ -2,11 +2,11 @@
 
 class LiteratureEntry {
 
-    constructor(title, author, year, url, pages, id){
+    constructor(title, author, year, link, pages, id){
         this.title = title;
         this.author = author;
         this.year = year;
-        this.url = url;
+        this.link = link;
         this.pages = this.getPagesArray(pages);
         this.id = null;
         if(id){
@@ -18,7 +18,7 @@ class LiteratureEntry {
         let Literature = {
             name: this.title,
             author: this.author,
-            url: this.url,
+            link: this.link,
             year: this.year, 
             pages: this.pages,
         };

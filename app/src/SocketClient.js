@@ -41,7 +41,6 @@ class SocketClient extends Observable{
     });
 
     this.ioClient.on("LiteratureRemoved", (socket) => {
-      console.log("removed");
       let ev = new Event ("LiteratureRemoved", socket.payload.id);
       this.notifyAll(ev);
     });
@@ -52,7 +51,13 @@ class SocketClient extends Observable{
     });
 
     this.ioClient.on("NameChanged", (socket) => {
-      console.log(socket);
+      let ev = new Event("UserChangedName", socket.payload);
+      this.notifyAll(ev);
+    });
+
+    this.ioClient.on("DestroyRoom", (socket) => {
+      let ev = new Event("RoomDestroyed");
+      this.notifyAll(ev);
     });
 
   }
@@ -97,7 +102,10 @@ class SocketClient extends Observable{
   requestDestroyRoom(){
     let payload = {id: this.roomId};
     this.ioClient.emit("DestroyRoom", { payload }, (socket) => {
-      console.log(socket);
+      if(socket.status === "ok"){
+        let ev = new Event("RoomDestroyed");
+        this.notifyAll(ev);
+      }
     });
   }
 
@@ -141,11 +149,9 @@ class SocketClient extends Observable{
     let payload = {
       username: username.toString(),  
     };
-    console.log(payload);
     this.ioClient.emit("ChangeName", { payload }, (socket) => {
-      console.log("ResponseforUsername");
       if (socket.status === "ok") {
-        let ev = new Event ("ChangedUsername", socket.payload.username);
+        let ev = new Event ("ChangedUsername", payload.username);
         this.notifyAll(ev);
       }
     });

@@ -88,6 +88,14 @@ class CanvasHandler extends Observable{
         });
     }
 
+    setupCanvas(canvas){
+        this.canvas.loadFromJSON(canvas, () => {
+            this.canvas.renderAll(); 
+         }, (o,object) => {
+            console.log(o,object);
+         });
+    }
+
     updateCanvas(payload){
         let changes = payload.update,
             update = new CanvasUpdate(changes.type, changes.objectID, changes.canvasObject);

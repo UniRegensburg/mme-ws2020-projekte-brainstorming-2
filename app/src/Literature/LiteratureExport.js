@@ -1,19 +1,25 @@
+/* eslint-env browser */
+
 class LiteratureExport {
+
   constructor(literatureArray) {
     this.literatureArray = literatureArray;
   }
 
   saveTextFile() {
-    let content = this.literatureArray.forEach((l) => this._parseLiterature(l));
-    var blob = new Blob(content, { type: "text/plain;charset=utf-8" });
+    let content = "";
+    this.literatureArray.forEach(entry => {
+      content += this._parseLiterature(entry).toString() ;
+    });
+    var blob = new Blob([content.toString()], { type: "text/plain;charset=utf-8" });
     saveAs(blob, "lib.txt");
   }
 
   _parseLiterature(literature) {
     let data = literature.getObject();
-
-    return `${data.author}: ${data.title} [${data.year}], ${data.pages[0]} - ${data.pages[1]}, ${data.url}\n`;
+    return `${data.author}: ${data.name} [${data.year}], Pages: ${data.pages}, ${data.link}\n`;
   }
+  
 }
 
-// new LiteratureExport(literature).saveTextFile()
+export default LiteratureExport;

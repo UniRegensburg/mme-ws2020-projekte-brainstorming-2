@@ -9,7 +9,6 @@ import uiElements from "./uiElements.js";
 import LiteratureHandler from "./Literature/LiteratureHandler.js";
 import ChatHandler from "./Chat/ChatHandler.js";
 import SocketClient from "./SocketClient.js";
-import Observable from "./Observable.js";
 import UserListHandler from "./Users/UserListHandler.js";
 
 var canvasHandler,
@@ -59,7 +58,6 @@ function registerEventListener(){
   roomManager.addEventListener("RequestJoinRoom", (event) => {
     socketClient.requestJoinRoom(event.data); 
     chatHandler.updateUsername(event.data.username);
-    console.log(event.data);
   });
   roomManager.addEventListener("DestroyRoom", (event) => {
     socketClient.requestDestroyRoom();
@@ -72,8 +70,16 @@ function registerEventListener(){
 
   socketClient.addEventListener("JoinedRequestedRoom", (event) => {
     roomManager.enterRoom(event.data.room);
+    if(event.data.canvas.update){
+      canvasHandler.setupCanvas(event.data.canvas.update.canvasObject);
+    }
     userListHandler.setupUserlist(event.data.userInRoom);
+    literatureHandler.setupLiteraturelist(event.data.room.literature);
   }); 
+  socketClient.addEventListener("JoinRoomFailed", () => {
+    console.log("joinigFailed");
+    roomManager.openJoiningFailedModal();
+  });
   socketClient.addEventListener("NewRoomCreated", (event) => {
     roomManager.setRoomCreatedScreen(event.data);
   });
@@ -87,7 +93,6 @@ function registerEventListener(){
     chatHandler.addMessage(event.data.username, event.data.message);
   });
   socketClient.addEventListener("LiteratureAdded", (event) => {
-    console.log(event.data);
     literatureHandler.addToList(event.data);
   });
   socketClient.addEventListener("LiteratureRemoved", (event) => {
@@ -97,8 +102,15 @@ function registerEventListener(){
     canvasHandler.updateCanvas(event.data);
   });
   socketClient.addEventListener("ChangedUsername", (event) => {
+    chatHandler.updateUsername(event.data);
     userListHandler.replaceUsername(roomManager.username, event.data);
     roomManager.username = event.data;
+  });
+  socketClient.addEventListener("UserChangedName", (event) => {
+    userListHandler.replaceUsername(event.data.oldUsername, event.data.newUsername);
+  });
+  socketClient.addEventListener("RoomDestroyed", (event) => {
+    roomManager.restart();
   });
 
   /* Set Listener on LiteratureHandler */

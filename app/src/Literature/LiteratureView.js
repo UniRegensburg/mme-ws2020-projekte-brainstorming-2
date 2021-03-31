@@ -15,8 +15,8 @@ class LiteratureView extends Observable{
         this.literatureElement.querySelector(".literature-title").innerHTML = this.literatureEntry.title;
         this.literatureElement.querySelector(".literature-author").innerHTML = `<b>Author: </b> ${this.literatureEntry.author}`;
         this.literatureElement.querySelector(".literature-year").innerHTML = `<b>Year: </b> ${this.literatureEntry.year}`;
-        if ( this.literatureEntry.url.length !== 0) { this.literatureElement.querySelector(".literature-url").innerHTML = `<b>URL: </b> ${this.literatureEntry.url}`;}
-        if ( this.literatureEntry.pages[0] !== "" ) { this.literatureElement.querySelector(".literature-pages").innerHTML = `<b>Pages: </b> ${this.literatureEntry.pages}`;}
+        if ( this.literatureEntry.link !== null && this.literatureEntry.link.length !== 0) { this.literatureElement.querySelector(".literature-url").innerHTML = `<b>URL: </b> ${this.literatureEntry.link}`;}
+        if ( this.literatureEntry.pages !== null && this.literatureEntry.pages[0] !== "" ) { this.literatureElement.querySelector(".literature-pages").innerHTML = `<b>Pages: </b> ${this.literatureEntry.pages}`;}
         this.literatureElement.querySelector(".literature-entry").setAttribute("literature-id", this.literatureEntry.id);
         this.literatureElement.querySelector(".button-delete-literature").addEventListener("click", () => {
             let ev = new Event ("RequestRemoveLiterature", this.literatureEntry.id);

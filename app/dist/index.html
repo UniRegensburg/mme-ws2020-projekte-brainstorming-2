@@ -37,16 +37,18 @@
 				</nav>
 
 				<div class="nav_main_contentbox">
+
+
+					
 					<section class="menu_section settings">
 						<div class="menu_section_header">
 							<h2>Settings</h2>
 						</div>
 						<div id="room-settings">
-							<h3>This Room</h3>
 							<ul class="ul-room-settings">
 								<li class="settings-item"> 
 									<span class="settings-title">Roomname:</span>
-									<input id="rename-room" type="text" value="Averyniceroom" required minlength="3" maxlength="30">
+									<input id="rename-room" type="text" value="" required minlength="3" maxlength="30">
 								</li>
 								<li class="settings-item"> 
 									<span class="settings-title">Invitation link:</span> 
@@ -62,7 +64,6 @@
 						</div>
 						<hr>
 						<div id="user-settings">
-							<h3>Your Profile</h3>
 							<ul class="ul-user-settings">
 								<li class= "settings-item"> 
 									<span class="settings-title">Username:</span>
@@ -75,37 +76,15 @@
 					<section class="menu_section literature" style="display: none;">
 						<div class="menu_section_header">
 							<h2>Literature</h2>
-							<span class="button" id="button-add-literature">Add Item</span>
+							<div class="literature_btn_container">
+								<span class="button" id="button-export-literature">
+									<i class="fas fa-download"></i>
+								</span>
+								<span class="button" id="button-add-literature">Add Item</span>
+							</div>
 						</div>
 						<ul class="literature-list">
-							<li class="literature-entry" literature-id="">
-								<div class="literature-entry-header">
-									<h4 class="literature-title">Das tolle Buch</h4>
-									<span class="button-delete-literature">
-										<i class="fas fa-trash"></i>
-									</span>
-								</div>
-								<ul class="literature-entry-facts">
-									<li class="literature-author"> <b>Author:</b> Hans Huber</li>
-									<li class="literature-year"> <b>Year:</b> 2030</li>
-									<li class="literature-url"><b>URL:</b> https://fontawesome.com/icons/trash?style=solid</li>
-									<li class="literature-pages"><b>Pages:</b> 503</li>
-								</ul>
-							</li>
-							<li class="literature-entry" literature-id="">
-								<div class="literature-entry-header">
-									<h4 class="literature-title">Ein Buch</h4>
-									<span class="button-delete-literature">
-										<i class="fas fa-trash"></i>
-									</span>
-								</div>
-								<ul class="literature-entry-facts">
-									<li class="literature-author"> <b>Author:</b> Huber Hans</li>
-									<li class="literature-year"> <b>Year:</b> 2007</li>
-									<li class="literature-url"><b>URL:</b> https://fontawesome.com/icons/trash?style=solid</li>
-									<li class="literature-pages"><b>Pages:</b> 298</li>
-								</ul>
-							</li>
+
 						</ul>
 					</section>
 
@@ -116,7 +95,7 @@
 						<ul class="user-list">
 						</ul>
 					</section>
-
+					
 					<section class="menu_section chat" style="display: none;">
 						<div class="menu_section_header">
 							<h2>Live-Chat</h2>
@@ -216,7 +195,7 @@
 						<label for="set-username">Please tell us your Username:</label>
 						<input type="text" name="set-username" id="input-set-username" required minlength="3" maxlength="15">
 						<button class="button enter-room">Enter this Room</button>
-						<p>Or do you want to <a class="link" id="link-create-room">create a new Room</a> ?</p>
+						<p>Or do you want to <a class="link link-create-room">create a new Room</a> ?</p>
 					</div>
 				</form>
 
@@ -232,6 +211,17 @@
 							<i id="copy-link-modal" class="far fa-copy"></i>
 						</span>
 						<p>Do you want to <a class="link" id="link-enter-room">enter the room now</a> ?</p>
+					</div>
+				</form>
+
+				<form id="form-joining-failed" style="display: none;">
+					<div class="modalbox-header">
+						<h2>Joining the Room failed</h2>
+					</div>
+					<div class="modalbox-content">
+						<span class="icon-wrapper joining-failed"><i class="far fa-frown"></i></span>
+						<p> <b>We are sorry, joining this room failed !</b> <br> Either this room was deleted or you entered a wrong Invation-Link.</p>
+						<p>You can enter a new Invation-Link or <a class="link link-create-room">create a new Room</a>.</p>
 					</div>
 				</form>
 

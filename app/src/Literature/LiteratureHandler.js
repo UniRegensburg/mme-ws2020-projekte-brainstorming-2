@@ -4,11 +4,13 @@ import Observable, { Event } from "../Observable.js";
 import uiElements from "../uiElements.js";
 import LiteratureEntry from "./LiteratureEntry.js";
 import LiteratureView from "./LiteratureView.js";
+import LiteratureExport from "./LiteratureExport.js";
 
 class LiteratureHandler extends Observable{
 
     constructor(){
         super();
+        this.literatureList = new Array();
         this.setListener();
     }
 
@@ -16,6 +18,9 @@ class LiteratureHandler extends Observable{
         uiElements.BTN_ADD_LITERATURE.addEventListener("click", () => {
             uiElements.MODAL_BACKGROUND.style = "display: flex";
             uiElements.MODAL_ADD_LITERATURE.style = "diplay: block";
+        });
+        uiElements.BTN_EXPORT_LITERATURE.addEventListener("click", () => {
+            new LiteratureExport(this.literatureList).saveTextFile();
         });
         uiElements.MODAL_FORM_LITERATURE.addEventListener( "submit", (event) => {
             event.preventDefault();
@@ -40,19 +45,29 @@ class LiteratureHandler extends Observable{
         this.notifyAll(ev);  
     }
 
+    setupLiteraturelist(list){
+        console.log(list);
+        list.forEach(entry => {
+            this.addToList(entry);
+        });
+    }
+
     addToList(literature){
-        let entry = new LiteratureEntry(literature.name, literature.author, literature.year, literature.url, literature.pages, literature.id),
+        let entry = new LiteratureEntry(literature.name, literature.author, literature.year, literature.link, literature.pages, literature.id),
             view = new LiteratureView(entry);  
         view.createDOMElement();
         view.addEventListener("RequestRemoveLiterature", (event) => {
             this.notifyAll(event);
         });
+        this.literatureList.push(entry);
         this.closeModal();
     }
 
     removeFromList(id){
-        let element = document.querySelector(`[literature-id="${id}"]`);
+        let element = document.querySelector(`[literature-id="${id}"]`),
+            index = this.literatureList.findIndex(entry => entry.id === id);
         element.remove();
+        this.literatureList.splice(index);
     }
 
 }

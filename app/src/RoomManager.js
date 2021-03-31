@@ -29,10 +29,13 @@ class RoomManager extends Observable{
                 ev = new Event ("RequestJoinRoom", payload);
             this.notifyAll(ev);
         });
-        uiElements.MODAL_LINK_CREATE_ROOM.addEventListener("click", () => {
-            let ev = new Event ("CreateNewRoom");
-            this.notifyAll(ev);
-        });
+        console.log(uiElements.MODAL_LINK_CREATE_ROOM);
+        uiElements.MODAL_LINK_CREATE_ROOM.forEach(element => {
+            element.addEventListener("click", () => {
+                let ev = new Event ("CreateNewRoom");
+                this.notifyAll(ev);
+            });
+        }); 
 
         uiElements.MODAL_COPY_TO_CLIPBOARD.addEventListener("click", () => {
             let copy = uiElements.MODAL_INVITELINK,
@@ -132,23 +135,37 @@ class RoomManager extends Observable{
         document.querySelector("header").style = "filter: blur(3px)";
     }
 
+    openJoiningFailedModal(){
+        this.changeToScreen("screen-joining-failed");
+        this.openStartRoomModal();
+    }
+
     changeToScreen(screen){
         if (screen === "screen-username") {
             uiElements.MODAl_FORM_START_HOME.style = "display: none";
             uiElements.MODAL_FORM_CREATEROOM.style = "display: none";
             uiElements.MODAL_FORM_USERNAME.style = "display: block";
+            uiElements.MODAL_FORM_JOINING_FAILED.style = "display:none";
         } else if(screen === "screen-create-link") {
             uiElements.MODAl_FORM_START_HOME.style = "display: none";
             uiElements.MODAL_FORM_USERNAME.style = "display: none";
             uiElements.MODAL_FORM_CREATEROOM.style ="display: block";
+            uiElements.MODAL_FORM_JOINING_FAILED.style = "display:none";
         } else if (screen === "screen-start-home") {
             uiElements.MODAl_FORM_START_HOME.style = "display: block";
             uiElements.MODAL_FORM_USERNAME.style = "display: none";
             uiElements.MODAL_FORM_CREATEROOM.style ="display: none";
+            uiElements.MODAL_FORM_JOINING_FAILED.style = "display:none";
+        } else if(screen === "screen-joining-failed"){
+            uiElements.MODAl_FORM_START_HOME.style = "display: none";
+            uiElements.MODAL_FORM_CREATEROOM.style = "display: none";
+            uiElements.MODAL_FORM_USERNAME.style = "display: none";
+            uiElements.MODAL_FORM_JOINING_FAILED.style = "display:block";
         }
     }
 
     closeModal(){
+        console.log("closed");
         uiElements.MODAL_BACKGROUND.style = "display: none;";
         document.querySelector(".modalbox.start-room").style = "display: none";
         document.querySelector("main").style = "filter: none";

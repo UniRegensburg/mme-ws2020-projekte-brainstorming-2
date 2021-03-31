@@ -23,13 +23,9 @@ class Contextmenu extends Observable{
         this.canvas.on("mouse:down", (event) => {
             if(event.button === Config.KEY_RIGHT_MOUSEBUTTON){
                 let x = `${event.e.clientX}px`,
-                    y = `${event.e.clientY}px`,
-                    offset = fabric.util.getElementOffset(this.canvas.lowerCanvasEl);
-                this.pointerX = event.e.layerX; //- offset.left;
-                this.pointerY = event.e.layerY; //- offset.top;
-                console.log(event.e.clientX);
-                console.log(event.e.layerX);
-                console.log(this.canvas.calcOffset());
+                    y = `${event.e.clientY}px`;
+                this.pointerX = event.e.layerX; 
+                this.pointerY = event.e.layerY; 
                 if(event.target !== null){
                         let menu = uiElements.CONTEXTMENU;
                         this.switchContextMenu("onObject");

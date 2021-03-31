@@ -16,9 +16,7 @@ class SocketClient extends Observable{
 
   start() {
 
-    this.ioClient.on("connection", (socket) => {
-      console.log("SocketClient: Connected");
-    });
+    /* Listen to Events emitted by Server */
 
     this.ioClient.on("Joined", (socket) => {
       let ev = new Event ("UserJoined", socket.payload.username);
@@ -55,12 +53,14 @@ class SocketClient extends Observable{
       this.notifyAll(ev);
     });
 
-    this.ioClient.on("DestroyRoom", (socket) => {
+    this.ioClient.on("DestroyRoom", () => {
       let ev = new Event("RoomDestroyed");
       this.notifyAll(ev);
     });
 
   }
+
+  /* Emit Events to Server */
 
   requestNewRoom() {
     this.ioClient.emit("NewRoom", {}, (socket) => {
@@ -109,16 +109,11 @@ class SocketClient extends Observable{
     });
   }
 
-  sendMessage(payload){
-    this.ioClient.emit( "ChatMessage", { payload });
-  }
-
   requestAddLiterature(Literature){
     let payload = Literature;
         payload.owner = this.roomId;
     this.ioClient.emit( "AddLiterature", { payload }, (socket) => {
       if (socket.status === "ok"){
-        console.log(socket);
         let ev = new Event ("LiteratureAdded", socket.payload.literature );
         this.notifyAll(ev);
       } else {
@@ -155,6 +150,10 @@ class SocketClient extends Observable{
         this.notifyAll(ev);
       }
     });
+  }
+
+  sendMessage(payload){
+    this.ioClient.emit( "ChatMessage", { payload });
   }
 
 }

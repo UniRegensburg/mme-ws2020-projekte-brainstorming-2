@@ -59,7 +59,7 @@ function registerEventListener(){
     socketClient.requestJoinRoom(event.data); 
     chatHandler.updateUsername(event.data.username);
   });
-  roomManager.addEventListener("DestroyRoom", (event) => {
+  roomManager.addEventListener("DestroyRoom", () => {
     socketClient.requestDestroyRoom();
   });
   roomManager.addEventListener("ChangeName", (event) => {
@@ -77,7 +77,6 @@ function registerEventListener(){
     literatureHandler.setupLiteraturelist(event.data.room.literature);
   }); 
   socketClient.addEventListener("JoinRoomFailed", () => {
-    console.log("joinigFailed");
     roomManager.openJoiningFailedModal();
   });
   socketClient.addEventListener("NewRoomCreated", (event) => {
@@ -109,7 +108,7 @@ function registerEventListener(){
   socketClient.addEventListener("UserChangedName", (event) => {
     userListHandler.replaceUsername(event.data.oldUsername, event.data.newUsername);
   });
-  socketClient.addEventListener("RoomDestroyed", (event) => {
+  socketClient.addEventListener("RoomDestroyed", () => {
     roomManager.restart();
   });
 

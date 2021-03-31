@@ -2,12 +2,14 @@
 
 import { fabric } from "fabric";
 
+/* A Change on the Canvas */
+
 class CanvasUpdate {
 
     constructor(type, objectID, canvasObject){
-        this.type = type;
-        this.objectID = objectID;
-        this.canvasObject = canvasObject;
+        this.type = type; // type of Change applied to Object on canvas : added, modified, removed, objectToFront, objectToBack
+        this.objectID = objectID; // ID of Object
+        this.canvasObject = canvasObject; // Complete Canvas as JSON
     }
 
     executeChange(canvas){

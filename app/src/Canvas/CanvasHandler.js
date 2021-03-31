@@ -88,23 +88,23 @@ class CanvasHandler extends Observable{
         });
     }
 
+    /* Updating whole Canvas-Content from JSON when entering Room */
+    
     setupCanvas(canvas){
         this.canvas.loadFromJSON(canvas, () => {
             this.canvas.renderAll(); 
-         }, (o,object) => {
-            console.log(o,object);
          });
     }
+
+    /* Updating Canvas-Objects when other Users changed them */
 
     updateCanvas(payload){
         let changes = payload.update,
             update = new CanvasUpdate(changes.type, changes.objectID, changes.canvasObject);
         update.executeChange(this.canvas);
-
-        /*this.canvas.loadFromJSON(canvasObject, this.canvas.renderAll.bind(this.canvas) console.log(this.canvas), function(jsonObject, fabricObject) {
-            console.log(fabricObject);
-        });*/
     }
+
+    /* Notify other Users that an Object on the canvas was changed */
 
     notifyCanvasChange(id, type){
         let json = this.canvas.toObject(["id"]),
@@ -112,12 +112,6 @@ class CanvasHandler extends Observable{
             payload = {json, update},
             event = new Event("CanvasContentChanged", payload);
         this.notifyAll(event);
-        
-        /*
-        let json = this.canvas.toObject(["id"]),
-            payload = {json, id},
-            event = new Event("CanvasContentChanged", payload);
-        this.notifyAll(event);*/
     }
 
     /* Creates a Circle and adds it to canvas */
@@ -201,6 +195,7 @@ class CanvasHandler extends Observable{
             if(file.size < Config.MAX_FILESIZE_IMAGE){
                 reader.readAsDataURL(file);
             }else{
+                // eslint-disable-next-line no-alert
                 alert(Config.ALERT_MAX_FILESIZE);
             }
             reader.addEventListener("load", () => {

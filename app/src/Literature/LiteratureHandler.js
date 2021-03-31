@@ -46,7 +46,6 @@ class LiteratureHandler extends Observable{
     }
 
     setupLiteraturelist(list){
-        console.log(list);
         list.forEach(entry => {
             this.addToList(entry);
         });

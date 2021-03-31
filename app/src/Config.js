@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 /* eslint-env browser */
 
 const Config = {
@@ -15,6 +16,9 @@ const Config = {
     OBJECT_DEFAULT_RADIUS : 100,
     OBJECT_DEFAULT_X : 200,
     OBJECT_DEFAULT_Y : 200,
+    OBJECT_DEFAULT_LINE_COORDS: [250, 125, 250, 175 ],
+
+    MAX_USER_COLORS: 8,
 
     MAX_FILESIZE_IMAGE : 51200,
     ALERT_MAX_FILESIZE: "The selected File is too Big, please select a file less than 50 kb",
